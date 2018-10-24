@@ -2,6 +2,8 @@
 #ifndef LUA_TRANSFORMLISTENER_H_
 #define LUA_TRANSFORMLISTENER_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -12,5 +14,7 @@ int lua_TransformListener_transformChanged(lua_State* state);
 void luaRegister_TransformListener();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

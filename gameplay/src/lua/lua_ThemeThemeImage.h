@@ -2,6 +2,8 @@
 #ifndef LUA_THEMETHEMEIMAGE_H_
 #define LUA_THEMETHEMEIMAGE_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -18,5 +20,7 @@ int lua_ThemeThemeImage_release(lua_State* state);
 void luaRegister_ThemeThemeImage();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

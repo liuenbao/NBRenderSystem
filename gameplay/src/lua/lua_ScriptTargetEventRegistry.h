@@ -2,6 +2,8 @@
 #ifndef LUA_SCRIPTTARGETEVENTREGISTRY_H_
 #define LUA_SCRIPTTARGETEVENTREGISTRY_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -15,5 +17,7 @@ int lua_ScriptTargetEventRegistry_getEventCount(lua_State* state);
 void luaRegister_ScriptTargetEventRegistry();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

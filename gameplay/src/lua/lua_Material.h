@@ -2,6 +2,8 @@
 #ifndef LUA_MATERIAL_H_
 #define LUA_MATERIAL_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -28,5 +30,7 @@ int lua_Material_static_create(lua_State* state);
 void luaRegister_Material();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

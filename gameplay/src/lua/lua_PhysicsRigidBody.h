@@ -2,6 +2,8 @@
 #ifndef LUA_PHYSICSRIGIDBODY_H_
 #define LUA_PHYSICSRIGIDBODY_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -48,5 +50,7 @@ int lua_PhysicsRigidBody_setRestitution(lua_State* state);
 void luaRegister_PhysicsRigidBody();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

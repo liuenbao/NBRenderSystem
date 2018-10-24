@@ -89,8 +89,10 @@ bool AIAgent::processMessage(AIMessage* message)
     if (_listener && _listener->messageReceived(message))
         return true;
 
+#ifdef MODULE_SCRIPT_ENABLED
     if (_node && _node->fireScriptEvent<bool>(GP_GET_SCRIPT_EVENT(Node, messageReceived), dynamic_cast<void*>(_node), message))
         return true;
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
     return false;
 }

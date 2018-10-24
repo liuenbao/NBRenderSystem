@@ -2,6 +2,8 @@
 #ifndef LUA_SCRIPTTARGET_H_
 #define LUA_SCRIPTTARGET_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -18,5 +20,7 @@ int lua_ScriptTarget_removeScriptCallback(lua_State* state);
 void luaRegister_ScriptTarget();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

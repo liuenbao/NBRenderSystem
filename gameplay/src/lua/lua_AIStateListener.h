@@ -2,6 +2,8 @@
 #ifndef LUA_AISTATELISTENER_H_
 #define LUA_AISTATELISTENER_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -15,5 +17,7 @@ int lua_AIStateListener_stateUpdate(lua_State* state);
 void luaRegister_AIStateListener();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

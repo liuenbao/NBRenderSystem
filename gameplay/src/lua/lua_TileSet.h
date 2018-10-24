@@ -2,6 +2,8 @@
 #ifndef LUA_TILESET_H_
 #define LUA_TILESET_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -29,5 +31,7 @@ int lua_TileSet_static_create(lua_State* state);
 void luaRegister_TileSet();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

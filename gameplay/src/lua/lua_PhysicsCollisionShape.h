@@ -2,6 +2,8 @@
 #ifndef LUA_PHYSICSCOLLISIONSHAPE_H_
 #define LUA_PHYSICSCOLLISIONSHAPE_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -20,5 +22,7 @@ int lua_PhysicsCollisionShape_static_sphere(lua_State* state);
 void luaRegister_PhysicsCollisionShape();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

@@ -2,6 +2,8 @@
 #ifndef LUA_AISTATE_H_
 #define LUA_AISTATE_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -17,5 +19,7 @@ int lua_AIState_static_create(lua_State* state);
 void luaRegister_AIState();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

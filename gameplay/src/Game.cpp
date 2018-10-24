@@ -20,6 +20,8 @@ namespace gameplay
 static Game* __gameInstance = NULL;
 double Game::_pausedTimeLast = 0.0;
 double Game::_pausedTimeTotal = 0.0;
+    
+#ifdef MODULE_SCRIPT_ENABLED
 
 /**
 * @script{ignore}
@@ -58,6 +60,7 @@ public:
         return "GameScriptTarget";
     }
 };
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 Game::Game()
     : _initialized(false), _state(UNINITIALIZED), _pausedCount(0),
@@ -68,7 +71,10 @@ Game::Game()
       _physicsController(NULL),
 #endif // #ifdef MODULE_PHYSICS_ENABLED
     _aiController(NULL), _audioListener(NULL),
-      _timeEvents(NULL), _scriptController(NULL), _scriptTarget(NULL)
+      _timeEvents(NULL)
+#ifdef MODULE_SCRIPT_ENABLED
+    , _scriptController(NULL), _scriptTarget(NULL)
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 {
     GP_ASSERT(__gameInstance == NULL);
 
@@ -78,9 +84,11 @@ Game::Game()
 
 Game::~Game()
 {
+#ifdef MODULE_SCRIPT_ENABLED
     SAFE_DELETE(_scriptTarget);
 	SAFE_DELETE(_scriptController);
-
+#endif // #ifdef MODULE_SCRIPT_ENABLED
+    
     // Do not call any virtual functions from the destructor.
     // Finalization is done from outside this class.
     SAFE_DELETE(_timeEvents);
@@ -181,12 +189,15 @@ bool Game::startup()
     _aiController = new AIController();
     _aiController->initialize();
 
+#ifdef MODULE_SCRIPT_ENABLED
     _scriptController = new ScriptController();
     _scriptController->initialize();
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
     // Load any gamepads, ui or physical.
     loadGamepads();
 
+#ifdef MODULE_SCRIPT_ENABLED
     // Set script handler
     if (_properties)
     {
@@ -226,6 +237,7 @@ bool Game::startup()
             }
         }
     }
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
     _state = RUNNING;
 
@@ -247,6 +259,7 @@ void Game::shutdown()
 		// Call user finalize
         finalize();
 
+#ifdef MODULE_SCRIPT_ENABLED
         // Call script finalize
         if (_scriptTarget)
             _scriptTarget->fireScriptEvent<void>(GP_GET_SCRIPT_EVENT(GameScriptTarget, finalize));
@@ -256,7 +269,8 @@ void Game::shutdown()
 
 		// Shutdown scripting system first so that any objects allocated in script are released before our subsystems are released
 		_scriptController->finalize();
-
+#endif // #ifdef MODULE_SCRIPT_ENABLED
+        
         unsigned int gamepadCount = Gamepad::getGamepadCount();
         for (unsigned int i = 0; i < gamepadCount; i++)
         {
@@ -371,8 +385,10 @@ void Game::frame()
     {
         // Perform lazy first time initialization
         initialize();
+#ifdef MODULE_SCRIPT_ENABLED
         if (_scriptTarget)
             _scriptTarget->fireScriptEvent<void>(GP_GET_SCRIPT_EVENT(GameScriptTarget, initialize));
+#endif // #ifdef MODULE_SCRIPT_ENABLED
         _initialized = true;
 
         // Fire first game resize event
@@ -416,9 +432,11 @@ void Game::frame()
         // Update forms.
         Form::updateInternal(elapsedTime);
 
+#ifdef MODULE_SCRIPT_ENABLED
         // Run script update.
         if (_scriptTarget)
             _scriptTarget->fireScriptEvent<void>(GP_GET_SCRIPT_EVENT(GameScriptTarget, update), elapsedTime);
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
         // Audio Rendering.
         _audioController->update(elapsedTime);
@@ -426,9 +444,11 @@ void Game::frame()
         // Graphics Rendering.
         render(elapsedTime);
 
+#ifdef MODULE_SCRIPT_ENABLED
         // Run script render.
         if (_scriptTarget)
             _scriptTarget->fireScriptEvent<void>(GP_GET_SCRIPT_EVENT(GameScriptTarget, render), elapsedTime);
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
         // Update FPS.
         ++_frameCount;
@@ -450,22 +470,28 @@ void Game::frame()
         // Update forms.
         Form::updateInternal(0);
 
+#ifdef MODULE_SCRIPT_ENABLED
         // Script update.
         if (_scriptTarget)
             _scriptTarget->fireScriptEvent<void>(GP_GET_SCRIPT_EVENT(GameScriptTarget, update), 0);
-
+#endif // #ifdef MODULE_SCRIPT_ENABLED
+        
         // Graphics Rendering.
         render(0);
 
+#ifdef MODULE_SCRIPT_ENABLED
         // Script render.
         if (_scriptTarget)
             _scriptTarget->fireScriptEvent<void>(GP_GET_SCRIPT_EVENT(GameScriptTarget, render), 0);
+#endif // #ifdef MODULE_SCRIPT_ENABLED
     }
 }
 
 void Game::renderOnce(const char* function)
 {
+#ifdef MODULE_SCRIPT_ENABLED
     _scriptController->executeFunction<void>(function, NULL);
+#endif // #ifdef MODULE_SCRIPT_ENABLED
     Platform::swapBuffers();
 }
 
@@ -489,8 +515,10 @@ void Game::updateOnce()
 #endif // #ifdef MODULE_PHYSICS_ENABLED
     _aiController->update(elapsedTime);
     _audioController->update(elapsedTime);
+#ifdef MODULE_SCRIPT_ENABLED
     if (_scriptTarget)
         _scriptTarget->fireScriptEvent<void>(GP_GET_SCRIPT_EVENT(GameScriptTarget, update), elapsedTime);
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 }
 
 void Game::setViewport(const Rectangle& viewport)
@@ -635,15 +663,19 @@ void Game::gamepadEvent(Gamepad::GamepadEvent evt, Gamepad* gamepad)
 void Game::keyEventInternal(Keyboard::KeyEvent evt, int key)
 {
     keyEvent(evt, key);
+#ifdef MODULE_SCRIPT_ENABLED
     if (_scriptTarget)
         _scriptTarget->fireScriptEvent<void>(GP_GET_SCRIPT_EVENT(GameScriptTarget, keyEvent), evt, key);
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 }
 
 void Game::touchEventInternal(Touch::TouchEvent evt, int x, int y, unsigned int contactIndex)
 {
     touchEvent(evt, x, y, contactIndex);
+#ifdef MODULE_SCRIPT_ENABLED
     if (_scriptTarget)
         _scriptTarget->fireScriptEvent<void>(GP_GET_SCRIPT_EVENT(GameScriptTarget, touchEvent), evt, x, y, contactIndex);
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 }
 
 bool Game::mouseEventInternal(Mouse::MouseEvent evt, int x, int y, int wheelDelta)
@@ -651,8 +683,10 @@ bool Game::mouseEventInternal(Mouse::MouseEvent evt, int x, int y, int wheelDelt
     if (mouseEvent(evt, x, y, wheelDelta))
         return true;
 
+#ifdef MODULE_SCRIPT_ENABLED
     if (_scriptTarget)
         return _scriptTarget->fireScriptEvent<bool>(GP_GET_SCRIPT_EVENT(GameScriptTarget, mouseEvent), evt, x, y, wheelDelta);
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
     return false;
 }
@@ -665,58 +699,74 @@ void Game::resizeEventInternal(unsigned int width, unsigned int height)
         _width = width;
         _height = height;
         resizeEvent(width, height);
+#ifdef MODULE_SCRIPT_ENABLED
         if (_scriptTarget)
             _scriptTarget->fireScriptEvent<void>(GP_GET_SCRIPT_EVENT(GameScriptTarget, resizeEvent), width, height);
+#endif // #ifdef MODULE_SCRIPT_ENABLED
     }
 }
 
 void Game::gestureSwipeEventInternal(int x, int y, int direction)
 {
     gestureSwipeEvent(x, y, direction);
+#ifdef MODULE_SCRIPT_ENABLED
     if (_scriptTarget)
         _scriptTarget->fireScriptEvent<void>(GP_GET_SCRIPT_EVENT(GameScriptTarget, gestureSwipeEvent), x, y, direction);
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 }
 
 void Game::gesturePinchEventInternal(int x, int y, float scale)
 {
     gesturePinchEvent(x, y, scale);
+#ifdef MODULE_SCRIPT_ENABLED
     if (_scriptTarget)
         _scriptTarget->fireScriptEvent<void>(GP_GET_SCRIPT_EVENT(GameScriptTarget, gesturePinchEvent), x, y, scale);
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 }
 
 void Game::gestureTapEventInternal(int x, int y)
 {
     gestureTapEvent(x, y);
+#ifdef MODULE_SCRIPT_ENABLED
     if (_scriptTarget)
         _scriptTarget->fireScriptEvent<void>(GP_GET_SCRIPT_EVENT(GameScriptTarget, gestureTapEvent), x, y);
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 }
 
 void Game::gestureLongTapEventInternal(int x, int y, float duration)
 {
     gestureLongTapEvent(x, y, duration);
+#ifdef MODULE_SCRIPT_ENABLED
     if (_scriptTarget)
         _scriptTarget->fireScriptEvent<void>(GP_GET_SCRIPT_EVENT(GameScriptTarget, gestureLongTapevent), x, y, duration);
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 }
 
 void Game::gestureDragEventInternal(int x, int y)
 {
     gestureDragEvent(x, y);
+#ifdef MODULE_SCRIPT_ENABLED
     if (_scriptTarget)
         _scriptTarget->fireScriptEvent<void>(GP_GET_SCRIPT_EVENT(GameScriptTarget, gestureDragEvent), x, y);
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 }
 
 void Game::gestureDropEventInternal(int x, int y)
 {
     gestureDropEvent(x, y);
+#ifdef MODULE_SCRIPT_ENABLED
     if (_scriptTarget)
         _scriptTarget->fireScriptEvent<void>(GP_GET_SCRIPT_EVENT(GameScriptTarget, gestureDropEvent), x, y);
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 }
 
 void Game::gamepadEventInternal(Gamepad::GamepadEvent evt, Gamepad* gamepad)
 {
     gamepadEvent(evt, gamepad);
+#ifdef MODULE_SCRIPT_ENABLED
     if (_scriptTarget)
         _scriptTarget->fireScriptEvent<void>(GP_GET_SCRIPT_EVENT(GameScriptTarget, gamepadEvent), evt, gamepad);
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 }
 
 void Game::getArguments(int* argc, char*** argv) const
@@ -733,7 +783,9 @@ void Game::schedule(float timeOffset, TimeListener* timeListener, void* cookie)
 
 void Game::schedule(float timeOffset, const char* function)
 {
+#ifdef MODULE_SCRIPT_ENABLED
     getScriptController()->schedule(timeOffset, function);
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 }
 
 void Game::clearSchedule()

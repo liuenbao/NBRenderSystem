@@ -2,6 +2,8 @@
 #ifndef LUA_TOUCH_H_
 #define LUA_TOUCH_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -12,5 +14,7 @@ int lua_Touch_static_MAX_TOUCH_POINTS(lua_State* state);
 void luaRegister_Touch();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

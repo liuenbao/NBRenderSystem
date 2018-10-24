@@ -2,6 +2,8 @@
 #ifndef LUA_GLOBAL_H_
 #define LUA_GLOBAL_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -11,5 +13,7 @@ int lua__strcmpnocase(lua_State* state);
 void luaRegister_lua_Global();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

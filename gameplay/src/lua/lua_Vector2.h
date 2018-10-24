@@ -2,6 +2,8 @@
 #ifndef LUA_VECTOR2_H_
 #define LUA_VECTOR2_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -39,5 +41,7 @@ int lua_Vector2_y(lua_State* state);
 void luaRegister_Vector2();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

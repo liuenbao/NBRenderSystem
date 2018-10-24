@@ -2,6 +2,8 @@
 #ifndef LUA_QUATERNION_H_
 #define LUA_QUATERNION_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -33,5 +35,7 @@ int lua_Quaternion_z(lua_State* state);
 void luaRegister_Quaternion();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

@@ -2,6 +2,8 @@
 #ifndef LUA_PHYSICSRIGIDBODYPARAMETERS_H_
 #define LUA_PHYSICSRIGIDBODYPARAMETERS_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -21,5 +23,7 @@ int lua_PhysicsRigidBodyParameters_restitution(lua_State* state);
 void luaRegister_PhysicsRigidBodyParameters();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

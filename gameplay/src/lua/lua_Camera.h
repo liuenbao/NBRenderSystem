@@ -2,6 +2,8 @@
 #ifndef LUA_CAMERA_H_
 #define LUA_CAMERA_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -44,5 +46,7 @@ int lua_Camera_unproject(lua_State* state);
 void luaRegister_Camera();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

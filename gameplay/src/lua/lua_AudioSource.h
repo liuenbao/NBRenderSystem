@@ -2,6 +2,8 @@
 #ifndef LUA_AUDIOSOURCE_H_
 #define LUA_AUDIOSOURCE_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -31,5 +33,7 @@ int lua_AudioSource_stop(lua_State* state);
 void luaRegister_AudioSource();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

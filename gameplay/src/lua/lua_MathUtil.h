@@ -2,6 +2,8 @@
 #ifndef LUA_MATHUTIL_H_
 #define LUA_MATHUTIL_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -12,5 +14,7 @@ int lua_MathUtil_static_smooth(lua_State* state);
 void luaRegister_MathUtil();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

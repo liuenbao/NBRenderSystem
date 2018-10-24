@@ -2,6 +2,8 @@
 #ifndef LUA_NODECLONECONTEXT_H_
 #define LUA_NODECLONECONTEXT_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -16,5 +18,7 @@ int lua_NodeCloneContext_registerClonedNode(lua_State* state);
 void luaRegister_NodeCloneContext();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

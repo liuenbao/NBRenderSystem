@@ -56,10 +56,13 @@ inline PhysicsController* Game::getPhysicsController() const
 }
 #endif // #ifdef MODULE_PHYSICS_ENABLED
 
+#ifdef MODULE_SCRIPT_ENABLED
 inline ScriptController* Game::getScriptController() const
 {
     return _scriptController;
 }
+#endif // #ifdef MODULE_SCRIPT_ENABLED
+    
 inline AIController* Game::getAIController() const
 {
     return _aiController;

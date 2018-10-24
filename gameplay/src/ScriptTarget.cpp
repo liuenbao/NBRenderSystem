@@ -1,3 +1,5 @@
+#ifdef MODULE_SCRIPT_ENABLED
+
 #include "Base.h"
 #include "ScriptController.h"
 #include "ScriptTarget.h"
@@ -475,3 +477,5 @@ template<> bool ScriptTarget::fireScriptEvent<bool>(const Event* event, ...)
 }
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED

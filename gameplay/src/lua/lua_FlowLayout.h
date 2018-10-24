@@ -2,6 +2,8 @@
 #ifndef LUA_FLOWLAYOUT_H_
 #define LUA_FLOWLAYOUT_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -18,5 +20,7 @@ int lua_FlowLayout_setSpacing(lua_State* state);
 void luaRegister_FlowLayout();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

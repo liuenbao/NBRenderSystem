@@ -1,6 +1,8 @@
 #ifndef SCRIPT_H_
 #define SCRIPT_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 #include "Base.h"
 #include "Ref.h"
 
@@ -115,5 +117,7 @@ private:
 };
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

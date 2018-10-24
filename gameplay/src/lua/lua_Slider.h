@@ -2,6 +2,8 @@
 #ifndef LUA_SLIDER_H_
 #define LUA_SLIDER_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -137,5 +139,7 @@ int lua_Slider_static_create(lua_State* state);
 void luaRegister_Slider();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

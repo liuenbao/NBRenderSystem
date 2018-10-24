@@ -42,6 +42,7 @@ class Node : public Transform, public Ref
     friend class MeshSkin;
     friend class Light;
 
+#ifdef MODULE_SCRIPT_ENABLED
     GP_SCRIPT_EVENTS_START();
     GP_SCRIPT_EVENT(update, "<Node>f");
     GP_SCRIPT_EVENT(messageReceived, "<Node><AIMessage>");
@@ -49,6 +50,7 @@ class Node : public Transform, public Ref
     GP_SCRIPT_EVENT(stateExit, "<Node><AIState>");
     GP_SCRIPT_EVENT(stateUpdate, "<Node><AIState>f");
     GP_SCRIPT_EVENTS_END();
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 public:
 

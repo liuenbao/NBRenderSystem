@@ -17,7 +17,9 @@ AnimationClip::AnimationClip(const char* id, Animation* animation, unsigned long
       _elapsedTime(0), _crossFadeToClip(NULL), _crossFadeOutElapsed(0), _crossFadeOutDuration(0), _blendWeight(1.0f),
       _beginListeners(NULL), _endListeners(NULL), _listeners(NULL), _listenerItr(NULL)
 {
+#ifdef MODULE_SCRIPT_ENABLED
     GP_REGISTER_SCRIPT_EVENTS();
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
     GP_ASSERT(_animation);
     GP_ASSERT(0 <= startTime && startTime <= _animation->_duration && 0 <= endTime && endTime <= _animation->_duration);
@@ -489,8 +491,10 @@ bool AnimationClip::update(float elapsedTime)
         }
     }
 
+#ifdef MODULE_SCRIPT_ENABLED
     // Fire script update event
     fireScriptEvent<void>(GP_GET_SCRIPT_EVENT(AnimationClip, clipUpdate), this, _elapsedTime);
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
     // Add back in start time, and divide by the total animation's duration to get the actual percentage complete
     GP_ASSERT(_animation);
@@ -619,8 +623,10 @@ void AnimationClip::onBegin()
         }
     }
 
+#ifdef MODULE_SCRIPT_ENABLED
     // Fire script begin event
     fireScriptEvent<void>(GP_GET_SCRIPT_EVENT(AnimationClip, clipBegin), this);
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
     release();
 }
@@ -644,8 +650,10 @@ void AnimationClip::onEnd()
         }
     }
 
+#ifdef MODULE_SCRIPT_ENABLED
     // Fire script end event
     fireScriptEvent<void>(GP_GET_SCRIPT_EVENT(AnimationClip, clipEnd), this);
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
     release();
 }

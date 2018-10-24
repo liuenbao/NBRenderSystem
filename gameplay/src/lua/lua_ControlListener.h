@@ -2,6 +2,8 @@
 #ifndef LUA_CONTROLLISTENER_H_
 #define LUA_CONTROLLISTENER_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -12,5 +14,7 @@ int lua_ControlListener_controlEvent(lua_State* state);
 void luaRegister_ControlListener();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

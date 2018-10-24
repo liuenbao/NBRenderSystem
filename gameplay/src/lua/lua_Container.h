@@ -2,6 +2,8 @@
 #ifndef LUA_CONTAINER_H_
 #define LUA_CONTAINER_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -147,5 +149,7 @@ int lua_Container_stopScrolling(lua_State* state);
 void luaRegister_Container();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

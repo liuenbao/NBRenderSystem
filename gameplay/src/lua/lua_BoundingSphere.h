@@ -2,6 +2,8 @@
 #ifndef LUA_BOUNDINGSPHERE_H_
 #define LUA_BOUNDINGSPHERE_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -20,5 +22,7 @@ int lua_BoundingSphere_transform(lua_State* state);
 void luaRegister_BoundingSphere();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

@@ -2,6 +2,8 @@
 #ifndef LUA_PHYSICSGENERICCONSTRAINT_H_
 #define LUA_PHYSICSGENERICCONSTRAINT_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -29,5 +31,7 @@ int lua_PhysicsGenericConstraint_static_getTranslationOffset(lua_State* state);
 void luaRegister_PhysicsGenericConstraint();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

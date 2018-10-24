@@ -28,11 +28,17 @@ class ScriptListener;
  * components using matrix.decompose(Vector3, Quaternion, Vector3) and then pass
  * those arguments to the appropriate constructor or set methods of Transform.
  */
-class Transform : public AnimationTarget, public ScriptTarget
+class Transform : public AnimationTarget
+#ifdef MODULE_SCRIPT_ENABLED
+    , public ScriptTarget
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 {
+
+#ifdef MODULE_SCRIPT_ENABLED
     GP_SCRIPT_EVENTS_START();
     GP_SCRIPT_EVENT(transformChanged, "<Transform>");
     GP_SCRIPT_EVENTS_END();
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 public:
 

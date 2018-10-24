@@ -2,6 +2,8 @@
 #ifndef LUA_TERRAIN_H_
 #define LUA_TERRAIN_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -23,5 +25,7 @@ int lua_Terrain_static_create(lua_State* state);
 void luaRegister_Terrain();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

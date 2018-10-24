@@ -2,6 +2,7 @@
 #include "Text.h"
 #include "Matrix.h"
 #include "Scene.h"
+#include "Game.h"
 
 namespace gameplay
 {

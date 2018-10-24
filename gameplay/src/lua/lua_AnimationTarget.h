@@ -2,6 +2,8 @@
 #ifndef LUA_ANIMATIONTARGET_H_
 #define LUA_ANIMATIONTARGET_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -18,5 +20,7 @@ int lua_AnimationTarget_setAnimationPropertyValue(lua_State* state);
 void luaRegister_AnimationTarget();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

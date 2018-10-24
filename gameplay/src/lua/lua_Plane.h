@@ -2,6 +2,8 @@
 #ifndef LUA_PLANE_H_
 #define LUA_PLANE_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -25,5 +27,7 @@ int lua_Plane_transform(lua_State* state);
 void luaRegister_Plane();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

@@ -2,6 +2,8 @@
 #ifndef LUA_SCRIPT_H_
 #define LUA_SCRIPT_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -18,5 +20,7 @@ int lua_Script_reload(lua_State* state);
 void luaRegister_Script();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

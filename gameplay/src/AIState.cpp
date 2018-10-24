@@ -38,9 +38,11 @@ void AIState::enter(AIStateMachine* stateMachine)
     if (_listener)
         _listener->stateEnter(stateMachine->getAgent(), this);
 
+#ifdef MODULE_SCRIPT_ENABLED
     Node* node = stateMachine->_agent->_node;
     if (node)
         node->fireScriptEvent<void>(GP_GET_SCRIPT_EVENT(Node, stateEnter), dynamic_cast<void*>(node), this);
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 }
 
 void AIState::exit(AIStateMachine* stateMachine)
@@ -48,9 +50,11 @@ void AIState::exit(AIStateMachine* stateMachine)
     if (_listener)
         _listener->stateExit(stateMachine->getAgent(), this);
 
+#ifdef MODULE_SCRIPT_ENABLED
     Node* node = stateMachine->_agent->_node;
     if (node)
         node->fireScriptEvent<void>(GP_GET_SCRIPT_EVENT(Node, stateExit), dynamic_cast<void*>(node), this);
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 }
 
 void AIState::update(AIStateMachine* stateMachine, float elapsedTime)
@@ -58,9 +62,11 @@ void AIState::update(AIStateMachine* stateMachine, float elapsedTime)
     if (_listener)
         _listener->stateUpdate(stateMachine->getAgent(), this, elapsedTime);
 
+#ifdef MODULE_SCRIPT_ENABLED
     Node* node = stateMachine->_agent->_node;
     if (node)
         node->fireScriptEvent<void>(GP_GET_SCRIPT_EVENT(Node, stateUpdate), dynamic_cast<void*>(node), this, elapsedTime);
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 }
 
 AIState::Listener::~Listener()

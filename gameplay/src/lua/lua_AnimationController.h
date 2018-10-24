@@ -2,6 +2,8 @@
 #ifndef LUA_ANIMATIONCONTROLLER_H_
 #define LUA_ANIMATIONCONTROLLER_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -11,5 +13,7 @@ int lua_AnimationController_stopAllAnimations(lua_State* state);
 void luaRegister_AnimationController();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

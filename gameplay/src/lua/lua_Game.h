@@ -2,6 +2,8 @@
 #ifndef LUA_GAME_H_
 #define LUA_GAME_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -72,5 +74,7 @@ int lua_Game_unregisterGesture(lua_State* state);
 void luaRegister_Game();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

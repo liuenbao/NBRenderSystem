@@ -15,16 +15,21 @@ class AnimationValue;
 /**
  * Defines the runtime session of an Animation to be played.
  */
-class AnimationClip : public Ref, public ScriptTarget
+class AnimationClip : public Ref
+#ifdef MODULE_SCRIPT_ENABLED
+    , public ScriptTarget
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 {
     friend class AnimationController;
     friend class Animation;
 
+#ifdef MODULE_SCRIPT_ENABLED
     GP_SCRIPT_EVENTS_START();
     GP_SCRIPT_EVENT(clipBegin, "<AnimationClip>");
     GP_SCRIPT_EVENT(clipEnd, "<AnimationClip>");
     GP_SCRIPT_EVENT(clipUpdate, "<AnimationClip>f");
     GP_SCRIPT_EVENTS_END();
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 public:
 

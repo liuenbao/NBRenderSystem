@@ -2,6 +2,8 @@
 #ifndef LUA_PHYSICSCONTROLLERLISTENER_H_
 #define LUA_PHYSICSCONTROLLERLISTENER_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -11,5 +13,7 @@ int lua_PhysicsControllerListener_statusEvent(lua_State* state);
 void luaRegister_PhysicsControllerListener();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

@@ -2,6 +2,8 @@
 #ifndef LUA_CURVE_H_
 #define LUA_CURVE_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -26,5 +28,7 @@ int lua_Curve_static_lerp(lua_State* state);
 void luaRegister_Curve();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

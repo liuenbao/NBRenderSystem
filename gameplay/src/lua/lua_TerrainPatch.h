@@ -2,6 +2,8 @@
 #ifndef LUA_TERRAINPATCH_H_
 #define LUA_TERRAINPATCH_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -14,5 +16,7 @@ int lua_TerrainPatch_getMaterialCount(lua_State* state);
 void luaRegister_TerrainPatch();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

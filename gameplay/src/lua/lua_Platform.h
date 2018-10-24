@@ -2,6 +2,8 @@
 #ifndef LUA_PLATFORM_H_
 #define LUA_PLATFORM_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -13,5 +15,7 @@ int lua_Platform_static_swapBuffers(lua_State* state);
 void luaRegister_Platform();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

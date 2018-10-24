@@ -2,6 +2,8 @@
 #ifndef LUA_PROPERTIES_H_
 #define LUA_PROPERTIES_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -38,5 +40,7 @@ int lua_Properties_static_parseVector4(lua_State* state);
 void luaRegister_Properties();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

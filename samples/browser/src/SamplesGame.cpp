@@ -23,9 +23,11 @@ void SamplesGame::initialize()
         std::sort((*_samples)[i].begin(), (*_samples)[i].end());
     }
 
+#ifdef MODULE_SCRIPT_ENABLED
     // Load camera script
     getScriptController()->loadScript("res/common/camera.lua");
-
+#endif // #ifdef MODULE_SCRIPT_ENABLED
+    
     // Create the selection form
     _sampleSelectForm = Form::create("sampleSelect", NULL, Layout::LAYOUT_VERTICAL);
     _sampleSelectForm->setWidth(220);
@@ -91,7 +93,10 @@ void SamplesGame::update(float elapsedTime)
             return;
         }
 
+#ifdef MODULE_SCRIPT_ENABLED
         getScriptController()->executeFunction<void>("camera_update", "f", elapsedTime);
+#endif // #ifdef MODULE_SCRIPT_ENABLED
+
         _activeSample->update(elapsedTime);
         return;
     }
@@ -131,7 +136,9 @@ void SamplesGame::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned int c
         }
         else
         {
+#ifdef MODULE_SCRIPT_ENABLED
             getScriptController()->executeFunction<void>("camera_touchEvent", "[Touch::TouchEvent]iiui", evt, x, y, contactIndex);
+#endif // #ifdef MODULE_SCRIPT_ENABLED
             _activeSample->touchEvent(evt, x, y, contactIndex);
         }
         return;
@@ -149,7 +156,9 @@ void SamplesGame::keyEvent(Keyboard::KeyEvent evt, int key)
         }
         else
         {
+#ifdef MODULE_SCRIPT_ENABLED
             getScriptController()->executeFunction<void>("camera_keyEvent", "[Keyboard::KeyEvent][Keyboard::Key]", evt, key);
+#endif // #ifdef MODULE_SCRIPT_ENABLED
             _activeSample->keyEvent(evt, key);
         }
         return;

@@ -2,6 +2,8 @@
 #ifndef LUA_MESHSKIN_H_
 #define LUA_MESHSKIN_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -21,5 +23,7 @@ int lua_MeshSkin_transformChanged(lua_State* state);
 void luaRegister_MeshSkin();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

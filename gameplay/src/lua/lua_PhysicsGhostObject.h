@@ -2,6 +2,8 @@
 #ifndef LUA_PHYSICSGHOSTOBJECT_H_
 #define LUA_PHYSICSGHOSTOBJECT_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -23,5 +25,7 @@ int lua_PhysicsGhostObject_transformChanged(lua_State* state);
 void luaRegister_PhysicsGhostObject();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

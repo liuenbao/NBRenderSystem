@@ -2,6 +2,8 @@
 #ifndef LUA_PHYSICSCHARACTER_H_
 #define LUA_PHYSICSCHARACTER_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -37,5 +39,7 @@ int lua_PhysicsCharacter_transformChanged(lua_State* state);
 void luaRegister_PhysicsCharacter();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

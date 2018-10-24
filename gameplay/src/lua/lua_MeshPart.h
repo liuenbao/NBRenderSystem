@@ -2,6 +2,8 @@
 #ifndef LUA_MESHPART_H_
 #define LUA_MESHPART_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -17,5 +19,7 @@ int lua_MeshPart_isDynamic(lua_State* state);
 void luaRegister_MeshPart();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

@@ -2,6 +2,8 @@
 #ifndef LUA_ALL_BINDINGS_H_
 #define LUA_ALL_BINDINGS_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 #include "lua_AIAgent.h"
 #include "lua_AIAgentListener.h"
 #include "lua_AIController.h"
@@ -142,5 +144,7 @@ namespace gameplay
 void lua_RegisterAllBindings();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

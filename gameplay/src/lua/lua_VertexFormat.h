@@ -2,6 +2,8 @@
 #ifndef LUA_VERTEXFORMAT_H_
 #define LUA_VERTEXFORMAT_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -16,5 +18,7 @@ int lua_VertexFormat_static_toString(lua_State* state);
 void luaRegister_VertexFormat();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

@@ -2,6 +2,8 @@
 #ifndef LUA_FRAMEBUFFER_H_
 #define LUA_FRAMEBUFFER_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -31,5 +33,7 @@ int lua_FrameBuffer_static_getScreenshot(lua_State* state);
 void luaRegister_FrameBuffer();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

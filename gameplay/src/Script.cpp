@@ -1,3 +1,5 @@
+#ifdef MODULE_SCRIPT_ENABLED
+
 #include "Script.h"
 #include "ScriptController.h"
 
@@ -40,3 +42,5 @@ bool Script::reload()
 }
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED

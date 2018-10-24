@@ -2,6 +2,8 @@
 #ifndef LUA_PHYSICSCONTROLLERHITRESULT_H_
 #define LUA_PHYSICSCONTROLLERHITRESULT_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -16,5 +18,7 @@ int lua_PhysicsControllerHitResult_point(lua_State* state);
 void luaRegister_PhysicsControllerHitResult();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

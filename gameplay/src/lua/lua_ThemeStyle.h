@@ -2,6 +2,8 @@
 #ifndef LUA_THEMESTYLE_H_
 #define LUA_THEMESTYLE_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -11,5 +13,7 @@ int lua_ThemeStyle_getTheme(lua_State* state);
 void luaRegister_ThemeStyle();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

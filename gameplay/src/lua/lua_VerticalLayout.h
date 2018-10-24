@@ -2,6 +2,8 @@
 #ifndef LUA_VERTICALLAYOUT_H_
 #define LUA_VERTICALLAYOUT_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -19,5 +21,7 @@ int lua_VerticalLayout_setSpacing(lua_State* state);
 void luaRegister_VerticalLayout();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

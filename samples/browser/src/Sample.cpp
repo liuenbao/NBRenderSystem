@@ -199,12 +199,16 @@ void Sample::schedule(long timeOffset, TimeListener* timeListener, void* cookie)
 
 void Sample::enableScriptCamera(bool enable)
 {
+#ifdef MODULE_SCRIPT_ENABLED
 	Game::getInstance()->getScriptController()->executeFunction<void>("camera_setActive", "b", enable);
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 }
 
 void Sample::setScriptCameraSpeed(float normal, float fast)
 {
+#ifdef MODULE_SCRIPT_ENABLED
     Game::getInstance()->getScriptController()->executeFunction<void>("camera_setSpeed", "ff", normal, fast);
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 }
 
 bool Sample::isGestureSupported(Gesture::GestureEvent evt)

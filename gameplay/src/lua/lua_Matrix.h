@@ -2,6 +2,8 @@
 #ifndef LUA_MATRIX_H_
 #define LUA_MATRIX_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -59,5 +61,7 @@ int lua_Matrix_transpose(lua_State* state);
 void luaRegister_Matrix();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

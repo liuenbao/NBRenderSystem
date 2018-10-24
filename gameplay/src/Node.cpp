@@ -32,7 +32,9 @@ Node::Node(const char* id)
     _agent(NULL), _userObject(NULL),
       _dirtyBits(NODE_DIRTY_ALL)
 {
+#ifdef MODULE_SCRIPT_ENABLED
     GP_REGISTER_SCRIPT_EVENTS();
+#endif // #ifdef MODULE_SCRIPT_ENABLED
     if (id)
     {
         _id = id;
@@ -414,7 +416,9 @@ void Node::update(float elapsedTime)
             node->update(elapsedTime);
         }
     }
+#ifdef MODULE_SCRIPT_ENABLED
     fireScriptEvent<void>(GP_GET_SCRIPT_EVENT(Node, update), dynamic_cast<void*>(this), elapsedTime);
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 }
 
 bool Node::isStatic() const

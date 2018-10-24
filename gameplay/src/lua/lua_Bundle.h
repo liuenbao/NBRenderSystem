@@ -2,6 +2,8 @@
 #ifndef LUA_BUNDLE_H_
 #define LUA_BUNDLE_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -24,5 +26,7 @@ int lua_Bundle_static_create(lua_State* state);
 void luaRegister_Bundle();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

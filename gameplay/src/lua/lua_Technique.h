@@ -2,6 +2,8 @@
 #ifndef LUA_TECHNIQUE_H_
 #define LUA_TECHNIQUE_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -27,5 +29,7 @@ int lua_Technique_setStateBlock(lua_State* state);
 void luaRegister_Technique();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

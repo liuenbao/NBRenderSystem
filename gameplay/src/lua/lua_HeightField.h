@@ -2,6 +2,8 @@
 #ifndef LUA_HEIGHTFIELD_H_
 #define LUA_HEIGHTFIELD_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -21,5 +23,7 @@ int lua_HeightField_static_createFromRAW(lua_State* state);
 void luaRegister_HeightField();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

@@ -1,6 +1,8 @@
 #ifndef SCRIPTTARGET_H_
 #define SCRIPTTARGET_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 #include "Script.h"
 
 namespace gameplay
@@ -438,5 +440,7 @@ template<> void ScriptTarget::fireScriptEvent<void>(const Event* evt, ...);
 template<> bool ScriptTarget::fireScriptEvent<bool>(const Event* evt, ...);
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

@@ -2,6 +2,8 @@
 #ifndef LUA_GESTURE_H_
 #define LUA_GESTURE_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -15,5 +17,7 @@ int lua_Gesture_static_SWIPE_DIRECTION_UP(lua_State* state);
 void luaRegister_Gesture();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

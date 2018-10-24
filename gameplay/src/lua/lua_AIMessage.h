@@ -2,6 +2,8 @@
 #ifndef LUA_AIMESSAGE_H_
 #define LUA_AIMESSAGE_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -29,5 +31,7 @@ int lua_AIMessage_static_destroy(lua_State* state);
 void luaRegister_AIMessage();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

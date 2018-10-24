@@ -2,6 +2,8 @@
 #ifndef LUA_MATERIALPARAMETER_H_
 #define LUA_MATERIALPARAMETER_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -40,5 +42,7 @@ int lua_MaterialParameter_static_ANIMATE_UNIFORM(lua_State* state);
 void luaRegister_MaterialParameter();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

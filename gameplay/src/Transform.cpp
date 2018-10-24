@@ -12,7 +12,9 @@ std::vector<Transform*> Transform::_transformsChanged;
 Transform::Transform()
     : _matrixDirtyBits(0), _listeners(NULL)
 {
+#ifdef MODULE_SCRIPT_ENABLED
     GP_REGISTER_SCRIPT_EVENTS();
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
     _targetType = AnimationTarget::TRANSFORM;
     _scale.set(Vector3::one());
@@ -21,8 +23,10 @@ Transform::Transform()
 Transform::Transform(const Vector3& scale, const Quaternion& rotation, const Vector3& translation)
     : _matrixDirtyBits(0), _listeners(NULL)
 {
+#ifdef MODULE_SCRIPT_ENABLED
     GP_REGISTER_SCRIPT_EVENTS();
-
+#endif // #ifdef MODULE_SCRIPT_ENABLED
+    
     _targetType = AnimationTarget::TRANSFORM;
     set(scale, rotation, translation);
 }
@@ -30,7 +34,9 @@ Transform::Transform(const Vector3& scale, const Quaternion& rotation, const Vec
 Transform::Transform(const Vector3& scale, const Matrix& rotation, const Vector3& translation)
     : _matrixDirtyBits(0), _listeners(NULL)
 {
+#ifdef MODULE_SCRIPT_ENABLED
     GP_REGISTER_SCRIPT_EVENTS();
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
     _targetType = AnimationTarget::TRANSFORM;
     set(scale, rotation, translation);
@@ -39,7 +45,9 @@ Transform::Transform(const Vector3& scale, const Matrix& rotation, const Vector3
 Transform::Transform(const Transform& copy)
     : _matrixDirtyBits(0), _listeners(NULL)
 {
+#ifdef MODULE_SCRIPT_ENABLED
     GP_REGISTER_SCRIPT_EVENTS();
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
     _targetType = AnimationTarget::TRANSFORM;
     set(copy);
@@ -1000,7 +1008,9 @@ void Transform::transformChanged()
             l.listener->transformChanged(this, l.cookie);
         }
     }
+#ifdef MODULE_SCRIPT_ENABLED
     fireScriptEvent<void>(GP_GET_SCRIPT_EVENT(Transform, transformChanged), dynamic_cast<void*>(this));
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 }
 
 void Transform::cloneInto(Transform* transform, NodeCloneContext &context) const

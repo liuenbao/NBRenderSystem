@@ -2,6 +2,8 @@
 #ifndef LUA_CAMERALISTENER_H_
 #define LUA_CAMERALISTENER_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -12,5 +14,7 @@ int lua_CameraListener_cameraChanged(lua_State* state);
 void luaRegister_CameraListener();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

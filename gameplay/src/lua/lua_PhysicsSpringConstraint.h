@@ -2,6 +2,8 @@
 #ifndef LUA_PHYSICSSPRINGCONSTRAINT_H_
 #define LUA_PHYSICSSPRINGCONSTRAINT_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -41,5 +43,7 @@ int lua_PhysicsSpringConstraint_static_getTranslationOffset(lua_State* state);
 void luaRegister_PhysicsSpringConstraint();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

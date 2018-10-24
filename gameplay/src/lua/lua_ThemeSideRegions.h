@@ -2,6 +2,8 @@
 #ifndef LUA_THEMESIDEREGIONS_H_
 #define LUA_THEMESIDEREGIONS_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -17,5 +19,7 @@ int lua_ThemeSideRegions_top(lua_State* state);
 void luaRegister_ThemeSideRegions();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

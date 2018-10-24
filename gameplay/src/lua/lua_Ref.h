@@ -2,6 +2,8 @@
 #ifndef LUA_REF_H_
 #define LUA_REF_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -13,5 +15,7 @@ int lua_Ref_release(lua_State* state);
 void luaRegister_Ref();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

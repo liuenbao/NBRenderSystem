@@ -2,6 +2,8 @@
 #ifndef LUA_RENDERTARGET_H_
 #define LUA_RENDERTARGET_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -20,5 +22,7 @@ int lua_RenderTarget_static_getRenderTarget(lua_State* state);
 void luaRegister_RenderTarget();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

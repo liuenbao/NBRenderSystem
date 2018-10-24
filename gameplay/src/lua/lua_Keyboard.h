@@ -2,6 +2,8 @@
 #ifndef LUA_KEYBOARD_H_
 #define LUA_KEYBOARD_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -11,5 +13,7 @@ int lua_Keyboard__gc(lua_State* state);
 void luaRegister_Keyboard();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

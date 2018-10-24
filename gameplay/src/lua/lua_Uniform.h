@@ -2,6 +2,8 @@
 #ifndef LUA_UNIFORM_H_
 #define LUA_UNIFORM_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -13,5 +15,7 @@ int lua_Uniform_getType(lua_State* state);
 void luaRegister_Uniform();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

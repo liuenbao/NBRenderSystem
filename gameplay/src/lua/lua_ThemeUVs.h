@@ -2,6 +2,8 @@
 #ifndef LUA_THEMEUVS_H_
 #define LUA_THEMEUVS_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -18,5 +20,7 @@ int lua_ThemeUVs_v2(lua_State* state);
 void luaRegister_ThemeUVs();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

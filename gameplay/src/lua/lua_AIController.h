@@ -2,6 +2,8 @@
 #ifndef LUA_AICONTROLLER_H_
 #define LUA_AICONTROLLER_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -12,5 +14,7 @@ int lua_AIController_sendMessage(lua_State* state);
 void luaRegister_AIController();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

@@ -2,6 +2,8 @@
 #ifndef LUA_VECTOR3_H_
 #define LUA_VECTOR3_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -43,5 +45,7 @@ int lua_Vector3_z(lua_State* state);
 void luaRegister_Vector3();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

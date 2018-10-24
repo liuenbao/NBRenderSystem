@@ -2,6 +2,8 @@
 #ifndef LUA_SCRIPTCONTROLLER_H_
 #define LUA_SCRIPTCONTROLLER_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -14,5 +16,7 @@ int lua_ScriptController_static_print(lua_State* state);
 void luaRegister_ScriptController();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

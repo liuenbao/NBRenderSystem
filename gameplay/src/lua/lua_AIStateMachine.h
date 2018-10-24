@@ -2,6 +2,8 @@
 #ifndef LUA_AISTATEMACHINE_H_
 #define LUA_AISTATEMACHINE_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -16,5 +18,7 @@ int lua_AIStateMachine_setState(lua_State* state);
 void luaRegister_AIStateMachine();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

@@ -2,6 +2,8 @@
 #ifndef LUA_PHYSICSCONTROLLER_H_
 #define LUA_PHYSICSCONTROLLER_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -30,5 +32,7 @@ int lua_PhysicsController_sweepTest(lua_State* state);
 void luaRegister_PhysicsController();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

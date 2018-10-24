@@ -441,9 +441,11 @@ void SceneLoader::applyNodeProperty(SceneNode& sceneNode, Node* node, const Prop
                 node->scale(s);
             break;
         }
+#ifdef MODULE_SCRIPT_ENABLED
         case SceneNodeProperty::SCRIPT:
             node->addScript(snp._value.c_str());
             break;
+#endif // #ifdef MODULE_SCRIPT_ENABLED
         default:
             GP_ERROR("Unsupported node property type (%d).", snp._type);
             break;

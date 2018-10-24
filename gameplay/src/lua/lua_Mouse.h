@@ -2,6 +2,8 @@
 #ifndef LUA_MOUSE_H_
 #define LUA_MOUSE_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -11,5 +13,7 @@ int lua_Mouse__gc(lua_State* state);
 void luaRegister_Mouse();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

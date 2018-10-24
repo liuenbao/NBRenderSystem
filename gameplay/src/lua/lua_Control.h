@@ -2,6 +2,8 @@
 #ifndef LUA_CONTROL_H_
 #define LUA_CONTROL_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -120,5 +122,7 @@ int lua_Control_static_ANIMATE_SIZE_WIDTH(lua_State* state);
 void luaRegister_Control();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

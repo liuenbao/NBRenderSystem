@@ -2,6 +2,8 @@
 #ifndef LUA_SCENE_H_
 #define LUA_SCENE_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -34,5 +36,7 @@ int lua_Scene_visit(lua_State* state);
 void luaRegister_Scene();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

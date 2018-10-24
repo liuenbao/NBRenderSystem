@@ -2,6 +2,8 @@
 #ifndef LUA_ANIMATIONVALUE_H_
 #define LUA_ANIMATIONVALUE_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -14,5 +16,7 @@ int lua_AnimationValue_setFloats(lua_State* state);
 void luaRegister_AnimationValue();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

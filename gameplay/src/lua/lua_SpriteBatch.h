@@ -2,6 +2,8 @@
 #ifndef LUA_SPRITEBATCH_H_
 #define LUA_SPRITEBATCH_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -21,5 +23,7 @@ int lua_SpriteBatch_static_create(lua_State* state);
 void luaRegister_SpriteBatch();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

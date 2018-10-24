@@ -2,6 +2,8 @@
 #ifndef LUA_PHYSICSSOCKETCONSTRAINT_H_
 #define LUA_PHYSICSSOCKETCONSTRAINT_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -17,5 +19,7 @@ int lua_PhysicsSocketConstraint_static_getTranslationOffset(lua_State* state);
 void luaRegister_PhysicsSocketConstraint();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

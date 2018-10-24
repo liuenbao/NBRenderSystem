@@ -2,6 +2,8 @@
 #ifndef LUA_JOINT_H_
 #define LUA_JOINT_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -151,5 +153,7 @@ int lua_Joint_update(lua_State* state);
 void luaRegister_Joint();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

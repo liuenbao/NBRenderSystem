@@ -23,14 +23,19 @@ class Form;
  *
  * @see http://gameplay3d.github.io/GamePlay/docs/file-formats.html#wiki-UI_Forms
  */
-class Control : public Ref, public AnimationTarget, public ScriptTarget
+class Control : public Ref, public AnimationTarget
+#ifdef MODULE_SCRIPT_ENABLED
+    , public ScriptTarget
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 {
     friend class Form;
     friend class Container;
 
+#ifdef MODULE_SCRIPT_ENABLED
     GP_SCRIPT_EVENTS_START();
     GP_SCRIPT_EVENT(controlEvent, "<Control>[Control::Listener::EventType]");
     GP_SCRIPT_EVENTS_END();
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 public:
 

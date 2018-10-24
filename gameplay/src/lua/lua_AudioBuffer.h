@@ -2,6 +2,8 @@
 #ifndef LUA_AUDIOBUFFER_H_
 #define LUA_AUDIOBUFFER_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -14,5 +16,7 @@ int lua_AudioBuffer_release(lua_State* state);
 void luaRegister_AudioBuffer();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

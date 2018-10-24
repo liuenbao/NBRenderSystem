@@ -2,6 +2,8 @@
 #ifndef LUA_LIGHT_H_
 #define LUA_LIGHT_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -31,5 +33,7 @@ int lua_Light_static_createSpot(lua_State* state);
 void luaRegister_Light();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

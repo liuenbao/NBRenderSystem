@@ -2,6 +2,8 @@
 #ifndef LUA_LOGGER_H_
 #define LUA_LOGGER_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -14,5 +16,7 @@ int lua_Logger_static_setEnabled(lua_State* state);
 void luaRegister_Logger();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

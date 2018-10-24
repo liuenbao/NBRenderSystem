@@ -2,6 +2,8 @@
 #ifndef LUA_SPRITEBATCHSPRITEVERTEX_H_
 #define LUA_SPRITEBATCHSPRITEVERTEX_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -21,5 +23,7 @@ int lua_SpriteBatchSpriteVertex_z(lua_State* state);
 void luaRegister_SpriteBatchSpriteVertex();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

@@ -2,6 +2,8 @@
 #ifndef LUA_AUDIOCONTROLLER_H_
 #define LUA_AUDIOCONTROLLER_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -11,5 +13,7 @@ int lua_AudioController__gc(lua_State* state);
 void luaRegister_AudioController();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

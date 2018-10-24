@@ -2,6 +2,8 @@
 #ifndef LUA_FILESYSTEM_H_
 #define LUA_FILESYSTEM_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -23,5 +25,7 @@ int lua_FileSystem_static_setResourcePath(lua_State* state);
 void luaRegister_FileSystem();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

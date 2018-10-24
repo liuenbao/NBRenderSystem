@@ -2,6 +2,8 @@
 #ifndef LUA_DEPTHSTENCILTARGET_H_
 #define LUA_DEPTHSTENCILTARGET_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -21,5 +23,7 @@ int lua_DepthStencilTarget_static_getDepthStencilTarget(lua_State* state);
 void luaRegister_DepthStencilTarget();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

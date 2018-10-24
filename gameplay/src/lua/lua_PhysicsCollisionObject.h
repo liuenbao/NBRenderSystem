@@ -2,6 +2,8 @@
 #ifndef LUA_PHYSICSCOLLISIONOBJECT_H_
 #define LUA_PHYSICSCOLLISIONOBJECT_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -23,5 +25,7 @@ int lua_PhysicsCollisionObject_setEnabled(lua_State* state);
 void luaRegister_PhysicsCollisionObject();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

@@ -2,6 +2,8 @@
 #ifndef LUA_AUDIOLISTENER_H_
 #define LUA_AUDIOLISTENER_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -22,5 +24,7 @@ int lua_AudioListener_static_getInstance(lua_State* state);
 void luaRegister_AudioListener();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

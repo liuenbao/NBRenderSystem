@@ -2,6 +2,8 @@
 #ifndef LUA_MESH_H_
 #define LUA_MESH_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -35,5 +37,7 @@ int lua_Mesh_static_createQuadFullscreen(lua_State* state);
 void luaRegister_Mesh();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

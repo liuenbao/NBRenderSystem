@@ -2,6 +2,8 @@
 #ifndef LUA_AIAGENTLISTENER_H_
 #define LUA_AIAGENTLISTENER_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -12,5 +14,7 @@ int lua_AIAgentListener_messageReceived(lua_State* state);
 void luaRegister_AIAgentListener();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

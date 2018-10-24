@@ -2,6 +2,8 @@
 #ifndef LUA_RENDERSTATE_H_
 #define LUA_RENDERSTATE_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -23,5 +25,7 @@ int lua_RenderState_setStateBlock(lua_State* state);
 void luaRegister_RenderState();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

@@ -2,6 +2,8 @@
 #ifndef LUA_VERTEXFORMATELEMENT_H_
 #define LUA_VERTEXFORMATELEMENT_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -14,5 +16,7 @@ int lua_VertexFormatElement_usage(lua_State* state);
 void luaRegister_VertexFormatElement();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

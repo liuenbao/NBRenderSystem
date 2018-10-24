@@ -2,6 +2,8 @@
 #ifndef LUA_ANIMATIONCLIPLISTENER_H_
 #define LUA_ANIMATIONCLIPLISTENER_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -12,5 +14,7 @@ int lua_AnimationClipListener_animationEvent(lua_State* state);
 void luaRegister_AnimationClipListener();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

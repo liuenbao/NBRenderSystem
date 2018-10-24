@@ -2,6 +2,8 @@
 #ifndef LUA_FONT_H_
 #define LUA_FONT_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -29,5 +31,7 @@ int lua_Font_static_getJustify(lua_State* state);
 void luaRegister_Font();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

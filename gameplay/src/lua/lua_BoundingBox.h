@@ -2,6 +2,8 @@
 #ifndef LUA_BOUNDINGBOX_H_
 #define LUA_BOUNDINGBOX_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -22,5 +24,7 @@ int lua_BoundingBox_transform(lua_State* state);
 void luaRegister_BoundingBox();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

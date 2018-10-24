@@ -2,6 +2,8 @@
 #ifndef LUA_FRUSTUM_H_
 #define LUA_FRUSTUM_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -24,5 +26,7 @@ int lua_Frustum_set(lua_State* state);
 void luaRegister_Frustum();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

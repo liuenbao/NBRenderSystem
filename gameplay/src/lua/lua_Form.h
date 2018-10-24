@@ -2,6 +2,8 @@
 #ifndef LUA_FORM_H_
 #define LUA_FORM_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -156,5 +158,7 @@ int lua_Form_update(lua_State* state);
 void luaRegister_Form();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

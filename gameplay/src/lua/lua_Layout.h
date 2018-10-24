@@ -2,6 +2,8 @@
 #ifndef LUA_LAYOUT_H_
 #define LUA_LAYOUT_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -15,5 +17,7 @@ int lua_Layout_release(lua_State* state);
 void luaRegister_Layout();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

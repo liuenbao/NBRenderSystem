@@ -2,6 +2,8 @@
 #ifndef LUA_VERTEXATTRIBUTEBINDING_H_
 #define LUA_VERTEXATTRIBUTEBINDING_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -17,5 +19,7 @@ int lua_VertexAttributeBinding_unbind(lua_State* state);
 void luaRegister_VertexAttributeBinding();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

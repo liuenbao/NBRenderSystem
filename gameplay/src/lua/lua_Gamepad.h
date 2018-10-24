@@ -2,6 +2,8 @@
 #ifndef LUA_GAMEPAD_H_
 #define LUA_GAMEPAD_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -21,5 +23,7 @@ int lua_Gamepad_update(lua_State* state);
 void luaRegister_Gamepad();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

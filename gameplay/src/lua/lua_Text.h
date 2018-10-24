@@ -2,6 +2,8 @@
 #ifndef LUA_TEXT_H_
 #define LUA_TEXT_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -43,5 +45,7 @@ int lua_Text_static_create(lua_State* state);
 void luaRegister_Text();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

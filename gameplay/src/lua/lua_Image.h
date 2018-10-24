@@ -2,6 +2,8 @@
 #ifndef LUA_IMAGE_H_
 #define LUA_IMAGE_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -18,5 +20,7 @@ int lua_Image_static_create(lua_State* state);
 void luaRegister_Image();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

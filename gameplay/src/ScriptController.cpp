@@ -1,3 +1,5 @@
+#ifdef MODULE_SCRIPT_ENABLED
+
 #include "Base.h"
 #include "FileSystem.h"
 #include "ScriptController.h"
@@ -1812,3 +1814,5 @@ bool ScriptUtil::luaCheckBool(lua_State* state, int n)
 }
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED

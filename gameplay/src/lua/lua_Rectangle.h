@@ -2,6 +2,8 @@
 #ifndef LUA_RECTANGLE_H_
 #define LUA_RECTANGLE_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -29,5 +31,7 @@ int lua_Rectangle_y(lua_State* state);
 void luaRegister_Rectangle();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

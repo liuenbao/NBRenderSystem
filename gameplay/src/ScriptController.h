@@ -1,6 +1,8 @@
 #ifndef SCRIPTCONTROLLER_H_
 #define SCRIPTCONTROLLER_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 #include "Script.h"
 #include "Game.h"
 
@@ -1152,5 +1154,7 @@ public:
 }
 
 #include "ScriptController.inl"
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

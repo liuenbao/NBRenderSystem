@@ -2,6 +2,8 @@
 #ifndef LUA_TRANSFORM_H_
 #define LUA_TRANSFORM_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -93,5 +95,7 @@ int lua_Transform_translateZ(lua_State* state);
 void luaRegister_Transform();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

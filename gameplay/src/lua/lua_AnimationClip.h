@@ -2,6 +2,8 @@
 #ifndef LUA_ANIMATIONCLIP_H_
 #define LUA_ANIMATIONCLIP_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -50,5 +52,7 @@ int lua_AnimationClip_stop(lua_State* state);
 void luaRegister_AnimationClip();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif

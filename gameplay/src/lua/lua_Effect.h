@@ -2,6 +2,8 @@
 #ifndef LUA_EFFECT_H_
 #define LUA_EFFECT_H_
 
+#ifdef MODULE_SCRIPT_ENABLED
+
 namespace gameplay
 {
 
@@ -23,5 +25,7 @@ int lua_Effect_static_getCurrentEffect(lua_State* state);
 void luaRegister_Effect();
 
 }
+
+#endif // #ifdef MODULE_SCRIPT_ENABLED
 
 #endif
