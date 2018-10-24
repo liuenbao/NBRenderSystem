@@ -5,6 +5,7 @@
     ADD_SAMPLE("Graphics", "Terrain", TerrainSample, 12);
 #endif
 
+#ifdef MODULE_PHYSICS_ENABLED
 struct TerrainHitFilter : public PhysicsController::HitFilter
 {
     TerrainHitFilter(Terrain* terrain)
@@ -20,6 +21,7 @@ struct TerrainHitFilter : public PhysicsController::HitFilter
 
     PhysicsCollisionObject* terrainObject;
 };
+#endif // #ifdef MODULE_PHYSICS_ENABLED
 
 TerrainSample::TerrainSample()
 	: _font(NULL), _scene(NULL), _terrain(NULL), _sky(NULL), _form(NULL), _formVisible(true),
@@ -137,10 +139,12 @@ void TerrainSample::render(float elapsedTime)
     // Draw scene
 	_scene->visit(this, &TerrainSample::drawScene);
 
+#ifdef MODULE_PHYSICS_ENABLED
     // Debug draw
     if (_debugPhysics)
         Game::getInstance()->getPhysicsController()->drawDebug(_scene->getActiveCamera()->getViewProjectionMatrix());
-
+#endif // #ifdef MODULE_PHYSICS_ENABLED
+    
     // Draw form
     _form->draw();
 
@@ -234,6 +238,7 @@ void TerrainSample::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned int
             Ray pickRay;
             _scene->getActiveCamera()->pickRay(Rectangle (0, 0, getWidth(), getHeight()), x, y, &pickRay);
 
+#ifdef MODULE_PHYSICS_ENABLED
             PhysicsController::HitResult hitResult;
             TerrainHitFilter hitFilter(_terrain);
             if (Game::getInstance()->getPhysicsController()->rayTest(pickRay, 1000000, &hitResult, &hitFilter) && hitResult.object == _terrain->getNode()->getCollisionObject())
@@ -273,6 +278,8 @@ void TerrainSample::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned int
                     setMessage(NULL);
                 }
             }
+#endif // #ifdef MODULE_PHYSICS_ENABLED
+
         }
     }
 }

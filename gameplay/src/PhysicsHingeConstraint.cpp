@@ -1,3 +1,5 @@
+#ifdef MODULE_PHYSICS_ENABLED
+
 #include "Base.h"
 #include "PhysicsHingeConstraint.h"
 #include "Node.h"
@@ -50,3 +52,5 @@ PhysicsHingeConstraint::~PhysicsHingeConstraint()
 }
 
 }
+
+#endif // #ifdef MODULE_PHYSICS_ENABLED

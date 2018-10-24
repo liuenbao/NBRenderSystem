@@ -1,3 +1,5 @@
+#ifdef MODULE_PHYSICS_ENABLED
+
 #include "Base.h"
 #include "PhysicsSocketConstraint.h"
 #include "Node.h"
@@ -58,3 +60,5 @@ PhysicsSocketConstraint::~PhysicsSocketConstraint()
 }
 
 }
+
+#endif // #ifdef MODULE_PHYSICS_ENABLED

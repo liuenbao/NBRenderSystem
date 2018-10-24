@@ -245,6 +245,7 @@ public:
      */
     inline AnimationController* getAnimationController() const;
 
+#ifdef MODULE_PHYSICS_ENABLED
     /**
      * Gets the physics controller for managing control of physics
      * associated with the game.
@@ -252,6 +253,7 @@ public:
      * @return The physics controller for this game.
      */
     inline PhysicsController* getPhysicsController() const;
+#endif // #ifdef MODULE_PHYSICS_ENABLED
 
     /** 
      * Gets the AI controller for managing control of artificial
@@ -760,7 +762,9 @@ private:
     Properties* _properties;                    // Game configuration properties object.
     AnimationController* _animationController;  // Controls the scheduling and running of animations.
     AudioController* _audioController;          // Controls audio sources that are playing in the game.
+#ifdef MODULE_PHYSICS_ENABLED
     PhysicsController* _physicsController;      // Controls the simulation of a physics scene and entities.
+#endif // // #ifdef MODULE_PHYSICS_ENABLED
     AIController* _aiController;                // Controls AI simulation.
     AudioListener* _audioListener;              // The audio listener in 3D space.
     std::priority_queue<TimeEvent, std::vector<TimeEvent>, std::less<TimeEvent> >* _timeEvents;     // Contains the scheduled time events.

@@ -1,3 +1,5 @@
+#ifdef MODULE_PHYSICS_ENABLED
+
 #include "Base.h"
 #include "PhysicsFixedConstraint.h"
 
@@ -19,3 +21,5 @@ PhysicsFixedConstraint::~PhysicsFixedConstraint()
 }
 
 }
+
+#endif // #ifdef MODULE_PHYSICS_ENABLED

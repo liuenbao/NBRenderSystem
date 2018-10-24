@@ -1,3 +1,5 @@
+#ifdef MODULE_PHYSICS_ENABLED
+
 #include "Base.h"
 #include "PhysicsController.h"
 #include "PhysicsRigidBody.h"
@@ -1482,3 +1484,5 @@ bool PhysicsController::HitFilter::hit(const PhysicsController::HitResult& resul
 }
 
 }
+
+#endif // #ifdef MODULE_PHYSICS_ENABLED

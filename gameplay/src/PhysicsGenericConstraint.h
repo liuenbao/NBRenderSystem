@@ -1,6 +1,8 @@
 #ifndef PHYSICSGENERICCONSTRAINT_H_
 #define PHYSICSGENERICCONSTRAINT_H_
 
+#ifdef MODULE_PHYSICS_ENABLED
+
 #include "PhysicsConstraint.h"
 #include "Quaternion.h"
 #include "Vector3.h"
@@ -164,5 +166,7 @@ private:
 }
 
 #include "PhysicsGenericConstraint.inl"
+
+#endif // #ifdef MODULE_PHYSICS_ENABLED
 
 #endif

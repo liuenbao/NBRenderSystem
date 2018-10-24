@@ -1,6 +1,8 @@
 #ifndef PHYSICSFIXEDCONSTRAINT_H_
 #define PHYSICSFIXEDCONSTRAINT_H_
 
+#ifdef MODULE_PHYSICS_ENABLED
+
 #include "PhysicsGenericConstraint.h"
 
 namespace gameplay
@@ -59,5 +61,7 @@ protected:
 }
 
 #include "PhysicsFixedConstraint.inl"
+
+#endif // #ifdef MODULE_PHYSICS_ENABLED
 
 #endif

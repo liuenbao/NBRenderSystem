@@ -1,6 +1,8 @@
 #ifndef PHYSICSCOLLISIONSHAPE_H_
 #define PHYSICSCOLLISIONSHAPE_H_
 
+#ifdef MODULE_PHYSICS_ENABLED
+
 #include "Vector3.h"
 #include "Mesh.h"
 #include "HeightField.h"
@@ -288,5 +290,7 @@ private:
 };
 
 }
+
+#endif // #ifdef MODULE_PHYSICS_ENABLED
 
 #endif

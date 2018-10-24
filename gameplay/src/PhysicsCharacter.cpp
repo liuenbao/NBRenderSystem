@@ -4,6 +4,9 @@
  * Much of the collision detection code for this implementation is based off the
  * btbtKinematicCharacterController class from Bullet Physics 2.7.6.
  */
+
+#ifdef MODULE_PHYSICS_ENABLED
+
 #include "Base.h"
 #include "PhysicsCharacter.h"
 #include "Scene.h"
@@ -712,3 +715,5 @@ void PhysicsCharacter::updateAction(btCollisionWorld* collisionWorld, btScalar d
 
 
 }
+
+#endif // #ifdef MODULE_PHYSICS_ENABLED

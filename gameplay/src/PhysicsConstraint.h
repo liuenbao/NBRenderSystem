@@ -1,6 +1,8 @@
 #ifndef PHYSICSCONSTRAINT_H_
 #define PHYSICSCONSTRAINT_H_
 
+#ifdef MODULE_PHYSICS_ENABLED
+
 #include "Base.h"
 #include "Vector3.h"
 
@@ -122,5 +124,7 @@ protected:
 }
 
 #include "PhysicsConstraint.inl"
+
+#endif // #ifdef MODULE_PHYSICS_ENABLED
 
 #endif

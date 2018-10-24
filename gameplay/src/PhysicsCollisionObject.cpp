@@ -1,3 +1,5 @@
+#ifdef MODULE_PHYSICS_ENABLED
+
 #include "Base.h"
 #include "PhysicsCollisionObject.h"
 #include "PhysicsController.h"
@@ -329,3 +331,5 @@ void PhysicsCollisionObject::ScriptListener::collisionEvent(PhysicsCollisionObje
 }
 
 }
+
+#endif // #ifdef MODULE_PHYSICS_ENABLED

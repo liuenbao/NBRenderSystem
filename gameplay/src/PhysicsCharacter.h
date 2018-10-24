@@ -1,6 +1,8 @@
 #ifndef PHYSICSCHARACTER_H_
 #define PHYSICSCHARACTER_H_
 
+#ifdef MODULE_PHYSICS_ENABLED
+
 #include "Node.h"
 #include "PhysicsGhostObject.h"
 #include "Properties.h"
@@ -277,5 +279,7 @@ private:
 };
 
 }
+
+#endif // #ifdef MODULE_PHYSICS_ENABLED
 
 #endif

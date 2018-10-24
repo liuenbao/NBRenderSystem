@@ -1,6 +1,8 @@
 #ifndef PHYSICSVEHICLEWHEEL_H_
 #define PHYSICSVEHICLEWHEEL_H_
 
+#ifdef MODULE_PHYSICS_ENABLED
+
 #include "PhysicsCollisionObject.h"
 #include "PhysicsRigidBody.h"
 #include "Node.h"
@@ -365,5 +367,7 @@ private:
 };
 
 }
+
+#endif // #ifdef MODULE_PHYSICS_ENABLED
 
 #endif

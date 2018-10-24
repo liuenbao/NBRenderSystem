@@ -1,3 +1,5 @@
+#ifdef MODULE_PHYSICS_ENABLED
+
 #include "Base.h"
 #include "Game.h"
 #include "MathUtil.h"
@@ -459,3 +461,5 @@ void PhysicsVehicle::setDownforce(float downforce)
 }
 
 }
+
+#endif // #ifdef MODULE_PHYSICS_ENABLED

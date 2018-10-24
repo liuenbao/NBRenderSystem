@@ -1,3 +1,5 @@
+#ifdef MODULE_PHYSICS_ENABLED
+
 #include "Base.h"
 #include "PhysicsGenericConstraint.h"
 #include "Node.h"
@@ -71,3 +73,5 @@ PhysicsGenericConstraint::~PhysicsGenericConstraint()
 }
 
 }
+
+#endif // #ifdef MODULE_PHYSICS_ENABLED

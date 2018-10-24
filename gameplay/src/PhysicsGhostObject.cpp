@@ -1,3 +1,5 @@
+#ifdef MODULE_PHYSICS_ENABLED
+
 #include "Base.h"
 #include "PhysicsGhostObject.h"
 #include "Node.h"
@@ -103,3 +105,5 @@ void PhysicsGhostObject::transformChanged(Transform* transform, long cookie)
 }
 
 }
+
+#endif // #ifdef MODULE_PHYSICS_ENABLED

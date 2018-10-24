@@ -112,10 +112,11 @@ private:
     void calculateNodesWithMeshRigidBodies(const Properties* sceneProperties);
 
     void createAnimations();
-
+#ifdef MODULE_PHYSICS_ENABLED
     PhysicsConstraint* loadGenericConstraint(const Properties* constraint, PhysicsRigidBody* rbA, PhysicsRigidBody* rbB);
 
     PhysicsConstraint* loadHingeConstraint(const Properties* constraint, PhysicsRigidBody* rbA, PhysicsRigidBody* rbB);
+#endif
 
     Scene* loadMainSceneData(const Properties* sceneProperties);
 
@@ -123,9 +124,11 @@ private:
 
     void loadReferencedFiles();
 
+#ifdef MODULE_PHYSICS_ENABLED
     PhysicsConstraint* loadSocketConstraint(const Properties* constraint, PhysicsRigidBody* rbA, PhysicsRigidBody* rbB);
 
     PhysicsConstraint* loadSpringConstraint(const Properties* constraint, PhysicsRigidBody* rbA, PhysicsRigidBody* rbB);
+#endif
 
     std::map<std::string, Properties*> _propertiesFromFile; // Holds the properties object for a given file.
     std::map<std::string, Properties*> _properties;         // Holds the properties object for a given URL.

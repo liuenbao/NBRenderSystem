@@ -1,3 +1,5 @@
+#ifdef MODULE_PHYSICS_ENABLED
+
 #include "Base.h"
 #include "PhysicsSpringConstraint.h"
 #include "Node.h"
@@ -69,3 +71,5 @@ void PhysicsSpringConstraint::setDamping(SpringProperty property, float damping)
 }
 
 }
+
+#endif // #ifdef MODULE_PHYSICS_ENABLED

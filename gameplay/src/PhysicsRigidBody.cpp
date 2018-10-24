@@ -1,3 +1,5 @@
+#ifdef MODULE_PHYSICS_ENABLED
+
 #include "Base.h"
 #include "PhysicsRigidBody.h"
 #include "PhysicsController.h"
@@ -392,3 +394,5 @@ void PhysicsRigidBody::transformChanged(Transform* transform, long cookie)
 }
 
 }
+
+#endif // #ifdef MODULE_PHYSICS_ENABLED

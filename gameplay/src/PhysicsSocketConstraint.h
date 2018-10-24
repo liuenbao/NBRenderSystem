@@ -1,6 +1,8 @@
 #ifndef PHYSICSSOCKETCONSTRAINT_H_
 #define PHYSICSSOCKETCONSTRAINT_H_
 
+#ifdef MODULE_PHYSICS_ENABLED
+
 #include "PhysicsConstraint.h"
 #include "PhysicsRigidBody.h"
 #include "Vector3.h"
@@ -53,5 +55,7 @@ private:
 };
 
 }
+
+#endif // #ifdef MODULE_PHYSICS_ENABLED
 
 #endif

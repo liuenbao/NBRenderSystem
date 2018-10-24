@@ -1,6 +1,8 @@
 #ifndef PHYSICSCOLLISIONOBJECT_H_
 #define PHYSICSCOLLISIONOBJECT_H_
 
+#ifdef MODULE_PHYSICS_ENABLED
+
 #include "Script.h"
 #include "Vector3.h"
 #include "PhysicsCollisionShape.h"
@@ -407,5 +409,7 @@ private:
 };
 
 }
+
+#endif // #ifdef MODULE_PHYSICS_ENABLED
 
 #endif

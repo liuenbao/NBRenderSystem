@@ -72,6 +72,8 @@ void lua_RegisterAllBindings()
     luaRegister_NodeCloneContext();
     luaRegister_ParticleEmitter();
     luaRegister_Pass();
+
+#ifdef MODULE_PHYSICS_ENABLED
     luaRegister_PhysicsCharacter();
     luaRegister_PhysicsCollisionObject();
     luaRegister_PhysicsCollisionObjectCollisionListener();
@@ -93,6 +95,8 @@ void lua_RegisterAllBindings()
     luaRegister_PhysicsSpringConstraint();
     luaRegister_PhysicsVehicle();
     luaRegister_PhysicsVehicleWheel();
+#endif // #ifdef MODULE_PHYSICS_ENABLED
+    
     luaRegister_Plane();
     luaRegister_Platform();
     luaRegister_Properties();

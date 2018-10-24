@@ -483,6 +483,7 @@ public:
      */
     void setAudioSource(AudioSource* audio);
 
+#ifdef MODULE_PHYSICS_ENABLED
     /**
      * Returns the pointer to this node's physics collision object.
      *
@@ -549,7 +550,8 @@ public:
      * @param url The URL pointing to the Properties object defining the physics collision object.
      */
     PhysicsCollisionObject* setCollisionObject(const char* url);
-
+#endif // #ifdef MODULE_PHYSICS_ENABLED
+    
     /**
      * Gets the AI agent assigned to this node
      *
@@ -677,8 +679,10 @@ private:
      */
     Node& operator=(const Node&);
 
+#ifdef MODULE_PHYSICS_ENABLED
     PhysicsCollisionObject* setCollisionObject(Properties* properties);
-
+#endif // #ifdef MODULE_PHYSICS_ENABLED
+    
 protected:
 
     /** The scene this node is attached to. */
@@ -707,8 +711,10 @@ protected:
     Light* _light;
     /** The audio source component attached to this node. */
     AudioSource* _audioSource;
+#ifdef MODULE_PHYSICS_ENABLED
     /** The collision object component attached to this node. */
     PhysicsCollisionObject* _collisionObject;
+#endif // #ifdef MODULE_PHYSICS_ENABLED
     /** The AI agent component attached to this node. */
     mutable AIAgent* _agent;
     /** The user object component attached to this node. */

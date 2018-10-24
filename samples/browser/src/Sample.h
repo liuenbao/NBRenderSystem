@@ -48,7 +48,9 @@ public:
     void clear(Game::ClearFlags flags, float red, float green, float blue, float alpha, float clearDepth, int clearStencil);
     AudioController* getAudioController() const;
     AnimationController* getAnimationController() const;
+#ifdef MODULE_PHYSICS_ENABLED
     PhysicsController* getPhysicsController() const;
+#endif // #ifdef MODULE_PHYSICS_ENABLED
     ScriptController* getScriptController() const;
     void displayKeyboard(bool display);
     virtual void keyEvent(Keyboard::KeyEvent evt, int key);

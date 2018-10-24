@@ -122,10 +122,12 @@ AnimationController* Sample::getAnimationController() const
     return Game::getInstance()->getAnimationController();
 }
 
+#ifdef MODULE_PHYSICS_ENABLED
 PhysicsController* Sample::getPhysicsController() const
 {
     return Game::getInstance()->getPhysicsController();
 }
+#endif // #ifdef MODULE_PHYSICS_ENABLED
 
 ScriptController* Sample::getScriptController() const
 {

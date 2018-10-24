@@ -1,3 +1,5 @@
+#ifdef MODULE_PHYSICS_ENABLED
+
 #include "Base.h"
 #include "Node.h"
 #include "PhysicsVehicle.h"
@@ -475,3 +477,5 @@ void PhysicsVehicleWheel::setRollInfluence(float rollInfluence)
 }
 
 }
+
+#endif // #ifdef MODULE_PHYSICS_ENABLED

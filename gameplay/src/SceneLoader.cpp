@@ -138,9 +138,11 @@ Scene* SceneLoader::loadInternal(const char* url)
         }
     }
 
+#ifdef MODULE_PHYSICS_ENABLED
     // Load physics properties and constraints.
     if (physics)
         loadPhysics(physics);
+#endif // #ifdef MODULE_PHYSICS_ENABLED
 
     // Clean up all loaded properties objects.
     std::map<std::string, Properties*>::iterator iter = _propertiesFromFile.begin();
@@ -368,8 +370,9 @@ void SceneLoader::applyNodeProperty(SceneNode& sceneNode, Node* node, const Prop
 
                             // Create collision object with new rigidBodyModel (aka collisionMesh) set.
                             node->setDrawable(dynamic_cast<Model*>(modelNode->getDrawable()));
+#ifdef MODULE_PHYSICS_ENABLED
                             node->setCollisionObject(p);
-
+#endif // #ifdef MODULE_PHYSICS_ENABLED
                             // Restore original model.
                             node->setDrawable(model);
 
@@ -379,8 +382,10 @@ void SceneLoader::applyNodeProperty(SceneNode& sceneNode, Node* node, const Prop
                         }
                     }
                 }
+#ifdef MODULE_PHYSICS_ENABLED
                 else
                     node->setCollisionObject(p);
+#endif // #ifdef MODULE_PHYSICS_ENABLED
             }
             break;
         }
@@ -885,6 +890,7 @@ void SceneLoader::createAnimations()
     }
 }
 
+#ifdef MODULE_PHYSICS_ENABLED
 PhysicsConstraint* SceneLoader::loadGenericConstraint(const Properties* constraint, PhysicsRigidBody* rbA, PhysicsRigidBody* rbB)
 {
     GP_ASSERT(rbA);
@@ -988,6 +994,7 @@ PhysicsConstraint* SceneLoader::loadHingeConstraint(const Properties* constraint
 
     return physicsConstraint;
 }
+#endif // #ifdef MODULE_PHYSICS_ENABLED
 
 Scene* SceneLoader::loadMainSceneData(const Properties* sceneProperties)
 {
@@ -1014,6 +1021,7 @@ Scene* SceneLoader::loadMainSceneData(const Properties* sceneProperties)
     return scene;
 }
 
+#ifdef MODULE_PHYSICS_ENABLED
 void SceneLoader::loadPhysics(Properties* physics)
 {
     GP_ASSERT(physics);
@@ -1121,7 +1129,8 @@ void SceneLoader::loadPhysics(Properties* physics)
         }
     }
 }
-
+#endif // #ifdef MODULE_PHYSICS_ENABLED
+    
 void SceneLoader::loadReferencedFiles()
 {
     // Load all referenced properties files.
@@ -1165,6 +1174,7 @@ void SceneLoader::loadReferencedFiles()
     }
 }
 
+#ifdef MODULE_PHYSICS_ENABLED
 PhysicsConstraint* SceneLoader::loadSocketConstraint(const Properties* constraint, PhysicsRigidBody* rbA, PhysicsRigidBody* rbB)
 {
     GP_ASSERT(rbA);
@@ -1266,6 +1276,7 @@ PhysicsConstraint* SceneLoader::loadSpringConstraint(const Properties* constrain
 
     return physicsConstraint;
 }
+#endif // #ifdef MODULE_PHYSICS_ENABLED
 
 void splitURL(const std::string& url, std::string* file, std::string* id)
 {

@@ -44,7 +44,9 @@ void luaRegister_Game()
         {"getGamepad", lua_Game_getGamepad},
         {"getGamepadCount", lua_Game_getGamepadCount},
         {"getHeight", lua_Game_getHeight},
+#ifdef MODULE_PHYSICS_ENABLED
         {"getPhysicsController", lua_Game_getPhysicsController},
+#endif // #ifdef MODULE_PHYSICS_ENABLED
         {"getScriptController", lua_Game_getScriptController},
         {"getSensorValues", lua_Game_getSensorValues},
         {"getState", lua_Game_getState},
@@ -1219,6 +1221,7 @@ int lua_Game_getHeight(lua_State* state)
     return 0;
 }
 
+#ifdef MODULE_PHYSICS_ENABLED
 int lua_Game_getPhysicsController(lua_State* state)
 {
     // Get the number of parameters.
@@ -1262,6 +1265,7 @@ int lua_Game_getPhysicsController(lua_State* state)
     }
     return 0;
 }
+#endif // #ifdef MODULE_PHYSICS_ENABLED
 
 int lua_Game_getScriptController(lua_State* state)
 {

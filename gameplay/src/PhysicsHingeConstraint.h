@@ -1,6 +1,8 @@
 #ifndef PHYSICSHINGECONSTRAINT_H_
 #define PHYSICSHINGECONSTRAINT_H_
 
+#ifdef MODULE_PHYSICS_ENABLED
+
 #include "PhysicsConstraint.h"
 #include "PhysicsRigidBody.h"
 #include "Quaternion.h"
@@ -61,5 +63,7 @@ private:
 };
 
 }
+
+#endif // #ifdef MODULE_PHYSICS_ENABLED
 
 #endif

@@ -1,3 +1,5 @@
+#ifdef MODULE_PHYSICS_ENABLED
+
 #include "Base.h"
 #include "PhysicsCollisionShape.h"
 #include "Node.h"
@@ -451,3 +453,5 @@ PhysicsCollisionShape::Definition PhysicsCollisionShape::mesh(Mesh* mesh)
 }
 
 }
+
+#endif // #ifdef MODULE_PHYSICS_ENABLED

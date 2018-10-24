@@ -25,7 +25,11 @@ namespace gameplay
 
 Node::Node(const char* id)
     : _scene(NULL), _firstChild(NULL), _nextSibling(NULL), _prevSibling(NULL), _parent(NULL), _childCount(0), _enabled(true), _tags(NULL),
-    _drawable(NULL), _camera(NULL), _light(NULL), _audioSource(NULL), _collisionObject(NULL), _agent(NULL), _userObject(NULL),
+    _drawable(NULL), _camera(NULL), _light(NULL), _audioSource(NULL),
+#ifdef MODULE_PHYSICS_ENABLED
+    _collisionObject(NULL),
+#endif // #ifdef MODULE_PHYSICS_ENABLED
+    _agent(NULL), _userObject(NULL),
       _dirtyBits(NODE_DIRTY_ALL)
 {
     GP_REGISTER_SCRIPT_EVENTS();
@@ -47,7 +51,9 @@ Node::~Node()
     SAFE_RELEASE(_camera);
     SAFE_RELEASE(_light);
     SAFE_RELEASE(_audioSource);
+#ifdef MODULE_PHYSICS_ENABLED
     SAFE_DELETE(_collisionObject);
+#endif // #ifdef MODULE_PHYSICS_ENABLED
     SAFE_RELEASE(_userObject);
     SAFE_DELETE(_tags);
     setAgent(NULL);
@@ -367,10 +373,12 @@ void Node::setEnabled(bool enabled)
 {
     if (_enabled != enabled)
     {
+#ifdef MODULE_PHYSICS_ENABLED
         if (_collisionObject)
         {
             _collisionObject->setEnabled(enabled);
         }
+#endif // #ifdef MODULE_PHYSICS_ENABLED
         _enabled = enabled;
     }
 }
@@ -411,7 +419,11 @@ void Node::update(float elapsedTime)
 
 bool Node::isStatic() const
 {
+#ifdef MODULE_PHYSICS_ENABLED
     return (_collisionObject && _collisionObject->isStatic());
+#else
+    return true;
+#endif // #ifdef MODULE_PHYSICS_ENABLED
 }
 
 const Matrix& Node::getWorldMatrix() const
@@ -427,7 +439,11 @@ const Matrix& Node::getWorldMatrix() const
             // If we have a parent, multiply our parent world transform by our local
             // transform to obtain our final resolved world transform.
             Node* parent = getParent();
-            if (parent && (!_collisionObject || _collisionObject->isKinematic()))
+            if (parent
+#ifdef MODULE_PHYSICS_ENABLED
+                && (!_collisionObject || _collisionObject->isKinematic())
+#endif // #ifdef MODULE_PHYSICS_ENABLED
+                )
             {
                 Matrix::multiply(parent->getWorldMatrix(), getMatrix(), &_world);
             }
@@ -1028,6 +1044,7 @@ void Node::setAudioSource(AudioSource* audio)
     }
 }
 
+#ifdef MODULE_PHYSICS_ENABLED
 PhysicsCollisionObject* Node::getCollisionObject() const
 {
     return _collisionObject;
@@ -1157,6 +1174,7 @@ PhysicsCollisionObject* Node::setCollisionObject(Properties* properties)
 
     return _collisionObject;
 }
+#endif // #ifdef MODULE_PHYSICS_ENABLED
 
 AIAgent* Node::getAgent() const
 {

@@ -1,3 +1,5 @@
+#ifdef MODULE_PHYSICS_ENABLED
+
 #include "Base.h"
 #include "PhysicsConstraint.h"
 #include "Game.h"
@@ -157,3 +159,5 @@ Vector3 PhysicsConstraint::offsetByCenterOfMass(const Node* node, const Vector3&
 }
 
 }
+
+#endif // #ifdef MODULE_PHYSICS_ENABLED

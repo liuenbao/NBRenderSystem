@@ -64,7 +64,10 @@ Game::Game()
       _frameLastFPS(0), _frameCount(0), _frameRate(0), _width(0), _height(0),
       _clearDepth(1.0f), _clearStencil(0), _properties(NULL),
       _animationController(NULL), _audioController(NULL),
-      _physicsController(NULL), _aiController(NULL), _audioListener(NULL),
+#ifdef MODULE_PHYSICS_ENABLED
+      _physicsController(NULL),
+#endif // #ifdef MODULE_PHYSICS_ENABLED
+    _aiController(NULL), _audioListener(NULL),
       _timeEvents(NULL), _scriptController(NULL), _scriptTarget(NULL)
 {
     GP_ASSERT(__gameInstance == NULL);
@@ -170,9 +173,11 @@ bool Game::startup()
     _audioController = new AudioController();
     _audioController->initialize();
 
+#ifdef MODULE_PHYSICS_ENABLED
     _physicsController = new PhysicsController();
     _physicsController->initialize();
-
+#endif // #ifdef MODULE_PHYSICS_ENABLED
+    
     _aiController = new AIController();
     _aiController->initialize();
 
@@ -265,8 +270,10 @@ void Game::shutdown()
         _audioController->finalize();
         SAFE_DELETE(_audioController);
 
+#ifdef MODULE_PHYSICS_ENABLED
         _physicsController->finalize();
         SAFE_DELETE(_physicsController);
+#endif // #ifdef MODULE_PHYSICS_ENABLED
         _aiController->finalize();
         SAFE_DELETE(_aiController);
         
@@ -300,7 +307,9 @@ void Game::pause()
         _pausedTimeLast = Platform::getAbsoluteTime();
         _animationController->pause();
         _audioController->pause();
+#ifdef MODULE_PHYSICS_ENABLED
         _physicsController->pause();
+#endif // #ifdef MODULE_PHYSICS_ENABLED
         _aiController->pause();
     }
 
@@ -323,7 +332,9 @@ void Game::resume()
             _pausedTimeTotal += Platform::getAbsoluteTime() - _pausedTimeLast;
             _animationController->resume();
             _audioController->resume();
+#ifdef MODULE_PHYSICS_ENABLED
             _physicsController->resume();
+#endif // #ifdef MODULE_PHYSICS_ENABLED
             _aiController->resume();
         }
     }
@@ -388,8 +399,10 @@ void Game::frame()
         // Update the scheduled and running animations.
         _animationController->update(elapsedTime);
 
+#ifdef MODULE_PHYSICS_ENABLED
         // Update the physics.
         _physicsController->update(elapsedTime);
+#endif // #ifdef MODULE_PHYSICS_ENABLED
 
         // Update AI.
         _aiController->update(elapsedTime);
@@ -471,7 +484,9 @@ void Game::updateOnce()
 
     // Update the internal controllers.
     _animationController->update(elapsedTime);
+#ifdef MODULE_PHYSICS_ENABLED
     _physicsController->update(elapsedTime);
+#endif // #ifdef MODULE_PHYSICS_ENABLED
     _aiController->update(elapsedTime);
     _audioController->update(elapsedTime);
     if (_scriptTarget)

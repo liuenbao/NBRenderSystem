@@ -1,6 +1,8 @@
 #ifndef PHYSICSSPRINGCONSTRAINT_H_
 #define PHYSICSSPRINGCONSTRAINT_H_
 
+#ifdef MODULE_PHYSICS_ENABLED
+
 #include "PhysicsGenericConstraint.h"
 
 namespace gameplay
@@ -192,5 +194,7 @@ private:
 }
 
 #include "PhysicsSpringConstraint.inl"
+
+#endif // #ifdef MODULE_PHYSICS_ENABLED
 
 #endif

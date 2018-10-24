@@ -732,6 +732,7 @@ void luaRegister_lua_Global()
         gameplay::ScriptUtil::registerEnumValue(ParticleEmitter::BLEND_MULTIPLIED, "BLEND_MULTIPLIED", scopePath);
     }
 
+#ifdef MODULE_PHYSICS_ENABLED
     // Register enumeration PhysicsCollisionObject::CollisionListener::EventType.
     {
         std::vector<std::string> scopePath;
@@ -773,6 +774,7 @@ void luaRegister_lua_Global()
         gameplay::ScriptUtil::registerEnumValue(PhysicsController::Listener::ACTIVATED, "ACTIVATED", scopePath);
         gameplay::ScriptUtil::registerEnumValue(PhysicsController::Listener::DEACTIVATED, "DEACTIVATED", scopePath);
     }
+#endif // #ifdef MODULE_PHYSICS_ENABLED
 
     // Register enumeration Properties::Type.
     {

@@ -54,7 +54,9 @@ void luaRegister_Node()
         {"getBoundingSphere", lua_Node_getBoundingSphere},
         {"getCamera", lua_Node_getCamera},
         {"getChildCount", lua_Node_getChildCount},
+#ifdef MODULE_PHYSICS_ENABLED
         {"getCollisionObject", lua_Node_getCollisionObject},
+#endif // #ifdef MODULE_PHYSICS_ENABLED
         {"getDownVector", lua_Node_getDownVector},
         {"getDrawable", lua_Node_getDrawable},
         {"getFirstChild", lua_Node_getFirstChild},
@@ -125,7 +127,9 @@ void luaRegister_Node()
         {"setAnimationPropertyValue", lua_Node_setAnimationPropertyValue},
         {"setAudioSource", lua_Node_setAudioSource},
         {"setCamera", lua_Node_setCamera},
+#ifdef MODULE_PHYSICS_ENABLED
         {"setCollisionObject", lua_Node_setCollisionObject},
+#endif // #ifdef MODULE_PHYSICS_ENABLED
         {"setDrawable", lua_Node_setDrawable},
         {"setEnabled", lua_Node_setEnabled},
         {"setId", lua_Node_setId},
@@ -1579,6 +1583,7 @@ int lua_Node_getChildCount(lua_State* state)
     return 0;
 }
 
+#ifdef MODULE_PHYSICS_ENABLED
 int lua_Node_getCollisionObject(lua_State* state)
 {
     // Get the number of parameters.
@@ -1622,6 +1627,7 @@ int lua_Node_getCollisionObject(lua_State* state)
     }
     return 0;
 }
+#endif // #ifdef MODULE_PHYSICS_ENABLED
 
 int lua_Node_getDownVector(lua_State* state)
 {
@@ -5032,6 +5038,7 @@ int lua_Node_setCamera(lua_State* state)
     return 0;
 }
 
+#ifdef MODULE_PHYSICS_ENABLED
 int lua_Node_setCollisionObject(lua_State* state)
 {
     // Get the number of parameters.
@@ -5302,6 +5309,7 @@ int lua_Node_setCollisionObject(lua_State* state)
     }
     return 0;
 }
+#endif // #ifdef MODULE_PHYSICS_ENABLED
 
 int lua_Node_setDrawable(lua_State* state)
 {

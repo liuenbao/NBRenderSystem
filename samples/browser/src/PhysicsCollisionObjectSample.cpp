@@ -57,12 +57,14 @@ void PhysicsCollisionObjectSample::render(float elapsedTime)
     // Visit all the nodes in the scene, drawing the models/mesh.
     _scene->visit(this, &PhysicsCollisionObjectSample::drawScene);
 
+#ifdef MODULE_PHYSICS_ENABLED
     if (_drawDebug == 1)
     {
         // Draw the physics debug information.
         getPhysicsController()->drawDebug(_scene->getActiveCamera()->getViewProjectionMatrix());
     }
-
+#endif // #ifdef MODULE_PHYSICS_ENABLED
+    
     drawFrameRate(_font, Vector4(0, 0.5f, 1, 1), 5, 1, getFrameRate());
 
     _form->draw();
@@ -171,6 +173,7 @@ void PhysicsCollisionObjectSample::fireProjectile(const Ray& ray)
             clone->setTranslation(position);
         }
     }
+#ifdef MODULE_PHYSICS_ENABLED
     // It is important to set the transform before attaching the collision object because this rigid body is not kinematic.
     // Once the non-kinematic rigid body is attached, you should only move the object using forces.
     PhysicsCollisionObject* collisionObject = clone->setCollisionObject(_collisionObjectPaths[_objectType]);
@@ -183,6 +186,7 @@ void PhysicsCollisionObjectSample::fireProjectile(const Ray& ray)
         impulse.scale(50.0f * rigidBody->getMass());
         rigidBody->applyImpulse(impulse);
     }
+#endif // #ifdef MODULE_PHYSICS_ENABLED
     // Release the new cloned node because the scene now holds the reference to it.
     clone->release();
 }
