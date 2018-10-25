@@ -38,14 +38,6 @@
 		42CC55911809A4EF00AAD8AD /* AnimationTarget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC53091809A4EB00AAD8AD /* AnimationTarget.cpp */; };
 		42CC55941809A4EF00AAD8AD /* AnimationValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC530B1809A4EB00AAD8AD /* AnimationValue.cpp */; };
 		42CC55951809A4EF00AAD8AD /* AnimationValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC530B1809A4EB00AAD8AD /* AnimationValue.cpp */; };
-		42CC55981809A4EF00AAD8AD /* AudioBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC530D1809A4EB00AAD8AD /* AudioBuffer.cpp */; };
-		42CC55991809A4EF00AAD8AD /* AudioBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC530D1809A4EB00AAD8AD /* AudioBuffer.cpp */; };
-		42CC559C1809A4EF00AAD8AD /* AudioController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC530F1809A4EB00AAD8AD /* AudioController.cpp */; };
-		42CC559D1809A4EF00AAD8AD /* AudioController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC530F1809A4EB00AAD8AD /* AudioController.cpp */; };
-		42CC55A01809A4EF00AAD8AD /* AudioListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC53111809A4EB00AAD8AD /* AudioListener.cpp */; };
-		42CC55A11809A4EF00AAD8AD /* AudioListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC53111809A4EB00AAD8AD /* AudioListener.cpp */; };
-		42CC55A41809A4EF00AAD8AD /* AudioSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC53131809A4EB00AAD8AD /* AudioSource.cpp */; };
-		42CC55A51809A4EF00AAD8AD /* AudioSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC53131809A4EB00AAD8AD /* AudioSource.cpp */; };
 		42CC55AA1809A4EF00AAD8AD /* BoundingBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC53161809A4EB00AAD8AD /* BoundingBox.cpp */; };
 		42CC55AB1809A4EF00AAD8AD /* BoundingBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC53161809A4EB00AAD8AD /* BoundingBox.cpp */; };
 		42CC55AE1809A4EF00AAD8AD /* BoundingSphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC53191809A4EB00AAD8AD /* BoundingSphere.cpp */; };
@@ -86,14 +78,6 @@
 		42CC55F31809A4EF00AAD8AD /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC533C1809A4EB00AAD8AD /* Game.cpp */; };
 		42CC55F61809A4EF00AAD8AD /* Gamepad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC533F1809A4EB00AAD8AD /* Gamepad.cpp */; };
 		42CC55F71809A4EF00AAD8AD /* Gamepad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC533F1809A4EB00AAD8AD /* Gamepad.cpp */; };
-		42CC55FA1809A4EF00AAD8AD /* gameplay-main-android.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC53411809A4EB00AAD8AD /* gameplay-main-android.cpp */; };
-		42CC55FB1809A4EF00AAD8AD /* gameplay-main-android.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC53411809A4EB00AAD8AD /* gameplay-main-android.cpp */; };
-		42CC55FF1809A4EF00AAD8AD /* gameplay-main-ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 42CC53431809A4EB00AAD8AD /* gameplay-main-ios.mm */; };
-		42CC56001809A4EF00AAD8AD /* gameplay-main-linux.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC53441809A4EB00AAD8AD /* gameplay-main-linux.cpp */; };
-		42CC56011809A4EF00AAD8AD /* gameplay-main-linux.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC53441809A4EB00AAD8AD /* gameplay-main-linux.cpp */; };
-		42CC56021809A4EF00AAD8AD /* gameplay-main-macosx.mm in Sources */ = {isa = PBXBuildFile; fileRef = 42CC53451809A4EB00AAD8AD /* gameplay-main-macosx.mm */; };
-		42CC56041809A4EF00AAD8AD /* gameplay-main-windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC53461809A4EB00AAD8AD /* gameplay-main-windows.cpp */; };
-		42CC56051809A4EF00AAD8AD /* gameplay-main-windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC53461809A4EB00AAD8AD /* gameplay-main-windows.cpp */; };
 		42CC560A1809A4EF00AAD8AD /* HeightField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC53491809A4EB00AAD8AD /* HeightField.cpp */; };
 		42CC560B1809A4EF00AAD8AD /* HeightField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC53491809A4EB00AAD8AD /* HeightField.cpp */; };
 		42CC560E1809A4EF00AAD8AD /* Image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC534B1809A4EB00AAD8AD /* Image.cpp */; };
@@ -138,14 +122,6 @@
 		42CC596B1809A4EF00AAD8AD /* Plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC55051809A4ED00AAD8AD /* Plane.cpp */; };
 		42CC596E1809A4EF00AAD8AD /* Platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC55081809A4ED00AAD8AD /* Platform.cpp */; };
 		42CC596F1809A4EF00AAD8AD /* Platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC55081809A4ED00AAD8AD /* Platform.cpp */; };
-		42CC59721809A4EF00AAD8AD /* PlatformAndroid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC550A1809A4ED00AAD8AD /* PlatformAndroid.cpp */; };
-		42CC59731809A4EF00AAD8AD /* PlatformAndroid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC550A1809A4ED00AAD8AD /* PlatformAndroid.cpp */; };
-		42CC59771809A4EF00AAD8AD /* PlatformiOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 42CC550C1809A4ED00AAD8AD /* PlatformiOS.mm */; };
-		42CC59781809A4EF00AAD8AD /* PlatformLinux.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC550D1809A4ED00AAD8AD /* PlatformLinux.cpp */; };
-		42CC59791809A4EF00AAD8AD /* PlatformLinux.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC550D1809A4ED00AAD8AD /* PlatformLinux.cpp */; };
-		42CC597A1809A4EF00AAD8AD /* PlatformMacOSX.mm in Sources */ = {isa = PBXBuildFile; fileRef = 42CC550E1809A4ED00AAD8AD /* PlatformMacOSX.mm */; };
-		42CC597C1809A4EF00AAD8AD /* PlatformWindows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC550F1809A4EE00AAD8AD /* PlatformWindows.cpp */; };
-		42CC597D1809A4EF00AAD8AD /* PlatformWindows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC550F1809A4EE00AAD8AD /* PlatformWindows.cpp */; };
 		42CC597E1809A4EF00AAD8AD /* Properties.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC55101809A4EE00AAD8AD /* Properties.cpp */; };
 		42CC597F1809A4EF00AAD8AD /* Properties.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC55101809A4EE00AAD8AD /* Properties.cpp */; };
 		42CC59821809A4EF00AAD8AD /* Quaternion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC55121809A4EE00AAD8AD /* Quaternion.cpp */; };
@@ -251,14 +227,6 @@
 		42CC530A1809A4EB00AAD8AD /* AnimationTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimationTarget.h; path = src/AnimationTarget.h; sourceTree = SOURCE_ROOT; };
 		42CC530B1809A4EB00AAD8AD /* AnimationValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AnimationValue.cpp; path = src/AnimationValue.cpp; sourceTree = SOURCE_ROOT; };
 		42CC530C1809A4EB00AAD8AD /* AnimationValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimationValue.h; path = src/AnimationValue.h; sourceTree = SOURCE_ROOT; };
-		42CC530D1809A4EB00AAD8AD /* AudioBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AudioBuffer.cpp; path = src/AudioBuffer.cpp; sourceTree = SOURCE_ROOT; };
-		42CC530E1809A4EB00AAD8AD /* AudioBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioBuffer.h; path = src/AudioBuffer.h; sourceTree = SOURCE_ROOT; };
-		42CC530F1809A4EB00AAD8AD /* AudioController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AudioController.cpp; path = src/AudioController.cpp; sourceTree = SOURCE_ROOT; };
-		42CC53101809A4EB00AAD8AD /* AudioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioController.h; path = src/AudioController.h; sourceTree = SOURCE_ROOT; };
-		42CC53111809A4EB00AAD8AD /* AudioListener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AudioListener.cpp; path = src/AudioListener.cpp; sourceTree = SOURCE_ROOT; };
-		42CC53121809A4EB00AAD8AD /* AudioListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioListener.h; path = src/AudioListener.h; sourceTree = SOURCE_ROOT; };
-		42CC53131809A4EB00AAD8AD /* AudioSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AudioSource.cpp; path = src/AudioSource.cpp; sourceTree = SOURCE_ROOT; };
-		42CC53141809A4EB00AAD8AD /* AudioSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioSource.h; path = src/AudioSource.h; sourceTree = SOURCE_ROOT; };
 		42CC53151809A4EB00AAD8AD /* Base.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Base.h; path = src/Base.h; sourceTree = SOURCE_ROOT; };
 		42CC53161809A4EB00AAD8AD /* BoundingBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BoundingBox.cpp; path = src/BoundingBox.cpp; sourceTree = SOURCE_ROOT; };
 		42CC53171809A4EB00AAD8AD /* BoundingBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BoundingBox.h; path = src/BoundingBox.h; sourceTree = SOURCE_ROOT; };
@@ -303,11 +271,6 @@
 		42CC533E1809A4EB00AAD8AD /* Game.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Game.inl; path = src/Game.inl; sourceTree = SOURCE_ROOT; };
 		42CC533F1809A4EB00AAD8AD /* Gamepad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Gamepad.cpp; path = src/Gamepad.cpp; sourceTree = SOURCE_ROOT; };
 		42CC53401809A4EB00AAD8AD /* Gamepad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Gamepad.h; path = src/Gamepad.h; sourceTree = SOURCE_ROOT; };
-		42CC53411809A4EB00AAD8AD /* gameplay-main-android.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "gameplay-main-android.cpp"; path = "src/gameplay-main-android.cpp"; sourceTree = SOURCE_ROOT; };
-		42CC53431809A4EB00AAD8AD /* gameplay-main-ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "gameplay-main-ios.mm"; path = "src/gameplay-main-ios.mm"; sourceTree = SOURCE_ROOT; };
-		42CC53441809A4EB00AAD8AD /* gameplay-main-linux.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "gameplay-main-linux.cpp"; path = "src/gameplay-main-linux.cpp"; sourceTree = SOURCE_ROOT; };
-		42CC53451809A4EB00AAD8AD /* gameplay-main-macosx.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "gameplay-main-macosx.mm"; path = "src/gameplay-main-macosx.mm"; sourceTree = SOURCE_ROOT; };
-		42CC53461809A4EB00AAD8AD /* gameplay-main-windows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "gameplay-main-windows.cpp"; path = "src/gameplay-main-windows.cpp"; sourceTree = SOURCE_ROOT; };
 		42CC53471809A4EB00AAD8AD /* gameplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gameplay.h; path = src/gameplay.h; sourceTree = SOURCE_ROOT; };
 		42CC53481809A4EB00AAD8AD /* Gesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Gesture.h; path = src/Gesture.h; sourceTree = SOURCE_ROOT; };
 		42CC53491809A4EB00AAD8AD /* HeightField.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HeightField.cpp; path = src/HeightField.cpp; sourceTree = SOURCE_ROOT; };
@@ -362,11 +325,6 @@
 		42CC55071809A4ED00AAD8AD /* Plane.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Plane.inl; path = src/Plane.inl; sourceTree = SOURCE_ROOT; };
 		42CC55081809A4ED00AAD8AD /* Platform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Platform.cpp; path = src/Platform.cpp; sourceTree = SOURCE_ROOT; };
 		42CC55091809A4ED00AAD8AD /* Platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Platform.h; path = src/Platform.h; sourceTree = SOURCE_ROOT; };
-		42CC550A1809A4ED00AAD8AD /* PlatformAndroid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlatformAndroid.cpp; path = src/PlatformAndroid.cpp; sourceTree = SOURCE_ROOT; };
-		42CC550C1809A4ED00AAD8AD /* PlatformiOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PlatformiOS.mm; path = src/PlatformiOS.mm; sourceTree = SOURCE_ROOT; };
-		42CC550D1809A4ED00AAD8AD /* PlatformLinux.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlatformLinux.cpp; path = src/PlatformLinux.cpp; sourceTree = SOURCE_ROOT; };
-		42CC550E1809A4ED00AAD8AD /* PlatformMacOSX.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PlatformMacOSX.mm; path = src/PlatformMacOSX.mm; sourceTree = SOURCE_ROOT; };
-		42CC550F1809A4EE00AAD8AD /* PlatformWindows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlatformWindows.cpp; path = src/PlatformWindows.cpp; sourceTree = SOURCE_ROOT; };
 		42CC55101809A4EE00AAD8AD /* Properties.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Properties.cpp; path = src/Properties.cpp; sourceTree = SOURCE_ROOT; };
 		42CC55111809A4EE00AAD8AD /* Properties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Properties.h; path = src/Properties.h; sourceTree = SOURCE_ROOT; };
 		42CC55121809A4EE00AAD8AD /* Quaternion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Quaternion.cpp; path = src/Quaternion.cpp; sourceTree = SOURCE_ROOT; };
@@ -524,14 +482,6 @@
 				42CC530A1809A4EB00AAD8AD /* AnimationTarget.h */,
 				42CC530B1809A4EB00AAD8AD /* AnimationValue.cpp */,
 				42CC530C1809A4EB00AAD8AD /* AnimationValue.h */,
-				42CC530D1809A4EB00AAD8AD /* AudioBuffer.cpp */,
-				42CC530E1809A4EB00AAD8AD /* AudioBuffer.h */,
-				42CC530F1809A4EB00AAD8AD /* AudioController.cpp */,
-				42CC53101809A4EB00AAD8AD /* AudioController.h */,
-				42CC53111809A4EB00AAD8AD /* AudioListener.cpp */,
-				42CC53121809A4EB00AAD8AD /* AudioListener.h */,
-				42CC53131809A4EB00AAD8AD /* AudioSource.cpp */,
-				42CC53141809A4EB00AAD8AD /* AudioSource.h */,
 				42CC53151809A4EB00AAD8AD /* Base.h */,
 				42CC53161809A4EB00AAD8AD /* BoundingBox.cpp */,
 				42CC53171809A4EB00AAD8AD /* BoundingBox.h */,
@@ -580,11 +530,6 @@
 				42CC533E1809A4EB00AAD8AD /* Game.inl */,
 				42CC533F1809A4EB00AAD8AD /* Gamepad.cpp */,
 				42CC53401809A4EB00AAD8AD /* Gamepad.h */,
-				42CC53411809A4EB00AAD8AD /* gameplay-main-android.cpp */,
-				42CC53431809A4EB00AAD8AD /* gameplay-main-ios.mm */,
-				42CC53441809A4EB00AAD8AD /* gameplay-main-linux.cpp */,
-				42CC53451809A4EB00AAD8AD /* gameplay-main-macosx.mm */,
-				42CC53461809A4EB00AAD8AD /* gameplay-main-windows.cpp */,
 				42CC53471809A4EB00AAD8AD /* gameplay.h */,
 				42CC53481809A4EB00AAD8AD /* Gesture.h */,
 				42CC53491809A4EB00AAD8AD /* HeightField.cpp */,
@@ -641,11 +586,6 @@
 				42CC55071809A4ED00AAD8AD /* Plane.inl */,
 				42CC55081809A4ED00AAD8AD /* Platform.cpp */,
 				42CC55091809A4ED00AAD8AD /* Platform.h */,
-				42CC550A1809A4ED00AAD8AD /* PlatformAndroid.cpp */,
-				42CC550C1809A4ED00AAD8AD /* PlatformiOS.mm */,
-				42CC550D1809A4ED00AAD8AD /* PlatformLinux.cpp */,
-				42CC550E1809A4ED00AAD8AD /* PlatformMacOSX.mm */,
-				42CC550F1809A4EE00AAD8AD /* PlatformWindows.cpp */,
 				42CC55101809A4EE00AAD8AD /* Properties.cpp */,
 				42CC55111809A4EE00AAD8AD /* Properties.h */,
 				42CC55121809A4EE00AAD8AD /* Quaternion.cpp */,
@@ -822,9 +762,7 @@
 			files = (
 				42CC59861809A4EF00AAD8AD /* RadioButton.cpp in Sources */,
 				42CC596E1809A4EF00AAD8AD /* Platform.cpp in Sources */,
-				42CC56001809A4EF00AAD8AD /* gameplay-main-linux.cpp in Sources */,
 				42CC598A1809A4EF00AAD8AD /* Ray.cpp in Sources */,
-				42CC56041809A4EF00AAD8AD /* gameplay-main-windows.cpp in Sources */,
 				42CC59AE1809A4EF00AAD8AD /* ScreenDisplayer.cpp in Sources */,
 				42CC599A1809A4EF00AAD8AD /* RenderTarget.cpp in Sources */,
 				42CC59E61809A4EF00AAD8AD /* Technique.cpp in Sources */,
@@ -834,12 +772,9 @@
 				42CC59F61809A4EF00AAD8AD /* Texture.cpp in Sources */,
 				42CC55CA1809A4EF00AAD8AD /* Curve.cpp in Sources */,
 				42CC599E1809A4EF00AAD8AD /* Scene.cpp in Sources */,
-				42CC55981809A4EF00AAD8AD /* AudioBuffer.cpp in Sources */,
-				42CC55A41809A4EF00AAD8AD /* AudioSource.cpp in Sources */,
 				42CC55C61809A4EF00AAD8AD /* Control.cpp in Sources */,
 				42CC56161809A4EF00AAD8AD /* Joint.cpp in Sources */,
 				42CC59961809A4EF00AAD8AD /* RenderState.cpp in Sources */,
-				42CC59721809A4EF00AAD8AD /* PlatformAndroid.cpp in Sources */,
 				42CC55881809A4EF00AAD8AD /* AnimationClip.cpp in Sources */,
 				42CC59921809A4EF00AAD8AD /* Ref.cpp in Sources */,
 				42CC59EA1809A4EF00AAD8AD /* Terrain.cpp in Sources */,
@@ -868,16 +803,13 @@
 				42CC59F21809A4EF00AAD8AD /* TextBox.cpp in Sources */,
 				42CC5A1A1809A4EF00AAD8AD /* VertexFormat.cpp in Sources */,
 				42CC5A061809A4EF00AAD8AD /* Transform.cpp in Sources */,
-				42CC559C1809A4EF00AAD8AD /* AudioController.cpp in Sources */,
 				42CC55BE1809A4EF00AAD8AD /* CheckBox.cpp in Sources */,
 				42CC5A0A1809A4EF00AAD8AD /* Vector2.cpp in Sources */,
-				42CC55A01809A4EF00AAD8AD /* AudioListener.cpp in Sources */,
 				42CC5A121809A4EF00AAD8AD /* Vector4.cpp in Sources */,
 				42CC59BA1809A4EF00AAD8AD /* Slider.cpp in Sources */,
 				42CC59081809A4EF00AAD8AD /* MathUtil.cpp in Sources */,
 				42CC55EA1809A4EF00AAD8AD /* FrameBuffer.cpp in Sources */,
 				42CC59261809A4EF00AAD8AD /* Node.cpp in Sources */,
-				42CC597A1809A4EF00AAD8AD /* PlatformMacOSX.mm in Sources */,
 				4204EC451A2F878C0074FCE9 /* Sprite.cpp in Sources */,
 				42CC592A1809A4EF00AAD8AD /* ParticleEmitter.cpp in Sources */,
 				42CC560A1809A4EF00AAD8AD /* HeightField.cpp in Sources */,
@@ -893,10 +825,8 @@
 				42CC55801809A4EF00AAD8AD /* AIStateMachine.cpp in Sources */,
 				42CC560E1809A4EF00AAD8AD /* Image.cpp in Sources */,
 				42CC591C1809A4EF00AAD8AD /* MeshSkin.cpp in Sources */,
-				42CC56021809A4EF00AAD8AD /* gameplay-main-macosx.mm in Sources */,
 				420BBC0E1817416F00C7B720 /* ControlFactory.cpp in Sources */,
 				42CC55741809A4EF00AAD8AD /* AIController.cpp in Sources */,
-				42CC597C1809A4EF00AAD8AD /* PlatformWindows.cpp in Sources */,
 				42CC55B21809A4EF00AAD8AD /* Bundle.cpp in Sources */,
 				42CC592E1809A4EF00AAD8AD /* Pass.cpp in Sources */,
 				42CC55F61809A4EF00AAD8AD /* Gamepad.cpp in Sources */,
@@ -905,11 +835,9 @@
 				42CC59A21809A4EF00AAD8AD /* SceneLoader.cpp in Sources */,
 				42CC556C1809A4EF00AAD8AD /* AbsoluteLayout.cpp in Sources */,
 				42CC59181809A4EF00AAD8AD /* MeshPart.cpp in Sources */,
-				42CC55FA1809A4EF00AAD8AD /* gameplay-main-android.cpp in Sources */,
 				42CC55781809A4EF00AAD8AD /* AIMessage.cpp in Sources */,
 				42CC59FA1809A4EF00AAD8AD /* Theme.cpp in Sources */,
 				42CC55C21809A4EF00AAD8AD /* Container.cpp in Sources */,
-				42CC59781809A4EF00AAD8AD /* PlatformLinux.cpp in Sources */,
 				42CC55F21809A4EF00AAD8AD /* Game.cpp in Sources */,
 				42CC59101809A4EF00AAD8AD /* Mesh.cpp in Sources */,
 				42CC55DA1809A4EF00AAD8AD /* FileSystem.cpp in Sources */,
@@ -927,9 +855,7 @@
 			files = (
 				42CC59871809A4EF00AAD8AD /* RadioButton.cpp in Sources */,
 				42CC596F1809A4EF00AAD8AD /* Platform.cpp in Sources */,
-				42CC56011809A4EF00AAD8AD /* gameplay-main-linux.cpp in Sources */,
 				42CC598B1809A4EF00AAD8AD /* Ray.cpp in Sources */,
-				42CC56051809A4EF00AAD8AD /* gameplay-main-windows.cpp in Sources */,
 				42CC59AF1809A4EF00AAD8AD /* ScreenDisplayer.cpp in Sources */,
 				42CC599B1809A4EF00AAD8AD /* RenderTarget.cpp in Sources */,
 				42CC59E71809A4EF00AAD8AD /* Technique.cpp in Sources */,
@@ -939,13 +865,9 @@
 				42CC59F71809A4EF00AAD8AD /* Texture.cpp in Sources */,
 				42CC55CB1809A4EF00AAD8AD /* Curve.cpp in Sources */,
 				42CC599F1809A4EF00AAD8AD /* Scene.cpp in Sources */,
-				42CC55FF1809A4EF00AAD8AD /* gameplay-main-ios.mm in Sources */,
-				42CC55991809A4EF00AAD8AD /* AudioBuffer.cpp in Sources */,
-				42CC55A51809A4EF00AAD8AD /* AudioSource.cpp in Sources */,
 				42CC55C71809A4EF00AAD8AD /* Control.cpp in Sources */,
 				42CC56171809A4EF00AAD8AD /* Joint.cpp in Sources */,
 				42CC59971809A4EF00AAD8AD /* RenderState.cpp in Sources */,
-				42CC59731809A4EF00AAD8AD /* PlatformAndroid.cpp in Sources */,
 				42CC55891809A4EF00AAD8AD /* AnimationClip.cpp in Sources */,
 				42CC59931809A4EF00AAD8AD /* Ref.cpp in Sources */,
 				42CC59EB1809A4EF00AAD8AD /* Terrain.cpp in Sources */,
@@ -971,14 +893,11 @@
 				42CC59051809A4EF00AAD8AD /* MaterialParameter.cpp in Sources */,
 				42CC55851809A4EF00AAD8AD /* Animation.cpp in Sources */,
 				42CC558D1809A4EF00AAD8AD /* AnimationController.cpp in Sources */,
-				42CC59771809A4EF00AAD8AD /* PlatformiOS.mm in Sources */,
 				42CC59F31809A4EF00AAD8AD /* TextBox.cpp in Sources */,
 				42CC5A1B1809A4EF00AAD8AD /* VertexFormat.cpp in Sources */,
 				42CC5A071809A4EF00AAD8AD /* Transform.cpp in Sources */,
-				42CC559D1809A4EF00AAD8AD /* AudioController.cpp in Sources */,
 				42CC55BF1809A4EF00AAD8AD /* CheckBox.cpp in Sources */,
 				42CC5A0B1809A4EF00AAD8AD /* Vector2.cpp in Sources */,
-				42CC55A11809A4EF00AAD8AD /* AudioListener.cpp in Sources */,
 				42CC5A131809A4EF00AAD8AD /* Vector4.cpp in Sources */,
 				42CC59BB1809A4EF00AAD8AD /* Slider.cpp in Sources */,
 				42CC59091809A4EF00AAD8AD /* MathUtil.cpp in Sources */,
@@ -1001,7 +920,6 @@
 				42CC591D1809A4EF00AAD8AD /* MeshSkin.cpp in Sources */,
 				420BBC0F1817416F00C7B720 /* ControlFactory.cpp in Sources */,
 				42CC55751809A4EF00AAD8AD /* AIController.cpp in Sources */,
-				42CC597D1809A4EF00AAD8AD /* PlatformWindows.cpp in Sources */,
 				42CC55B31809A4EF00AAD8AD /* Bundle.cpp in Sources */,
 				42CC592F1809A4EF00AAD8AD /* Pass.cpp in Sources */,
 				42CC55F71809A4EF00AAD8AD /* Gamepad.cpp in Sources */,
@@ -1010,11 +928,9 @@
 				42CC59A31809A4EF00AAD8AD /* SceneLoader.cpp in Sources */,
 				42CC556D1809A4EF00AAD8AD /* AbsoluteLayout.cpp in Sources */,
 				42CC59191809A4EF00AAD8AD /* MeshPart.cpp in Sources */,
-				42CC55FB1809A4EF00AAD8AD /* gameplay-main-android.cpp in Sources */,
 				42CC55791809A4EF00AAD8AD /* AIMessage.cpp in Sources */,
 				42CC59FB1809A4EF00AAD8AD /* Theme.cpp in Sources */,
 				42CC55C31809A4EF00AAD8AD /* Container.cpp in Sources */,
-				42CC59791809A4EF00AAD8AD /* PlatformLinux.cpp in Sources */,
 				42CC55F31809A4EF00AAD8AD /* Game.cpp in Sources */,
 				42CC59111809A4EF00AAD8AD /* Mesh.cpp in Sources */,
 				42CC55DB1809A4EF00AAD8AD /* FileSystem.cpp in Sources */,
