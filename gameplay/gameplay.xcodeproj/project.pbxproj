@@ -715,8 +715,7 @@
 				42CC55671809A4EE00AAD8AD /* VerticalLayout.cpp */,
 				42CC55681809A4EE00AAD8AD /* VerticalLayout.h */,
 			);
-			name = src;
-			path = gameplay;
+			path = src;
 			sourceTree = "<group>";
 		};
 		42CCD4AF146D811D00353661 /* Frameworks */ = {
