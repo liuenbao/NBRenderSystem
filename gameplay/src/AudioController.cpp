@@ -1,3 +1,5 @@
+#ifdef MODULE_AUDIO_ENABLED
+
 #include "Base.h"
 #include "AudioController.h"
 #include "AudioListener.h"
@@ -169,3 +171,5 @@ void AudioController::streamingThreadProc(void* arg)
 }
 
 }
+
+#endif // #ifdef MODULE_AUDIO_ENABLED

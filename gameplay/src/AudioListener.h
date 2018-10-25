@@ -1,6 +1,8 @@
 #ifndef AUDIOLISTENER_H_
 #define AUDIOLISTENER_H_
 
+#ifdef MODULE_AUDIO_ENABLED
+
 #include "Vector3.h"
 #include "Transform.h"
 #include "Camera.h"
@@ -172,5 +174,7 @@ private:
 };
 
 }
+
+#endif // #ifdef MODULE_AUDIO_ENABLED
 
 #endif

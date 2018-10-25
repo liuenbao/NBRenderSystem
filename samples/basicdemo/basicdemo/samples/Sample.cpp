@@ -112,10 +112,12 @@ void Sample::clear(Game::ClearFlags flags, float red, float green, float blue, f
     Game::getInstance()->clear(flags, red, green, blue, alpha, clearDepth, clearStencil);
 }
 
+#ifdef MODULE_AUDIO_ENABLED
 AudioController* Sample::getAudioController() const
 {
     return Game::getInstance()->getAudioController();
 }
+#endif // #ifdef MODULE_AUDIO_ENABLED
 
 AnimationController* Sample::getAnimationController() const
 {

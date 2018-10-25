@@ -2,6 +2,7 @@
 #include "AnimationController.h"
 #include "Game.h"
 #include "Curve.h"
+#include "Transform.h"
 
 namespace gameplay
 {

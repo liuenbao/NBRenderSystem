@@ -1,3 +1,5 @@
+#ifdef MODULE_AUDIO_ENABLED
+
 #include "Base.h"
 #include "Node.h"
 #include "AudioBuffer.h"
@@ -362,3 +364,5 @@ bool AudioSource::streamDataIfNeeded()
 }
 
 }
+
+#endif // #ifdef MODULE_AUDIO_ENABLED

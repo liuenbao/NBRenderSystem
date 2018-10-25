@@ -46,7 +46,9 @@ public:
     float getAspectRatio() const;
     void clear(Game::ClearFlags flags, const Vector4& clearColor, float clearDepth, int clearStencil);
     void clear(Game::ClearFlags flags, float red, float green, float blue, float alpha, float clearDepth, int clearStencil);
+#ifdef MODULE_AUDIO_ENABLED
     AudioController* getAudioController() const;
+#endif // #ifdef MODULE_AUDIO_ENABLED
     AnimationController* getAnimationController() const;
 #ifdef MODULE_PHYSICS_ENABLED
     PhysicsController* getPhysicsController() const;

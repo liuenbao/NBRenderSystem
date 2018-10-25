@@ -229,6 +229,7 @@ public:
      */
     void clear(ClearFlags flags, float red, float green, float blue, float alpha, float clearDepth, int clearStencil);
 
+#ifdef MODULE_AUDIO_ENABLED
     /**
      * Gets the audio controller for managing control of audio
      * associated with the game.
@@ -236,6 +237,7 @@ public:
      * @return The audio controller for this game.
      */
     inline AudioController* getAudioController() const;
+#endif // #ifdef MODULE_AUDIO_ENABLED
 
     /**
      * Gets the animation controller for managing control of animations
@@ -271,12 +273,14 @@ public:
      */
     inline ScriptController* getScriptController() const;
 
+#ifdef MODULE_AUDIO_ENABLED
     /**
      * Gets the audio listener for 3D audio.
      * 
      * @return The audio listener for this game.
      */
     AudioListener* getAudioListener();
+#endif // #ifdef MODULE_AUDIO_ENABLED
     
     /**
      * Shows or hides the virtual keyboard (if supported).
@@ -761,12 +765,17 @@ private:
     int _clearStencil;                          // The clear stencil value last used for clearing the stencil buffer.
     Properties* _properties;                    // Game configuration properties object.
     AnimationController* _animationController;  // Controls the scheduling and running of animations.
+#ifdef MODULE_AUDIO_ENABLED
     AudioController* _audioController;          // Controls audio sources that are playing in the game.
+#endif // #ifdef MODULE_AUDIO_ENABLED
+    
 #ifdef MODULE_PHYSICS_ENABLED
     PhysicsController* _physicsController;      // Controls the simulation of a physics scene and entities.
 #endif // // #ifdef MODULE_PHYSICS_ENABLED
     AIController* _aiController;                // Controls AI simulation.
+#ifdef MODULE_AUDIO_ENABLED
     AudioListener* _audioListener;              // The audio listener in 3D space.
+#endif // #ifdef MODULE_AUDIO_ENABLED
     std::priority_queue<TimeEvent, std::vector<TimeEvent>, std::less<TimeEvent> >* _timeEvents;     // Contains the scheduled time events.
 
 #ifdef MODULE_SCRIPT_ENABLED

@@ -711,8 +711,11 @@ protected:
     Camera* _camera;
     /** The light component attached to this node. */
     Light* _light;
+#ifdef MODULE_AUDIO_ENABLED
     /** The audio source component attached to this node. */
     AudioSource* _audioSource;
+#endif // #ifdef MODULE_AUDIO_ENABLED
+    
 #ifdef MODULE_PHYSICS_ENABLED
     /** The collision object component attached to this node. */
     PhysicsCollisionObject* _collisionObject;

@@ -66,11 +66,17 @@ Game::Game()
     : _initialized(false), _state(UNINITIALIZED), _pausedCount(0),
       _frameLastFPS(0), _frameCount(0), _frameRate(0), _width(0), _height(0),
       _clearDepth(1.0f), _clearStencil(0), _properties(NULL),
-      _animationController(NULL), _audioController(NULL),
+      _animationController(NULL),
+#ifdef MODULE_AUDIO_ENABLED
+    _audioController(NULL),
+#endif // #ifdef MODULE_AUDIO_ENABLED
 #ifdef MODULE_PHYSICS_ENABLED
       _physicsController(NULL),
 #endif // #ifdef MODULE_PHYSICS_ENABLED
-    _aiController(NULL), _audioListener(NULL),
+    _aiController(NULL),
+#ifdef MODULE_AUDIO_ENABLED
+    _audioListener(NULL),
+#endif // #ifdef MODULE_AUDIO_ENABLED
       _timeEvents(NULL)
 #ifdef MODULE_SCRIPT_ENABLED
     , _scriptController(NULL), _scriptTarget(NULL)
@@ -178,8 +184,10 @@ bool Game::startup()
     _animationController = new AnimationController();
     _animationController->initialize();
 
+#ifdef MODULE_AUDIO_ENABLED
     _audioController = new AudioController();
     _audioController->initialize();
+#endif // #ifdef MODULE_AUDIO_ENABLED
 
 #ifdef MODULE_PHYSICS_ENABLED
     _physicsController = new PhysicsController();
@@ -281,8 +289,10 @@ void Game::shutdown()
         _animationController->finalize();
         SAFE_DELETE(_animationController);
 
+#ifdef MODULE_AUDIO_ENABLED
         _audioController->finalize();
         SAFE_DELETE(_audioController);
+#endif // #ifdef MODULE_AUDIO_ENABLED
 
 #ifdef MODULE_PHYSICS_ENABLED
         _physicsController->finalize();
@@ -297,8 +307,9 @@ void Game::shutdown()
 
         // Note: we do not clean up the script controller here
         // because users can call Game::exit() from a script.
-
+#ifdef MODULE_AUDIO_ENABLED
         SAFE_DELETE(_audioListener);
+#endif // #ifdef MODULE_AUDIO_ENABLED
 
         FrameBuffer::finalize();
         RenderState::finalize();
@@ -320,7 +331,9 @@ void Game::pause()
         _state = PAUSED;
         _pausedTimeLast = Platform::getAbsoluteTime();
         _animationController->pause();
+#ifdef MODULE_AUDIO_ENABLED
         _audioController->pause();
+#endif // #ifdef MODULE_AUDIO_ENABLED
 #ifdef MODULE_PHYSICS_ENABLED
         _physicsController->pause();
 #endif // #ifdef MODULE_PHYSICS_ENABLED
@@ -345,7 +358,9 @@ void Game::resume()
             _state = RUNNING;
             _pausedTimeTotal += Platform::getAbsoluteTime() - _pausedTimeLast;
             _animationController->resume();
+#ifdef MODULE_AUDIO_ENABLED
             _audioController->resume();
+#endif // #ifdef MODULE_AUDIO_ENABLED
 #ifdef MODULE_PHYSICS_ENABLED
             _physicsController->resume();
 #endif // #ifdef MODULE_PHYSICS_ENABLED
@@ -438,8 +453,10 @@ void Game::frame()
             _scriptTarget->fireScriptEvent<void>(GP_GET_SCRIPT_EVENT(GameScriptTarget, update), elapsedTime);
 #endif // #ifdef MODULE_SCRIPT_ENABLED
 
+#ifdef MODULE_AUDIO_ENABLED
         // Audio Rendering.
         _audioController->update(elapsedTime);
+#endif // #ifdef MODULE_AUDIO_ENABLED
 
         // Graphics Rendering.
         render(elapsedTime);
@@ -514,7 +531,9 @@ void Game::updateOnce()
     _physicsController->update(elapsedTime);
 #endif // #ifdef MODULE_PHYSICS_ENABLED
     _aiController->update(elapsedTime);
+#ifdef MODULE_AUDIO_ENABLED
     _audioController->update(elapsedTime);
+#endif // #ifdef MODULE_AUDIO_ENABLED
 #ifdef MODULE_SCRIPT_ENABLED
     if (_scriptTarget)
         _scriptTarget->fireScriptEvent<void>(GP_GET_SCRIPT_EVENT(GameScriptTarget, update), elapsedTime);
@@ -575,6 +594,7 @@ void Game::clear(ClearFlags flags, float red, float green, float blue, float alp
     clear(flags, Vector4(red, green, blue, alpha), clearDepth, clearStencil);
 }
 
+#ifdef MODULE_AUDIO_ENABLED
 AudioListener* Game::getAudioListener()
 {
     if (_audioListener == NULL)
@@ -583,6 +603,7 @@ AudioListener* Game::getAudioListener()
     }
     return _audioListener;
 }
+#endif // #ifdef MODULE_AUDIO_ENABLED
 
 void Game::keyEvent(Keyboard::KeyEvent evt, int key)
 {

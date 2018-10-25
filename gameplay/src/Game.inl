@@ -44,11 +44,13 @@ inline AnimationController* Game::getAnimationController() const
     return _animationController;
 }
 
+#ifdef MODULE_AUDIO_ENABLED
 inline AudioController* Game::getAudioController() const
 {
     return _audioController;
 }
-
+#endif // #ifdef MODULE_AUDIO_ENABLED
+    
 #ifdef MODULE_PHYSICS_ENABLED
 inline PhysicsController* Game::getPhysicsController() const
 {

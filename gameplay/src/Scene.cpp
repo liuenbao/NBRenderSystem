@@ -71,11 +71,13 @@ Scene::~Scene()
     // Unbind our active camera from the audio listener
     if (_activeCamera)
     {
+#ifdef MODULE_AUDIO_ENABLED
         AudioListener* audioListener = AudioListener::getInstance();
         if (audioListener && (audioListener->getCamera() == _activeCamera))
         {
             audioListener->setCamera(NULL);
         }
+#endif // #ifdef MODULE_AUDIO_ENABLED
 
         SAFE_RELEASE(_activeCamera);
     }
@@ -337,6 +339,7 @@ void Scene::setActiveCamera(Camera* camera)
     // Make sure we don't release the camera if the same camera is set twice.
     if (_activeCamera != camera)
     {
+#ifdef MODULE_AUDIO_ENABLED
         AudioListener* audioListener = AudioListener::getInstance();
 
         if (_activeCamera)
@@ -349,17 +352,21 @@ void Scene::setActiveCamera(Camera* camera)
 
             SAFE_RELEASE(_activeCamera);
         }
-
+#endif // #ifdef MODULE_AUDIO_ENABLED
+        
         _activeCamera = camera;
 
         if (_activeCamera)
         {
             _activeCamera->addRef();
 
+#ifdef MODULE_AUDIO_ENABLED
             if (audioListener && _bindAudioListenerToCamera)
             {
                 audioListener->setCamera(_activeCamera);
             }
+#endif // #ifdef MODULE_AUDIO_ENABLED
+
         }
     }
 }
@@ -370,10 +377,13 @@ void Scene::bindAudioListenerToCamera(bool bind)
     {
         _bindAudioListenerToCamera = bind;
 
+#ifdef MODULE_AUDIO_ENABLED
         if (AudioListener::getInstance())
         {
             AudioListener::getInstance()->setCamera(bind ? _activeCamera : NULL);
         }
+#endif // #ifdef MODULE_AUDIO_ENABLED
+        
     }
 }
 

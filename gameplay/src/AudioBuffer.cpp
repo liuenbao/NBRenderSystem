@@ -1,3 +1,5 @@
+#ifdef MODULE_AUDIO_ENABLED
+
 #include "Base.h"
 #include "AudioBuffer.h"
 #include "FileSystem.h"
@@ -514,3 +516,5 @@ bool AudioBuffer::streamData(ALuint buffer, bool looped)
 }
 
 }
+
+#endif // #ifdef MODULE_AUDIO_ENABLED

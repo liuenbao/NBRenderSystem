@@ -25,7 +25,10 @@ namespace gameplay
 
 Node::Node(const char* id)
     : _scene(NULL), _firstChild(NULL), _nextSibling(NULL), _prevSibling(NULL), _parent(NULL), _childCount(0), _enabled(true), _tags(NULL),
-    _drawable(NULL), _camera(NULL), _light(NULL), _audioSource(NULL),
+    _drawable(NULL), _camera(NULL), _light(NULL),
+#ifdef MODULE_AUDIO_ENABLED
+    _audioSource(NULL),
+#endif // #ifdef MODULE_AUDIO_ENABLED
 #ifdef MODULE_PHYSICS_ENABLED
     _collisionObject(NULL),
 #endif // #ifdef MODULE_PHYSICS_ENABLED
@@ -46,13 +49,19 @@ Node::~Node()
     removeAllChildren();
     if (_drawable)
         _drawable->setNode(NULL);
+#ifdef MODULE_AUDIO_ENABLED
     if (_audioSource)
         _audioSource->setNode(NULL);
+#endif // #ifdef MODULE_AUDIO_ENABLED
     Ref* ref = dynamic_cast<Ref*>(_drawable);
     SAFE_RELEASE(ref);
     SAFE_RELEASE(_camera);
     SAFE_RELEASE(_light);
+
+#ifdef MODULE_AUDIO_ENABLED
     SAFE_RELEASE(_audioSource);
+#endif // #ifdef MODULE_AUDIO_ENABLED
+    
 #ifdef MODULE_PHYSICS_ENABLED
     SAFE_DELETE(_collisionObject);
 #endif // #ifdef MODULE_PHYSICS_ENABLED
@@ -1004,6 +1013,7 @@ void Node::cloneInto(Node* node, NodeCloneContext& context) const
         if (ref)
             ref->release();
     }
+#ifdef MODULE_AUDIO_ENABLED
     if (AudioSource* audio = getAudioSource())
     {
         AudioSource* clone = audio->clone(context);
@@ -1012,6 +1022,8 @@ void Node::cloneInto(Node* node, NodeCloneContext& context) const
         if (ref)
             ref->release();
     }
+#endif // #ifdef MODULE_AUDIO_ENABLED
+
     if (_tags)
     {
         node->_tags = new std::map<std::string, std::string>(_tags->begin(), _tags->end());
@@ -1023,6 +1035,7 @@ void Node::cloneInto(Node* node, NodeCloneContext& context) const
     // TODO: Clone the rest of the node data.
 }
 
+#ifdef MODULE_AUDIO_ENABLED
 AudioSource* Node::getAudioSource() const
 {
     return _audioSource;
@@ -1038,7 +1051,6 @@ void Node::setAudioSource(AudioSource* audio)
         _audioSource->setNode(NULL);
         SAFE_RELEASE(_audioSource);
     }
-        
     _audioSource = audio;
 
     if (_audioSource)
@@ -1047,6 +1059,7 @@ void Node::setAudioSource(AudioSource* audio)
         _audioSource->setNode(this);
     }
 }
+#endif // #ifdef MODULE_AUDIO_ENABLED
 
 #ifdef MODULE_PHYSICS_ENABLED
 PhysicsCollisionObject* Node::getCollisionObject() const

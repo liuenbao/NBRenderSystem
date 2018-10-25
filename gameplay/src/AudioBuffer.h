@@ -1,6 +1,8 @@
 #ifndef AUDIOBUFFER_H_
 #define AUDIOBUFFER_H_
 
+#ifdef MODULE_AUDIO_ENABLED
+
 #include "Ref.h"
 #include "Stream.h"
 
@@ -80,5 +82,7 @@ private:
 };
 
 }
+
+#endif // #ifdef MODULE_AUDIO_ENABLED
 
 #endif

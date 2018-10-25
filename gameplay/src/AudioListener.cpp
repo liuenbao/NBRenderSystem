@@ -1,3 +1,5 @@
+#ifdef MODULE_AUDIO_ENABLED
+
 #include "Base.h"
 #include "Node.h"
 #include "AudioListener.h"
@@ -145,3 +147,5 @@ void AudioListener::cameraChanged(Camera* camera)
 }
 
 }
+
+#endif // #ifdef MODULE_AUDIO_ENABLED
