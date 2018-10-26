@@ -8,59 +8,31 @@
 
 #import <UIKit/UIKit.h>
 
-#include "Base.h"
-#include "Platform.h"
-#include "FileSystem.h"
-#include "Game.h"
-#include "Form.h"
-#include "ScriptController.h"
-#include <unistd.h>
-#include <sys/time.h>
-#import <mach/mach_time.h>
+@class GamePlayView;
 
-using namespace gameplay;
+@protocol GLRenderDelegate<NSObject>
+
+- (void)glRenderCreated:(GamePlayView*)view;
+
+- (void)glRenderSizeChanged:(GamePlayView*)view width:(NSInteger)width height:(NSInteger)height;
+
+- (void)glRenderDrawFrame:(GamePlayView*)view;
+
+- (void)glRenderDestroy:(GamePlayView*)view;
+
+@end
 
 @interface GamePlayView : UIView
-{
-    EAGLContext* context;
-    CADisplayLink* displayLink;
-    BOOL updateFramebuffer;
-    GLuint defaultFramebuffer;
-    GLuint colorRenderbuffer;
-    GLuint depthRenderbuffer;
-    GLint framebufferWidth;
-    GLint framebufferHeight;
-    GLuint multisampleFramebuffer;
-    GLuint multisampleRenderbuffer;
-    GLuint multisampleDepthbuffer;
-    NSInteger swapInterval;
-    BOOL updating;
-    Game* game;
-    BOOL oglDiscardSupported;
-    
-    UITapGestureRecognizer *_tapRecognizer;
-    UIPinchGestureRecognizer *_pinchRecognizer;
-    UISwipeGestureRecognizer *_swipeRecognizer;
-    UILongPressGestureRecognizer *_longPressRecognizer;
-    UILongPressGestureRecognizer *_longTapRecognizer;
-    UILongPressGestureRecognizer *_dragAndDropRecognizer;
-}
 
 @property (readonly, nonatomic, getter=isUpdating) BOOL updating;
 @property (readonly, nonatomic, getter=getContext) EAGLContext* context;
 
-- (void)startGame;
+@property (nonatomic, weak) id<GLRenderDelegate> renderDelegate;
+
 - (void)startUpdating;
 - (void)stopUpdating;
-- (void)update:(id)sender;
+
 - (void)setSwapInterval:(NSInteger)interval;
 - (int)swapInterval;
-- (void)swapBuffers;
-- (BOOL)showKeyboard;
-- (BOOL)dismissKeyboard;
-
-- (void)registerGesture: (Gesture::GestureEvent) evt;
-- (void)unregisterGesture: (Gesture::GestureEvent) evt;
-- (bool)isGestureRegistered: (Gesture::GestureEvent) evt;
 
 @end
