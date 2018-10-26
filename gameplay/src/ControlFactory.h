@@ -1,3 +1,5 @@
+#ifdef MODULE_GUI_ENABLED
+
 #ifndef	CONTROLFACTORY_H_
 #define	CONTROLFACTORY_H_
 
@@ -98,3 +100,5 @@ private:
 }
 
 #endif
+
+#endif // #ifdef MODULE_GUI_ENABLED

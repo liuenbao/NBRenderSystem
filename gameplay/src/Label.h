@@ -1,3 +1,5 @@
+#ifdef MODULE_GUI_ENABLED
+
 #ifndef LABEL_H_
 #define LABEL_H_
 
@@ -152,3 +154,5 @@ private:
 }
 
 #endif
+
+#endif // #ifdef MODULE_GUI_ENABLED

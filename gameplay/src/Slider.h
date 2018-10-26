@@ -1,3 +1,5 @@
+#ifdef MODULE_GUI_ENABLED
+
 #ifndef SLIDER_H_
 #define SLIDER_H_
 
@@ -311,3 +313,5 @@ private:
 }
 
 #endif
+
+#endif // #ifdef MODULE_GUI_ENABLED

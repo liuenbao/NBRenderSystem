@@ -26,7 +26,10 @@ using namespace gameplay;
 /**
  * Main game class.
  */
-class SamplesGame : public Game, Control::Listener
+class SamplesGame : public Game
+#ifdef MODULE_GUI_ENABLED
+, Control::Listener
+#endif // #ifdef MODULE_GUI_ENABLED
 {
 public:
 
@@ -57,9 +60,11 @@ public:
 
 	void gestureDropEvent(int x, int y);
 
+#ifdef MODULE_GUI_ENABLED
 	void controlEvent(Control* control, EventType evt);
 
     void gamepadEvent(Gamepad::GamepadEvent evt, Gamepad* gamepad, unsigned int analogIndex = 0);
+#endif // #ifdef MODULE_GUI_ENABLED
 
     /**
      * Adds a sample.
@@ -170,7 +175,9 @@ private:
 
     Sample* _activeSample;
     Font* _font;
+#ifdef MODULE_GUI_ENABLED
     Form* _sampleSelectForm;
+#endif // #ifdef MODULE_GUI_ENABLED
 };
 
 #endif

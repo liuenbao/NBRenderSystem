@@ -1,3 +1,5 @@
+#ifdef MODULE_GUI_ENABLED
+
 #ifndef RADIOBUTTON_H_
 #define RADIOBUTTON_H_
 
@@ -172,3 +174,5 @@ private:
 }
 
 #endif
+
+#endif // #ifdef MODULE_GUI_ENABLED

@@ -1,3 +1,5 @@
+#ifdef MODULE_GUI_ENABLED
+
 #include "Base.h"
 #include "Form.h"
 #include "AbsoluteLayout.h"
@@ -1118,3 +1120,5 @@ void Form::setFocusControl(Control* control)
 }
 
 }
+
+#endif // #ifdef MODULE_GUI_ENABLED

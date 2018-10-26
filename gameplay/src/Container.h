@@ -1,3 +1,5 @@
+#ifdef MODULE_GUI_ENABLED
+
 #ifndef CONTAINER_H_
 #define CONTAINER_H_
 
@@ -599,3 +601,5 @@ private:
 }
 
 #endif
+
+#endif // #ifdef MODULE_GUI_ENABLED

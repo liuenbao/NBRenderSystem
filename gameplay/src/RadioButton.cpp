@@ -1,3 +1,5 @@
+#ifdef MODULE_GUI_ENABLED
+
 #include "Base.h"
 #include "RadioButton.h"
 
@@ -214,3 +216,5 @@ const char* RadioButton::getGroupId() const
 }
 
 }
+
+#endif // #ifdef MODULE_GUI_ENABLED

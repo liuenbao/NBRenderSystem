@@ -1,3 +1,5 @@
+#ifdef MODULE_GUI_ENABLED
+
 #include "TextBox.h"
 #include "Game.h"
 
@@ -523,3 +525,5 @@ std::string TextBox::getDisplayedText() const
 }
 
 }
+
+#endif // #ifdef MODULE_GUI_ENABLED

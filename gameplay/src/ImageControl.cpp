@@ -1,3 +1,5 @@
+#ifdef MODULE_GUI_ENABLED
+
 #include "Base.h"
 #include "ImageControl.h"
 
@@ -157,3 +159,5 @@ void ImageControl::updateBounds()
 }
 
 }
+
+#endif // #ifdef MODULE_GUI_ENABLED

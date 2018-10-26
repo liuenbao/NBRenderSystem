@@ -1,3 +1,5 @@
+#ifdef MODULE_GUI_ENABLED
+
 #ifndef VERTICALLAYOUT_H_
 #define VERTICALLAYOUT_H_
 
@@ -108,3 +110,5 @@ private:
 }
 
 #endif
+
+#endif // #ifdef MODULE_GUI_ENABLED

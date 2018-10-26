@@ -1,3 +1,5 @@
+#ifdef MODULE_GUI_ENABLED
+
 #include "Base.h"
 #include "Control.h"
 #include "AbsoluteLayout.h"
@@ -42,3 +44,5 @@ void AbsoluteLayout::update(const Container* container)
 }
 
 }
+
+#endif // #ifdef MODULE_GUI_ENABLED

@@ -1,3 +1,5 @@
+#ifdef MODULE_GUI_ENABLED
+
 #include "Base.h"
 #include "Button.h"
 #include "Gamepad.h"
@@ -61,3 +63,5 @@ void Button::setDataBinding(unsigned int dataBinding)
 }
 
 }
+
+#endif // #ifdef MODULE_GUI_ENABLED

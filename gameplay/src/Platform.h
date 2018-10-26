@@ -365,6 +365,7 @@ public:
      */
     static void resizeEventInternal(unsigned int width, unsigned int height);
 
+#ifdef MODULE_GUI_ENABLED
     /**
      * Internal method used only from static code in various platform implementation.
      *
@@ -417,6 +418,7 @@ public:
      * @script{ignore}
      */
     static void pollGamepadState(Gamepad* gamepad);
+#endif // #ifdef MODULE_GUI_ENABLED
 
     /**
      * Displays an open or save dialog using the native platform dialog system.

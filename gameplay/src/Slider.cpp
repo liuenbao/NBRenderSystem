@@ -1,3 +1,5 @@
+#ifdef MODULE_GUI_ENABLED
+
 #include "Slider.h"
 #include "Game.h"
 
@@ -492,3 +494,5 @@ unsigned int Slider::drawText(Form* form, const Rectangle& clip)
 }
 
 }
+
+#endif // #ifdef MODULE_GUI_ENABLED

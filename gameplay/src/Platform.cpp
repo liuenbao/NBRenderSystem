@@ -10,7 +10,11 @@ namespace gameplay
 
 void Platform::touchEventInternal(Touch::TouchEvent evt, int x, int y, unsigned int contactIndex, bool actuallyMouse)
 {
-    if (actuallyMouse || !Form::touchEventInternal(evt, x, y, contactIndex))
+    if (actuallyMouse
+#ifdef MODULE_GUI_ENABLED
+        || !Form::touchEventInternal(evt, x, y, contactIndex)
+#endif // #ifdef MODULE_GUI_ENABLED
+        )
     {
         Game::getInstance()->touchEventInternal(evt, x, y, contactIndex);
     }
@@ -18,7 +22,9 @@ void Platform::touchEventInternal(Touch::TouchEvent evt, int x, int y, unsigned 
 
 void Platform::keyEventInternal(Keyboard::KeyEvent evt, int key)
 {
+#ifdef MODULE_GUI_ENABLED
     if (!Form::keyEventInternal(evt, key))
+#endif // #ifdef MODULE_GUI_ENABLED
     {
         Game::getInstance()->keyEventInternal(evt, key);
     }
@@ -26,8 +32,10 @@ void Platform::keyEventInternal(Keyboard::KeyEvent evt, int key)
 
 bool Platform::mouseEventInternal(Mouse::MouseEvent evt, int x, int y, int wheelDelta)
 {
+#ifdef MODULE_GUI_ENABLED
     if (Form::mouseEventInternal(evt, x, y, wheelDelta))
         return true;
+#endif // #ifdef MODULE_GUI_ENABLED
 
     return Game::getInstance()->mouseEventInternal(evt, x, y, wheelDelta);
 }
@@ -65,9 +73,12 @@ void Platform::gestureDropEventInternal(int x, int y)
 void Platform::resizeEventInternal(unsigned int width, unsigned int height)
 {
     Game::getInstance()->resizeEventInternal(width, height);
+#ifdef MODULE_GUI_ENABLED
     Form::resizeEventInternal(width, height);
+#endif // #ifdef MODULE_GUI_ENABLED
 }
 
+#ifdef MODULE_GUI_ENABLED
 void Platform::gamepadEventConnectedInternal(GamepadHandle handle,  unsigned int buttonCount, unsigned int joystickCount, unsigned int triggerCount, const char* name)
 {
     Gamepad::add(handle, buttonCount, joystickCount, triggerCount, name);
@@ -107,5 +118,6 @@ void Platform::gamepadJoystickChangedEventInternal(GamepadHandle handle, unsigne
     gamepad->setJoystickValue(index, x, y);
     Form::gamepadJoystickEventInternal(gamepad, index);
 }
+#endif // #ifdef MODULE_GUI_ENABLED
 
 }

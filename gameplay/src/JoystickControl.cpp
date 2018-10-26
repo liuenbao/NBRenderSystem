@@ -1,3 +1,5 @@
+#ifdef MODULE_GUI_ENABLED
+
 #include "Base.h"
 #include "JoystickControl.h"
 
@@ -489,3 +491,5 @@ unsigned int JoystickControl::drawImages(Form* form, const Rectangle& clip)
 }
 
 }
+
+#endif // #ifdef MODULE_GUI_ENABLED

@@ -1,3 +1,5 @@
+#ifdef MODULE_GUI_ENABLED
+
 #include "Base.h"
 #include "CheckBox.h"
 #include "Game.h"
@@ -161,3 +163,5 @@ unsigned int CheckBox::drawImages(Form* form, const Rectangle& clip)
 }
 
 }
+
+#endif // #ifdef MODULE_GUI_ENABLED

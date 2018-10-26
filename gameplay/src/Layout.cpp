@@ -1,3 +1,5 @@
+#ifdef MODULE_GUI_ENABLED
+
 #include "Base.h"
 #include "Layout.h"
 #include "Control.h"
@@ -13,3 +15,5 @@ bool Layout::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned int contac
 }
 
 }
+
+#endif // #ifdef MODULE_GUI_ENABLED

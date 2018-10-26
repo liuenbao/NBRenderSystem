@@ -475,9 +475,11 @@ namespace gameplay
         return [__view isGestureRegistered:evt];
     }
     
+#ifdef MODULE_GUI_ENABLED
     void Platform::pollGamepadState(Gamepad* gamepad)
     {
     }
+#endif // #ifdef MODULE_GUI_ENABLED
     
     bool Platform::launchURL(const char *url)
     {

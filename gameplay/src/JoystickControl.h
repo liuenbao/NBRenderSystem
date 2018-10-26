@@ -1,3 +1,5 @@
+#ifdef MODULE_GUI_ENABLED
+
 #ifndef JOYSTICKCONTROL_H_
 #define JOYSTICKCONTROL_H_
 
@@ -237,3 +239,5 @@ private:
 }
 
 #endif
+
+#endif // #ifdef MODULE_GUI_ENABLED

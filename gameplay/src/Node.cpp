@@ -741,6 +741,7 @@ Animation* Node::getAnimation(const char* id) const
         }
     }
 
+#ifdef MODULE_GUI_ENABLED
     // look through form for animations.
     Form* form = dynamic_cast<Form*>(_drawable);
     if (form)
@@ -749,6 +750,7 @@ Animation* Node::getAnimation(const char* id) const
         if (animation)
             return animation;
     }
+#endif // #ifdef MODULE_GUI_ENABLED
 
     // Look through this node's children for an animation with the specified ID.
     for (Node* child = getFirstChild(); child != NULL; child = child->getNextSibling())

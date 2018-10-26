@@ -79,9 +79,11 @@ public:
     virtual void gestureLongTapEvent(int x, int y, float duration);
     virtual void gestureDragEvent(int x, int y);
 	virtual void gestureDropEvent(int x, int y);
+#ifdef MODULE_GUI_ENABLED
 	virtual void gamepadEvent(Gamepad::GamepadEvent evt, Gamepad* gamepad);
     unsigned int getGamepadCount() const;
     Gamepad* getGamepad(unsigned int index, bool preferPhysical = true) const;
+#endif // #ifdef MODULE_GUI_ENABLED
 
 protected:
 

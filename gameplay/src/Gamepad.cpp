@@ -1,3 +1,5 @@
+#ifdef MODULE_GUI_ENABLED
+
 #include "Base.h"
 #include "Gamepad.h"
 #include "Game.h"
@@ -378,3 +380,5 @@ void Gamepad::setTriggerValue(unsigned int index, float value)
 }
 
 }
+
+#endif // #ifdef MODULE_GUI_ENABLED

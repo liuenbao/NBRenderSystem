@@ -1,3 +1,5 @@
+#ifdef MODULE_GUI_ENABLED
+
 #ifndef FLOWLAYOUT_H_
 #define FLOWLAYOUT_H_
 
@@ -95,3 +97,5 @@ private:
 }
 
 #endif
+
+#endif // #ifdef MODULE_GUI_ENABLED

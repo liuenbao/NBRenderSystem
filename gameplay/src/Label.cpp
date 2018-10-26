@@ -1,3 +1,5 @@
+#ifdef MODULE_GUI_ENABLED
+
 #include "Base.h"
 #include "Label.h"
 
@@ -141,3 +143,5 @@ unsigned int Label::drawText(Form* form, const Rectangle& clip)
 }
 
 }
+
+#endif // #ifdef MODULE_GUI_ENABLED

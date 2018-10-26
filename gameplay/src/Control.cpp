@@ -1,3 +1,5 @@
+#ifdef MODULE_GUI_ENABLED
+
 #include "Base.h"
 #include "Game.h"
 #include "Control.h"
@@ -19,7 +21,9 @@ Control::Control()
 
 Control::~Control()
 {
+#ifdef MODULE_GUI_ENABLED
     Form::verifyRemovedControlState(this);
+#endif // #ifdef MODULE_GUI_ENABLED
 
     if (_listeners)
     {
@@ -1880,3 +1884,5 @@ bool Control::parseCoordPair(const char* s, float* v1, float* v2, bool* v1Percen
 }
 
 }
+
+#endif // #ifdef MODULE_GUI_ENABLED

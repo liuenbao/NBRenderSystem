@@ -1,3 +1,5 @@
+#ifdef MODULE_GUI_ENABLED
+
 #include "Base.h"
 #include "VerticalLayout.h"
 
@@ -90,3 +92,5 @@ void VerticalLayout::update(const Container* container)
 }
 
 }
+
+#endif // #ifdef MODULE_GUI_ENABLED

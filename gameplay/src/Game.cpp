@@ -206,8 +206,10 @@ bool Game::startup()
     _scriptController->initialize();
 #endif // #ifdef MODULE_SCRIPT_ENABLED
 
+#ifdef MODULE_GUI_ENABLED
     // Load any gamepads, ui or physical.
     loadGamepads();
+#endif // #ifdef MODULE_GUI_ENABLED
 
 #ifdef MODULE_SCRIPT_ENABLED
     // Set script handler
@@ -283,12 +285,14 @@ void Game::shutdown()
 		_scriptController->finalize();
 #endif // #ifdef MODULE_SCRIPT_ENABLED
         
+#ifdef MODULE_GUI_ENABLED
         unsigned int gamepadCount = Gamepad::getGamepadCount();
         for (unsigned int i = 0; i < gamepadCount; i++)
         {
             Gamepad* gamepad = Gamepad::getGamepad(i, false);
             SAFE_DELETE(gamepad);
         }
+#endif // #ifdef MODULE_GUI_ENABLED
 
         _animationController->finalize();
         SAFE_DELETE(_animationController);
@@ -308,7 +312,9 @@ void Game::shutdown()
         SAFE_DELETE(_aiController);
 #endif // #ifdef MODULE_AI_ENABLED
         
+#ifdef MODULE_GUI_ENABLED
         ControlFactory::finalize();
+#endif // #ifdef MODULE_GUI_ENABLED
 
         Theme::finalize();
 
@@ -451,14 +457,18 @@ void Game::frame()
         _aiController->update(elapsedTime);
 #endif // #ifdef MODULE_AI_ENABLED
 
+#ifdef MODULE_GUI_ENABLED
         // Update gamepads.
         Gamepad::updateInternal(elapsedTime);
+#endif // #ifdef MODULE_GUI_ENABLED
 
         // Application Update.
         update(elapsedTime);
 
+#ifdef MODULE_GUI_ENABLED
         // Update forms.
         Form::updateInternal(elapsedTime);
+#endif // #ifdef MODULE_GUI_ENABLED
 
 #ifdef MODULE_SCRIPT_ENABLED
         // Run script update.
@@ -491,14 +501,18 @@ void Game::frame()
     }
 	else if (_state == Game::PAUSED)
     {
+#ifdef MODULE_GUI_ENABLED
         // Update gamepads.
         Gamepad::updateInternal(0);
+#endif // #ifdef MODULE_GUI_ENABLED
 
         // Application Update.
         update(0);
 
+#ifdef MODULE_GUI_ENABLED
         // Update forms.
         Form::updateInternal(0);
+#endif // #ifdef MODULE_GUI_ENABLED
 
 #ifdef MODULE_SCRIPT_ENABLED
         // Script update.
@@ -691,10 +705,12 @@ void Game::gestureDropEvent(int x, int y)
     // stub
 }
 
+#ifdef MODULE_GUI_ENABLED
 void Game::gamepadEvent(Gamepad::GamepadEvent evt, Gamepad* gamepad)
 {
     // stub
 }
+#endif // #ifdef MODULE_GUI_ENABLED
 
 void Game::keyEventInternal(Keyboard::KeyEvent evt, int key)
 {
@@ -796,6 +812,7 @@ void Game::gestureDropEventInternal(int x, int y)
 #endif // #ifdef MODULE_SCRIPT_ENABLED
 }
 
+#ifdef MODULE_GUI_ENABLED
 void Game::gamepadEventInternal(Gamepad::GamepadEvent evt, Gamepad* gamepad)
 {
     gamepadEvent(evt, gamepad);
@@ -804,6 +821,7 @@ void Game::gamepadEventInternal(Gamepad::GamepadEvent evt, Gamepad* gamepad)
         _scriptTarget->fireScriptEvent<void>(GP_GET_SCRIPT_EVENT(GameScriptTarget, gamepadEvent), evt, gamepad);
 #endif // #ifdef MODULE_SCRIPT_ENABLED
 }
+#endif // #ifdef MODULE_GUI_ENABLED
 
 void Game::getArguments(int* argc, char*** argv) const
 {
@@ -890,6 +908,7 @@ void Game::loadConfig()
     }
 }
 
+#ifdef MODULE_GUI_ENABLED
 void Game::loadGamepads()
 {
     // Load virtual gamepads.
@@ -919,6 +938,7 @@ void Game::loadGamepads()
         }
     }
 }
+#endif // #ifdef MODULE_GUI_ENABLED
 
 void Game::ShutdownListener::timeEvent(long timeDiff, void* cookie)
 {

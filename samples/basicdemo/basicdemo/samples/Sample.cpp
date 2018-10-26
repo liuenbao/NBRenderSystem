@@ -259,6 +259,7 @@ void Sample::gestureDropEvent(int x, int y)
 {
 }
 
+#ifdef MODULE_GUI_ENABLED
 void Sample::gamepadEvent(Gamepad::GamepadEvent evt, Gamepad* gamepad)
 {
 }
@@ -272,6 +273,7 @@ Gamepad* Sample::getGamepad(unsigned int index, bool preferPhysical) const
 {
     return Game::getInstance()->getGamepad(index, preferPhysical);
 }
+#endif // #ifdef MODULE_GUI_ENABLED
 
 void Sample::drawFrameRate(Font* font, const Vector4& color, unsigned int x, unsigned int y, unsigned int fps)
 {

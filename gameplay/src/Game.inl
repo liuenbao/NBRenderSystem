@@ -145,6 +145,7 @@ inline void Game::getSensorValues(float* accelX, float* accelY, float* accelZ, f
     return Platform::getSensorValues(accelX, accelY, accelZ, gyroX, gyroY, gyroZ);
 }
 
+#ifdef MODULE_GUI_ENABLED
 inline unsigned int Game::getGamepadCount() const
 {
     return Gamepad::getGamepadCount();
@@ -154,6 +155,7 @@ inline Gamepad* Game::getGamepad(unsigned int index, bool preferPhysical) const
 {
     return Gamepad::getGamepad(index, preferPhysical);
 }
+#endif // #ifdef MODULE_GUI_ENABLED
 
 inline void Game::displayKeyboard(bool display)
 {

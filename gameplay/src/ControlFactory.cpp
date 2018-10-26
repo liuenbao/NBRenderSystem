@@ -1,3 +1,5 @@
+#ifdef MODULE_GUI_ENABLED
+
 #include "Base.h"
 #include "ControlFactory.h"
 #include "Label.h"
@@ -92,3 +94,5 @@ void ControlFactory::registerStandardControls()
 }
 
 }
+
+#endif // #ifdef MODULE_GUI_ENABLED

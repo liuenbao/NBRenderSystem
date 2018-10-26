@@ -1,3 +1,5 @@
+#ifdef MODULE_GUI_ENABLED
+
 #include "Base.h"
 #include "Container.h"
 #include "Layout.h"
@@ -1564,3 +1566,5 @@ void Container::setAnimationPropertyValue(int propertyId, AnimationValue* value,
 }
 
 }
+
+#endif // #ifdef MODULE_GUI_ENABLED

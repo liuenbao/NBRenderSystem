@@ -481,6 +481,7 @@ public:
      */
     virtual void gestureDropEvent(int x, int y);
 
+#ifdef MODULE_GUI_ENABLED
     /**
      * Gamepad callback on gamepad events.  Override to receive Gamepad::CONNECTED_EVENT 
      * and Gamepad::DISCONNECTED_EVENT, and store the Gamepad* in order to poll it from update().
@@ -513,7 +514,8 @@ public:
      * @return The gamepad at the specified index.
      */
     inline Gamepad* getGamepad(unsigned int index, bool preferPhysical = true) const;
-
+#endif // #ifdef MODULE_GUI_ENABLED
+    
     /**
      * Sets whether multi-sampling is to be enabled/disabled. Default is disabled.
      *
@@ -734,10 +736,12 @@ private:
      */
     void loadConfig();
 
+#ifdef MODULE_GUI_ENABLED
     /**
      * Loads the gamepads from the configuration file.
      */
     void loadGamepads();
+#endif // #ifdef MODULE_GUI_ENABLED
 
     void keyEventInternal(Keyboard::KeyEvent evt, int key);
     void touchEventInternal(Touch::TouchEvent evt, int x, int y, unsigned int contactIndex);
@@ -749,7 +753,10 @@ private:
     void gestureLongTapEventInternal(int x, int y, float duration);
     void gestureDragEventInternal(int x, int y);
     void gestureDropEventInternal(int x, int y);
+
+#ifdef MODULE_GUI_ENABLED
     void gamepadEventInternal(Gamepad::GamepadEvent evt, Gamepad* gamepad);
+#endif // #ifdef MODULE_GUI_ENABLED
 
     bool _initialized;                          // If game has initialized yet.
     State _state;                               // The game state.
