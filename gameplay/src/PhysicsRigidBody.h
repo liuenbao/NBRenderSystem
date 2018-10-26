@@ -1,7 +1,7 @@
+#ifdef MODULE_PHYSICS_ENABLED
+
 #ifndef PHYSICSRIGIDBODY_H_
 #define PHYSICSRIGIDBODY_H_
-
-#ifdef MODULE_PHYSICS_ENABLED
 
 #include "Mesh.h"
 #include "PhysicsConstraint.h"
@@ -451,6 +451,6 @@ private:
 
 #include "PhysicsRigidBody.inl"
 
-#endif // #ifdef MODULE_PHYSICS_ENABLED
-
 #endif
+
+#endif // #ifdef MODULE_PHYSICS_ENABLED

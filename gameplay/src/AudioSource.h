@@ -1,7 +1,7 @@
+#ifdef MODULE_AUDIO_ENABLED
+
 #ifndef AUDIOSOURCE_H_
 #define AUDIOSOURCE_H_
-
-#ifdef MODULE_AUDIO_ENABLED
 
 #include "Vector3.h"
 #include "Ref.h"
@@ -219,6 +219,6 @@ private:
 
 }
 
-#endif // #ifdef MODULE_AUDIO_ENABLED
-
 #endif
+
+#endif // #ifdef MODULE_AUDIO_ENABLED

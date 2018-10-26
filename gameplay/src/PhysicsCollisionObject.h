@@ -1,7 +1,7 @@
+#ifdef MODULE_PHYSICS_ENABLED
+
 #ifndef PHYSICSCOLLISIONOBJECT_H_
 #define PHYSICSCOLLISIONOBJECT_H_
-
-#ifdef MODULE_PHYSICS_ENABLED
 
 #include "Script.h"
 #include "Vector3.h"
@@ -410,6 +410,6 @@ private:
 
 }
 
-#endif // #ifdef MODULE_PHYSICS_ENABLED
-
 #endif
+
+#endif // #ifdef MODULE_PHYSICS_ENABLED

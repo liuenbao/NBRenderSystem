@@ -1,7 +1,7 @@
+#ifdef MODULE_AUDIO_ENABLED
+
 #ifndef AUDIOCONTROLLER_H_
 #define AUDIOCONTROLLER_H_
-
-#ifdef MODULE_AUDIO_ENABLED
 
 namespace gameplay
 {
@@ -75,6 +75,6 @@ private:
 
 }
 
-#endif // #ifdef MODULE_AUDIO_ENABLED
-
 #endif
+
+#endif // #ifdef MODULE_AUDIO_ENABLED

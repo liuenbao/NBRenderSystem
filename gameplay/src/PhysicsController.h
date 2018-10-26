@@ -1,7 +1,7 @@
+#ifdef MODULE_PHYSICS_ENABLED
+
 #ifndef PHYSICSCONTROLLER_H_
 #define PHYSICSCONTROLLER_H_
-
-#ifdef MODULE_PHYSICS_ENABLED
 
 #include "PhysicsConstraint.h"
 #include "PhysicsFixedConstraint.h"
@@ -563,6 +563,6 @@ private:
 
 }
 
-#endif // #ifdef MODULE_PHYSICS_ENABLED
-
 #endif
+
+#endif // #ifdef MODULE_PHYSICS_ENABLED

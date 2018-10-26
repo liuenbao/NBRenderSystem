@@ -1,7 +1,7 @@
+#ifdef MODULE_PHYSICS_ENABLED
+
 #ifndef PHYSICSSPRINGCONSTRAINT_H_
 #define PHYSICSSPRINGCONSTRAINT_H_
-
-#ifdef MODULE_PHYSICS_ENABLED
 
 #include "PhysicsGenericConstraint.h"
 
@@ -195,6 +195,6 @@ private:
 
 #include "PhysicsSpringConstraint.inl"
 
-#endif // #ifdef MODULE_PHYSICS_ENABLED
-
 #endif
+
+#endif // #ifdef MODULE_PHYSICS_ENABLED

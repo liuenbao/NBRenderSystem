@@ -1,7 +1,7 @@
+#ifdef MODULE_PHYSICS_ENABLED
+
 #ifndef PHYSICSGHOSTOBJECT_H_
 #define PHYSICSGHOSTOBJECT_H_
-
-#ifdef MODULE_PHYSICS_ENABLED
 
 #include "PhysicsCollisionObject.h"
 #include "PhysicsRigidBody.h"
@@ -77,6 +77,6 @@ protected:
 
 }
 
-#endif // #ifdef MODULE_PHYSICS_ENABLED
-
 #endif
+
+#endif // #ifdef MODULE_PHYSICS_ENABLED

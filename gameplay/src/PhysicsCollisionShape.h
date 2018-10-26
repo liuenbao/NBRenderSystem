@@ -1,7 +1,7 @@
+#ifdef MODULE_PHYSICS_ENABLED
+
 #ifndef PHYSICSCOLLISIONSHAPE_H_
 #define PHYSICSCOLLISIONSHAPE_H_
-
-#ifdef MODULE_PHYSICS_ENABLED
 
 #include "Vector3.h"
 #include "Mesh.h"
@@ -291,6 +291,6 @@ private:
 
 }
 
-#endif // #ifdef MODULE_PHYSICS_ENABLED
-
 #endif
+
+#endif // #ifdef MODULE_PHYSICS_ENABLED
