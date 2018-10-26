@@ -1,3 +1,5 @@
+#ifdef MODULE_AI_ENABLED
+
 #include "Base.h"
 #include "AIController.h"
 #include "Game.h"
@@ -186,3 +188,5 @@ AIAgent* AIController::findAgent(const char* id) const
 }
 
 }
+
+#endif // #ifdef MODULE_AI_ENABLED

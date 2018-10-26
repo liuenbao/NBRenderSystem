@@ -257,6 +257,7 @@ public:
     inline PhysicsController* getPhysicsController() const;
 #endif // #ifdef MODULE_PHYSICS_ENABLED
 
+#ifdef MODULE_AI_ENABLED
     /** 
      * Gets the AI controller for managing control of artificial
      * intelligence associated with the game.
@@ -264,6 +265,7 @@ public:
      * @return The AI controller for this game.
      */
     inline AIController* getAIController() const;
+#endif // #ifdef MODULE_AI_ENABLED
 
     /**
      * Gets the script controller for managing control of Lua scripts
@@ -772,7 +774,9 @@ private:
 #ifdef MODULE_PHYSICS_ENABLED
     PhysicsController* _physicsController;      // Controls the simulation of a physics scene and entities.
 #endif // // #ifdef MODULE_PHYSICS_ENABLED
+#ifdef MODULE_AI_ENABLED
     AIController* _aiController;                // Controls AI simulation.
+#endif // #ifdef MODULE_AI_ENABLED
 #ifdef MODULE_AUDIO_ENABLED
     AudioListener* _audioListener;              // The audio listener in 3D space.
 #endif // #ifdef MODULE_AUDIO_ENABLED

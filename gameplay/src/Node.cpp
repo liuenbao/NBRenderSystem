@@ -67,7 +67,9 @@ Node::~Node()
 #endif // #ifdef MODULE_PHYSICS_ENABLED
     SAFE_RELEASE(_userObject);
     SAFE_DELETE(_tags);
+#ifdef MODULE_AI_ENABLED
     setAgent(NULL);
+#endif // #ifdef MODULE_AI_ENABLED
 }
 
 Node* Node::create(const char* id)
@@ -1193,6 +1195,7 @@ PhysicsCollisionObject* Node::setCollisionObject(Properties* properties)
 }
 #endif // #ifdef MODULE_PHYSICS_ENABLED
 
+#ifdef MODULE_AI_ENABLED
 AIAgent* Node::getAgent() const
 {
     // Lazily create a new Agent for this Node if we don't have one yet.
@@ -1229,6 +1232,7 @@ void Node::setAgent(AIAgent* agent)
         Game::getInstance()->getAIController()->addAgent(_agent);
     }
 }
+#endif // #ifdef MODULE_AI_ENABLED
 
 Ref* Node::getUserObject() const
 {

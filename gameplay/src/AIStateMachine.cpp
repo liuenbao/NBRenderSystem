@@ -1,3 +1,5 @@
+#ifdef MODULE_AI_ENABLED
+
 #include "Base.h"
 #include "AIStateMachine.h"
 #include "AIAgent.h"
@@ -141,3 +143,5 @@ void AIStateMachine::update(float elapsedTime)
 }
 
 }
+
+#endif // #ifdef MODULE_AI_ENABLED

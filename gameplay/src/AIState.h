@@ -1,3 +1,5 @@
+#ifdef MODULE_AI_ENABLED
+
 #ifndef AISTATE_H_
 #define AISTATE_H_
 
@@ -134,3 +136,5 @@ private:
 }
 
 #endif
+
+#endif // #ifdef MODULE_AI_ENABLED

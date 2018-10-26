@@ -1,3 +1,5 @@
+#ifdef MODULE_AI_ENABLED
+
 #include "Base.h"
 #include "AIMessage.h"
 
@@ -202,3 +204,5 @@ void AIMessage::Parameter::clear()
 }
 
 }
+
+#endif // #ifdef MODULE_AI_ENABLED

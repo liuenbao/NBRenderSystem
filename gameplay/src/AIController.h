@@ -1,3 +1,5 @@
+#ifdef MODULE_AI_ENABLED
+
 #ifndef AICONTROLLER_H_
 #define AICONTROLLER_H_
 
@@ -105,3 +107,5 @@ private:
 }
 
 #endif
+
+#endif // #ifdef MODULE_AI_ENABLED

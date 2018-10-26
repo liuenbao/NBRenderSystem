@@ -73,7 +73,9 @@ Game::Game()
 #ifdef MODULE_PHYSICS_ENABLED
       _physicsController(NULL),
 #endif // #ifdef MODULE_PHYSICS_ENABLED
+#ifdef MODULE_AI_ENABLED
     _aiController(NULL),
+#endif // #ifdef MODULE_AI_ENABLED
 #ifdef MODULE_AUDIO_ENABLED
     _audioListener(NULL),
 #endif // #ifdef MODULE_AUDIO_ENABLED
@@ -194,9 +196,11 @@ bool Game::startup()
     _physicsController->initialize();
 #endif // #ifdef MODULE_PHYSICS_ENABLED
     
+#ifdef MODULE_AI_ENABLED
     _aiController = new AIController();
     _aiController->initialize();
-
+#endif // #ifdef MODULE_AI_ENABLED
+    
 #ifdef MODULE_SCRIPT_ENABLED
     _scriptController = new ScriptController();
     _scriptController->initialize();
@@ -298,8 +302,11 @@ void Game::shutdown()
         _physicsController->finalize();
         SAFE_DELETE(_physicsController);
 #endif // #ifdef MODULE_PHYSICS_ENABLED
+        
+#ifdef MODULE_AI_ENABLED
         _aiController->finalize();
         SAFE_DELETE(_aiController);
+#endif // #ifdef MODULE_AI_ENABLED
         
         ControlFactory::finalize();
 
@@ -337,7 +344,9 @@ void Game::pause()
 #ifdef MODULE_PHYSICS_ENABLED
         _physicsController->pause();
 #endif // #ifdef MODULE_PHYSICS_ENABLED
+#ifdef MODULE_AI_ENABLED
         _aiController->pause();
+#endif // #ifdef MODULE_AI_ENABLED
     }
 
     ++_pausedCount;
@@ -364,7 +373,9 @@ void Game::resume()
 #ifdef MODULE_PHYSICS_ENABLED
             _physicsController->resume();
 #endif // #ifdef MODULE_PHYSICS_ENABLED
+#ifdef MODULE_AI_ENABLED
             _aiController->resume();
+#endif // #ifdef MODULE_AI_ENABLED
         }
     }
 }
@@ -435,8 +446,10 @@ void Game::frame()
         _physicsController->update(elapsedTime);
 #endif // #ifdef MODULE_PHYSICS_ENABLED
 
+#ifdef MODULE_AI_ENABLED
         // Update AI.
         _aiController->update(elapsedTime);
+#endif // #ifdef MODULE_AI_ENABLED
 
         // Update gamepads.
         Gamepad::updateInternal(elapsedTime);
@@ -530,7 +543,9 @@ void Game::updateOnce()
 #ifdef MODULE_PHYSICS_ENABLED
     _physicsController->update(elapsedTime);
 #endif // #ifdef MODULE_PHYSICS_ENABLED
+#ifdef MODULE_AI_ENABLED
     _aiController->update(elapsedTime);
+#endif // #ifdef MODULE_AI_ENABLED
 #ifdef MODULE_AUDIO_ENABLED
     _audioController->update(elapsedTime);
 #endif // #ifdef MODULE_AUDIO_ENABLED

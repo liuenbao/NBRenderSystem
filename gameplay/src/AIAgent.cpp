@@ -1,3 +1,5 @@
+#ifdef MODULE_AI_ENABLED
+
 #include "Base.h"
 #include "AIAgent.h"
 #include "Node.h"
@@ -98,3 +100,5 @@ bool AIAgent::processMessage(AIMessage* message)
 }
 
 }
+
+#endif // #ifdef MODULE_AI_ENABLED

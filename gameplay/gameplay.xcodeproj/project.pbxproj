@@ -18,16 +18,6 @@
 		426F8318187F72A700640CBA /* JoystickControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 426F8315187F72A700640CBA /* JoystickControl.cpp */; };
 		42CC556C1809A4EF00AAD8AD /* AbsoluteLayout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC52F71809A4EB00AAD8AD /* AbsoluteLayout.cpp */; };
 		42CC556D1809A4EF00AAD8AD /* AbsoluteLayout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC52F71809A4EB00AAD8AD /* AbsoluteLayout.cpp */; };
-		42CC55701809A4EF00AAD8AD /* AIAgent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC52F91809A4EB00AAD8AD /* AIAgent.cpp */; };
-		42CC55711809A4EF00AAD8AD /* AIAgent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC52F91809A4EB00AAD8AD /* AIAgent.cpp */; };
-		42CC55741809A4EF00AAD8AD /* AIController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC52FB1809A4EB00AAD8AD /* AIController.cpp */; };
-		42CC55751809A4EF00AAD8AD /* AIController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC52FB1809A4EB00AAD8AD /* AIController.cpp */; };
-		42CC55781809A4EF00AAD8AD /* AIMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC52FD1809A4EB00AAD8AD /* AIMessage.cpp */; };
-		42CC55791809A4EF00AAD8AD /* AIMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC52FD1809A4EB00AAD8AD /* AIMessage.cpp */; };
-		42CC557C1809A4EF00AAD8AD /* AIState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC52FF1809A4EB00AAD8AD /* AIState.cpp */; };
-		42CC557D1809A4EF00AAD8AD /* AIState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC52FF1809A4EB00AAD8AD /* AIState.cpp */; };
-		42CC55801809A4EF00AAD8AD /* AIStateMachine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC53011809A4EB00AAD8AD /* AIStateMachine.cpp */; };
-		42CC55811809A4EF00AAD8AD /* AIStateMachine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC53011809A4EB00AAD8AD /* AIStateMachine.cpp */; };
 		42CC55841809A4EF00AAD8AD /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC53031809A4EB00AAD8AD /* Animation.cpp */; };
 		42CC55851809A4EF00AAD8AD /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC53031809A4EB00AAD8AD /* Animation.cpp */; };
 		42CC55881809A4EF00AAD8AD /* AnimationClip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42CC53051809A4EB00AAD8AD /* AnimationClip.cpp */; };
@@ -207,16 +197,6 @@
 		426F8316187F72A700640CBA /* JoystickControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JoystickControl.h; path = src/JoystickControl.h; sourceTree = SOURCE_ROOT; };
 		42CC52F71809A4EB00AAD8AD /* AbsoluteLayout.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AbsoluteLayout.cpp; path = src/AbsoluteLayout.cpp; sourceTree = SOURCE_ROOT; };
 		42CC52F81809A4EB00AAD8AD /* AbsoluteLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbsoluteLayout.h; path = src/AbsoluteLayout.h; sourceTree = SOURCE_ROOT; };
-		42CC52F91809A4EB00AAD8AD /* AIAgent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIAgent.cpp; path = src/AIAgent.cpp; sourceTree = SOURCE_ROOT; };
-		42CC52FA1809A4EB00AAD8AD /* AIAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIAgent.h; path = src/AIAgent.h; sourceTree = SOURCE_ROOT; };
-		42CC52FB1809A4EB00AAD8AD /* AIController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIController.cpp; path = src/AIController.cpp; sourceTree = SOURCE_ROOT; };
-		42CC52FC1809A4EB00AAD8AD /* AIController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIController.h; path = src/AIController.h; sourceTree = SOURCE_ROOT; };
-		42CC52FD1809A4EB00AAD8AD /* AIMessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIMessage.cpp; path = src/AIMessage.cpp; sourceTree = SOURCE_ROOT; };
-		42CC52FE1809A4EB00AAD8AD /* AIMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIMessage.h; path = src/AIMessage.h; sourceTree = SOURCE_ROOT; };
-		42CC52FF1809A4EB00AAD8AD /* AIState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIState.cpp; path = src/AIState.cpp; sourceTree = SOURCE_ROOT; };
-		42CC53001809A4EB00AAD8AD /* AIState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIState.h; path = src/AIState.h; sourceTree = SOURCE_ROOT; };
-		42CC53011809A4EB00AAD8AD /* AIStateMachine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIStateMachine.cpp; path = src/AIStateMachine.cpp; sourceTree = SOURCE_ROOT; };
-		42CC53021809A4EB00AAD8AD /* AIStateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIStateMachine.h; path = src/AIStateMachine.h; sourceTree = SOURCE_ROOT; };
 		42CC53031809A4EB00AAD8AD /* Animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Animation.cpp; path = src/Animation.cpp; sourceTree = SOURCE_ROOT; };
 		42CC53041809A4EB00AAD8AD /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Animation.h; path = src/Animation.h; sourceTree = SOURCE_ROOT; };
 		42CC53051809A4EB00AAD8AD /* AnimationClip.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AnimationClip.cpp; path = src/AnimationClip.cpp; sourceTree = SOURCE_ROOT; };
@@ -462,16 +442,6 @@
 			children = (
 				42CC52F71809A4EB00AAD8AD /* AbsoluteLayout.cpp */,
 				42CC52F81809A4EB00AAD8AD /* AbsoluteLayout.h */,
-				42CC52F91809A4EB00AAD8AD /* AIAgent.cpp */,
-				42CC52FA1809A4EB00AAD8AD /* AIAgent.h */,
-				42CC52FB1809A4EB00AAD8AD /* AIController.cpp */,
-				42CC52FC1809A4EB00AAD8AD /* AIController.h */,
-				42CC52FD1809A4EB00AAD8AD /* AIMessage.cpp */,
-				42CC52FE1809A4EB00AAD8AD /* AIMessage.h */,
-				42CC52FF1809A4EB00AAD8AD /* AIState.cpp */,
-				42CC53001809A4EB00AAD8AD /* AIState.h */,
-				42CC53011809A4EB00AAD8AD /* AIStateMachine.cpp */,
-				42CC53021809A4EB00AAD8AD /* AIStateMachine.h */,
 				42CC53031809A4EB00AAD8AD /* Animation.cpp */,
 				42CC53041809A4EB00AAD8AD /* Animation.h */,
 				42CC53051809A4EB00AAD8AD /* AnimationClip.cpp */,
@@ -786,7 +756,6 @@
 				42CC55BA1809A4EF00AAD8AD /* Camera.cpp in Sources */,
 				42CC59201809A4EF00AAD8AD /* Model.cpp in Sources */,
 				42CC59EE1809A4EF00AAD8AD /* TerrainPatch.cpp in Sources */,
-				42CC557C1809A4EF00AAD8AD /* AIState.cpp in Sources */,
 				42CC59001809A4EF00AAD8AD /* Material.cpp in Sources */,
 				426F8317187F72A700640CBA /* JoystickControl.cpp in Sources */,
 				42CC5A1E1809A4EF00AAD8AD /* VerticalLayout.cpp in Sources */,
@@ -817,16 +786,13 @@
 				42CC55AE1809A4EF00AAD8AD /* BoundingSphere.cpp in Sources */,
 				42CC55CE1809A4EF00AAD8AD /* DebugNew.cpp in Sources */,
 				42CC59141809A4EF00AAD8AD /* MeshBatch.cpp in Sources */,
-				42CC55701809A4EF00AAD8AD /* AIAgent.cpp in Sources */,
 				42CC55D21809A4EF00AAD8AD /* DepthStencilTarget.cpp in Sources */,
 				42CC55B61809A4EF00AAD8AD /* Button.cpp in Sources */,
 				42CC596A1809A4EF00AAD8AD /* Plane.cpp in Sources */,
 				42CC55E61809A4EF00AAD8AD /* Form.cpp in Sources */,
-				42CC55801809A4EF00AAD8AD /* AIStateMachine.cpp in Sources */,
 				42CC560E1809A4EF00AAD8AD /* Image.cpp in Sources */,
 				42CC591C1809A4EF00AAD8AD /* MeshSkin.cpp in Sources */,
 				420BBC0E1817416F00C7B720 /* ControlFactory.cpp in Sources */,
-				42CC55741809A4EF00AAD8AD /* AIController.cpp in Sources */,
 				42CC55B21809A4EF00AAD8AD /* Bundle.cpp in Sources */,
 				42CC592E1809A4EF00AAD8AD /* Pass.cpp in Sources */,
 				42CC55F61809A4EF00AAD8AD /* Gamepad.cpp in Sources */,
@@ -835,7 +801,6 @@
 				42CC59A21809A4EF00AAD8AD /* SceneLoader.cpp in Sources */,
 				42CC556C1809A4EF00AAD8AD /* AbsoluteLayout.cpp in Sources */,
 				42CC59181809A4EF00AAD8AD /* MeshPart.cpp in Sources */,
-				42CC55781809A4EF00AAD8AD /* AIMessage.cpp in Sources */,
 				42CC59FA1809A4EF00AAD8AD /* Theme.cpp in Sources */,
 				42CC55C21809A4EF00AAD8AD /* Container.cpp in Sources */,
 				42CC55F21809A4EF00AAD8AD /* Game.cpp in Sources */,
@@ -879,7 +844,6 @@
 				42CC55BB1809A4EF00AAD8AD /* Camera.cpp in Sources */,
 				42CC59211809A4EF00AAD8AD /* Model.cpp in Sources */,
 				42CC59EF1809A4EF00AAD8AD /* TerrainPatch.cpp in Sources */,
-				42CC557D1809A4EF00AAD8AD /* AIState.cpp in Sources */,
 				426F8318187F72A700640CBA /* JoystickControl.cpp in Sources */,
 				42CC59011809A4EF00AAD8AD /* Material.cpp in Sources */,
 				42CC5A1F1809A4EF00AAD8AD /* VerticalLayout.cpp in Sources */,
@@ -910,16 +874,13 @@
 				42CC55AF1809A4EF00AAD8AD /* BoundingSphere.cpp in Sources */,
 				42CC55CF1809A4EF00AAD8AD /* DebugNew.cpp in Sources */,
 				42CC59151809A4EF00AAD8AD /* MeshBatch.cpp in Sources */,
-				42CC55711809A4EF00AAD8AD /* AIAgent.cpp in Sources */,
 				42CC55D31809A4EF00AAD8AD /* DepthStencilTarget.cpp in Sources */,
 				42CC55B71809A4EF00AAD8AD /* Button.cpp in Sources */,
 				42CC596B1809A4EF00AAD8AD /* Plane.cpp in Sources */,
 				42CC55E71809A4EF00AAD8AD /* Form.cpp in Sources */,
-				42CC55811809A4EF00AAD8AD /* AIStateMachine.cpp in Sources */,
 				42CC560F1809A4EF00AAD8AD /* Image.cpp in Sources */,
 				42CC591D1809A4EF00AAD8AD /* MeshSkin.cpp in Sources */,
 				420BBC0F1817416F00C7B720 /* ControlFactory.cpp in Sources */,
-				42CC55751809A4EF00AAD8AD /* AIController.cpp in Sources */,
 				42CC55B31809A4EF00AAD8AD /* Bundle.cpp in Sources */,
 				42CC592F1809A4EF00AAD8AD /* Pass.cpp in Sources */,
 				42CC55F71809A4EF00AAD8AD /* Gamepad.cpp in Sources */,
@@ -928,7 +889,6 @@
 				42CC59A31809A4EF00AAD8AD /* SceneLoader.cpp in Sources */,
 				42CC556D1809A4EF00AAD8AD /* AbsoluteLayout.cpp in Sources */,
 				42CC59191809A4EF00AAD8AD /* MeshPart.cpp in Sources */,
-				42CC55791809A4EF00AAD8AD /* AIMessage.cpp in Sources */,
 				42CC59FB1809A4EF00AAD8AD /* Theme.cpp in Sources */,
 				42CC55C31809A4EF00AAD8AD /* Container.cpp in Sources */,
 				42CC55F31809A4EF00AAD8AD /* Game.cpp in Sources */,

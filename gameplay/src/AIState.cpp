@@ -1,3 +1,5 @@
+#ifdef MODULE_AI_ENABLED
+
 #include "Base.h"
 #include "AIState.h"
 #include "AIAgent.h"
@@ -86,3 +88,5 @@ void AIState::Listener::stateUpdate(AIAgent* agent, AIState* state, float elapse
 }
 
 }
+
+#endif // #ifdef MODULE_AI_ENABLED

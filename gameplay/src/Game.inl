@@ -65,10 +65,12 @@ inline ScriptController* Game::getScriptController() const
 }
 #endif // #ifdef MODULE_SCRIPT_ENABLED
     
+#ifdef MODULE_AI_ENABLED
 inline AIController* Game::getAIController() const
 {
     return _aiController;
 }
+#endif // #ifdef MODULE_AI_ENABLED
 
 template <class T>
 void Game::renderOnce(T* instance, void (T::*method)(void*), void* cookie)

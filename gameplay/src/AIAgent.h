@@ -1,3 +1,5 @@
+#ifdef MODULE_AI_ENABLED
+
 #ifndef AIAGENT_H_
 #define AIAGENT_H_
 
@@ -172,3 +174,5 @@ private:
 }
 
 #endif
+
+#endif // #ifdef MODULE_AI_ENABLED

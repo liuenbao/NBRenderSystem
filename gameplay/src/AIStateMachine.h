@@ -1,3 +1,5 @@
+#ifdef MODULE_AI_ENABLED
+
 #ifndef AISTATEMACHINE_H_
 #define AISTATEMACHINE_H_
 
@@ -159,3 +161,5 @@ private:
 }
 
 #endif
+
+#endif // #ifdef MODULE_AI_ENABLED
