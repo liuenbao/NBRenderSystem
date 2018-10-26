@@ -131,12 +131,29 @@ int getUnicode(int key);
         // Set the resource path and initalize the game
         NSString* bundlePath = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/"];
         FileSystem::setResourcePath([bundlePath fileSystemRepresentation]);
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive:)
+                                                     name:UIApplicationWillResignActiveNotification object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:)
+                                                     name:UIApplicationDidBecomeActiveNotification object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground:)
+                                                     name:UIApplicationDidEnterBackgroundNotification object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground:)
+                                                     name:UIApplicationWillEnterForegroundNotification object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillTerminate:)
+                                                     name:UIApplicationWillTerminateNotification object:nil];
     }
     return self;
 }
 
 - (void) dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     if (game)
         game->exit();
     [self deleteFramebuffer];
@@ -788,6 +805,28 @@ int getUnicode(int key);
         gameplay::Platform::gestureDropEventInternal(location.x * WINDOW_SCALE, location.y * WINDOW_SCALE);
         __gestureDraging = false;
     }
+}
+
+#pragma mark - app lifecycle
+
+- (void)applicationWillResignActive:(NSNotification *)notification {
+    [self stopUpdating];
+}
+
+- (void)applicationDidBecomeActive:(NSNotification *)notification {
+    [self startUpdating];
+}
+
+- (void)applicationDidEnterBackground:(NSNotification *)notification {
+    [self stopUpdating];
+}
+
+- (void)applicationWillEnterForeground:(NSNotification *)notification {
+    [self startUpdating];
+}
+
+- (void)applicationWillTerminate:(NSNotification *)notification {
+    [self stopUpdating];
 }
 
 @end

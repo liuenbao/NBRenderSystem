@@ -12,8 +12,6 @@
 
 @interface GamePlayViewController : UIViewController
 
-- (void)startUpdating;
-- (void)stopUpdating;
 - (void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController;
 
 @end

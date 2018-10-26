@@ -33,7 +33,7 @@ double getMachTimeInMilliseconds();
 @interface GamePlayViewController () {
     GamePlayView* _playView;
     gameplay::Platform* _platform;
-    CMMotionManager *motionManager;
+//    CMMotionManager *motionManager;
 }
 
 @end
@@ -42,32 +42,17 @@ double getMachTimeInMilliseconds();
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
-        motionManager = [[CMMotionManager alloc] init];
-        if([motionManager isAccelerometerAvailable] == YES)
-        {
-            motionManager.accelerometerUpdateInterval = 1 / 40.0;    // 40Hz
-            [motionManager startAccelerometerUpdates];
-        }
-        if([motionManager isGyroAvailable] == YES)
-        {
-            motionManager.gyroUpdateInterval = 1 / 40.0;    // 40Hz
-            [motionManager startGyroUpdates];
-        }
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive:)
-                                                     name:UIApplicationWillResignActiveNotification object:nil];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:)
-                                                     name:UIApplicationDidBecomeActiveNotification object:nil];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground:)
-                                                     name:UIApplicationDidEnterBackgroundNotification object:nil];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground:)
-                                                     name:UIApplicationWillEnterForegroundNotification object:nil];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillTerminate:)
-                                                     name:UIApplicationWillTerminateNotification object:nil];
+//        motionManager = [[CMMotionManager alloc] init];
+//        if([motionManager isAccelerometerAvailable] == YES)
+//        {
+//            motionManager.accelerometerUpdateInterval = 1 / 40.0;    // 40Hz
+//            [motionManager startAccelerometerUpdates];
+//        }
+//        if([motionManager isGyroAvailable] == YES)
+//        {
+//            motionManager.gyroUpdateInterval = 1 / 40.0;    // 40Hz
+//            [motionManager startGyroUpdates];
+//        }
         
         gameplay::Game* game = gameplay::Game::getInstance();
         _platform = gameplay::Platform::create(game);
@@ -89,28 +74,6 @@ double getMachTimeInMilliseconds();
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - app lifecycle
-
-- (void)applicationWillResignActive:(NSNotification *)notification {
-    [__view stopUpdating];
-}
-
-- (void)applicationDidBecomeActive:(NSNotification *)notification {
-    [__view startUpdating];
-}
-
-- (void)applicationDidEnterBackground:(NSNotification *)notification {
-    [__view stopUpdating];
-}
-
-- (void)applicationWillEnterForeground:(NSNotification *)notification {
-    [__view startUpdating];
-}
-
-- (void)applicationWillTerminate:(NSNotification *)notification {
-    [__view stopUpdating];
-}
-
 #pragma mark - View lifecycle
 - (void)loadView
 {
@@ -120,91 +83,79 @@ double getMachTimeInMilliseconds();
     }
 }
 
-- (void)startUpdating
-{
-    [(GamePlayView*)self.view startUpdating];
-}
-
-- (void)stopUpdating
-{
-    [(GamePlayView*)self.view stopUpdating];
-}
-
 - (void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
     __view = nil;
     __viewController = nil;
 }
 
 - (void)getAccelerometerPitch:(float*)pitch roll:(float*)roll
 {
-    float p = 0.0f;
-    float r = 0.0f;
-    CMAccelerometerData* accelerometerData = motionManager.accelerometerData;
-    if(accelerometerData != nil)
-    {
-        float tx, ty, tz;
-        
-        switch ([[UIApplication sharedApplication] statusBarOrientation])
-        {
-            case UIInterfaceOrientationLandscapeRight:
-                tx = -accelerometerData.acceleration.y;
-                ty = accelerometerData.acceleration.x;
-                break;
-                
-            case UIInterfaceOrientationLandscapeLeft:
-                tx = accelerometerData.acceleration.y;
-                ty = -accelerometerData.acceleration.x;
-                break;
-                
-            case UIInterfaceOrientationPortraitUpsideDown:
-                tx = -accelerometerData.acceleration.y;
-                ty = -accelerometerData.acceleration.x;
-                break;
-                
-            case UIInterfaceOrientationPortrait:
-                tx = accelerometerData.acceleration.x;
-                ty = accelerometerData.acceleration.y;
-                break;
-        }
-        tz = accelerometerData.acceleration.z;
-        
-        p = atan(ty / sqrt(tx * tx + tz * tz)) * 180.0f * M_1_PI;
-        r = atan(tx / sqrt(ty * ty + tz * tz)) * 180.0f * M_1_PI;
-    }
-    
-    if(pitch != NULL)
-        *pitch = p;
-    if(roll != NULL)
-        *roll = r;
+//    float p = 0.0f;
+//    float r = 0.0f;
+//    CMAccelerometerData* accelerometerData = motionManager.accelerometerData;
+//    if(accelerometerData != nil)
+//    {
+//        float tx, ty, tz;
+//
+//        switch ([[UIApplication sharedApplication] statusBarOrientation])
+//        {
+//            case UIInterfaceOrientationLandscapeRight:
+//                tx = -accelerometerData.acceleration.y;
+//                ty = accelerometerData.acceleration.x;
+//                break;
+//
+//            case UIInterfaceOrientationLandscapeLeft:
+//                tx = accelerometerData.acceleration.y;
+//                ty = -accelerometerData.acceleration.x;
+//                break;
+//
+//            case UIInterfaceOrientationPortraitUpsideDown:
+//                tx = -accelerometerData.acceleration.y;
+//                ty = -accelerometerData.acceleration.x;
+//                break;
+//
+//            case UIInterfaceOrientationPortrait:
+//                tx = accelerometerData.acceleration.x;
+//                ty = accelerometerData.acceleration.y;
+//                break;
+//        }
+//        tz = accelerometerData.acceleration.z;
+//
+//        p = atan(ty / sqrt(tx * tx + tz * tz)) * 180.0f * M_1_PI;
+//        r = atan(tx / sqrt(ty * ty + tz * tz)) * 180.0f * M_1_PI;
+//    }
+//
+//    if(pitch != NULL)
+//        *pitch = p;
+//    if(roll != NULL)
+//        *roll = r;
 }
 
 - (void)getRawAccelX:(float*)x Y:(float*)y Z:(float*)z
 {
-    CMAccelerometerData* accelerometerData = motionManager.accelerometerData;
-    if(accelerometerData != nil)
-    {
-        *x = -9.81f * accelerometerData.acceleration.x;
-        *y = -9.81f * accelerometerData.acceleration.y;
-        *z = -9.81f * accelerometerData.acceleration.z;
-    }
+//    CMAccelerometerData* accelerometerData = motionManager.accelerometerData;
+//    if(accelerometerData != nil)
+//    {
+//        *x = -9.81f * accelerometerData.acceleration.x;
+//        *y = -9.81f * accelerometerData.acceleration.y;
+//        *z = -9.81f * accelerometerData.acceleration.z;
+//    }
 }
 
 - (void)getRawGyroX:(float*)x Y:(float*)y Z:(float*)z
 {
-    CMGyroData* gyroData = motionManager.gyroData;
-    if(gyroData != nil)
-    {
-        *x = gyroData.rotationRate.x;
-        *y = gyroData.rotationRate.y;
-        *z = gyroData.rotationRate.z;
-    }
+//    CMGyroData* gyroData = motionManager.gyroData;
+//    if(gyroData != nil)
+//    {
+//        *x = gyroData.rotationRate.x;
+//        *y = gyroData.rotationRate.y;
+//        *z = gyroData.rotationRate.z;
+//    }
 }
 
 @end
