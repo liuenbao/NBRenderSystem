@@ -22,7 +22,7 @@
 		FA73105F2182201400F5A39A /* SamplesGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA73105A2182201400F5A39A /* SamplesGame.cpp */; };
 		FA7310602182201400F5A39A /* TriangleSample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA73105C2182201400F5A39A /* TriangleSample.cpp */; };
 		FA7310622182213400F5A39A /* res in Resources */ = {isa = PBXBuildFile; fileRef = FA7310612182213400F5A39A /* res */; };
-		FA7310722183FC9200F5A39A /* NBGamePlayView.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA7310712183FC9200F5A39A /* NBGamePlayView.mm */; };
+		FA7310722183FC9200F5A39A /* NBGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA7310712183FC9200F5A39A /* NBGLView.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,8 +49,8 @@
 		FA73105C2182201400F5A39A /* TriangleSample.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TriangleSample.cpp; sourceTree = "<group>"; };
 		FA73105D2182201400F5A39A /* TriangleSample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TriangleSample.h; sourceTree = "<group>"; };
 		FA7310612182213400F5A39A /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../../../gameplay/res; sourceTree = "<group>"; };
-		FA7310702183FC9200F5A39A /* NBGamePlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBGamePlayView.h; sourceTree = "<group>"; };
-		FA7310712183FC9200F5A39A /* NBGamePlayView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NBGamePlayView.mm; sourceTree = "<group>"; };
+		FA7310702183FC9200F5A39A /* NBGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBGLView.h; sourceTree = "<group>"; };
+		FA7310712183FC9200F5A39A /* NBGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NBGLView.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,8 +101,8 @@
 				FA731015218212FB00F5A39A /* GamePlayViewController.mm */,
 				FA7310272182133400F5A39A /* GamePlayView.h */,
 				FA7310282182133400F5A39A /* GamePlayView.mm */,
-				FA7310702183FC9200F5A39A /* NBGamePlayView.h */,
-				FA7310712183FC9200F5A39A /* NBGamePlayView.mm */,
+				FA7310702183FC9200F5A39A /* NBGLView.h */,
+				FA7310712183FC9200F5A39A /* NBGLView.mm */,
 			);
 			path = basicdemo;
 			sourceTree = "<group>";
@@ -207,7 +207,7 @@
 				FA7310292182133400F5A39A /* GamePlayView.mm in Sources */,
 				FA731016218212FB00F5A39A /* GamePlayViewController.mm in Sources */,
 				FA731021218212FB00F5A39A /* main.m in Sources */,
-				FA7310722183FC9200F5A39A /* NBGamePlayView.mm in Sources */,
+				FA7310722183FC9200F5A39A /* NBGLView.mm in Sources */,
 				FA73105E2182201400F5A39A /* Sample.cpp in Sources */,
 				FA731013218212FB00F5A39A /* AppDelegate.m in Sources */,
 				FA73105F2182201400F5A39A /* SamplesGame.cpp in Sources */,

@@ -8,7 +8,7 @@
 
 #import "GamePlayViewController.h"
 #import "GamePlayView.h"
-#import "NBGamePlayView.h"
+#import "NBGLView.h"
 
 #import <CoreMotion/CoreMotion.h>
 
@@ -66,15 +66,15 @@ int getKey(unichar keyCode);
 int getUnicode(int key);
 
 static __weak GamePlayViewController* __viewController = NULL;
-static NBGamePlayView* __view = NULL;
+static NBGLView* __view = NULL;
 
 static double __timeAbsolute;
 static bool __vsync = WINDOW_VSYNC;
 
 double getMachTimeInMilliseconds();
 
-@interface GamePlayViewController () <GLRendererDelegate> {
-    NBGamePlayView* _playView;
+@interface GamePlayViewController () <NBGLRenderer> {
+    NBGLView* _playView;
     gameplay::Platform* _platform;
     gameplay::Game* _game;
     CMMotionManager *motionManager;
@@ -152,9 +152,9 @@ double getMachTimeInMilliseconds();
 #pragma mark - View lifecycle
 - (void)loadView
 {
-    self.view = [[NBGamePlayView alloc] init];
+    self.view = [[NBGLView alloc] init];
     if (__view == nil) {
-        __view = (NBGamePlayView*)self.view;
+        __view = (NBGLView*)self.view;
         __view.renderer = self;
     }
 }

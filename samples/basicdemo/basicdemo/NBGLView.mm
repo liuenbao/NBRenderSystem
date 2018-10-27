@@ -6,11 +6,15 @@
 //  Copyright © 2018 liu enbao. All rights reserved.
 //
 
-#import "NBGamePlayView.h"
+#import "NBGLView.h"
 
 #import <OpenGLES/EAGL.h>
 #import <OpenGLES/ES2/glext.h>
 #import <OpenGLES/ES2/gl.h>
+
+/** Global variable to hold GL errors
+ * @script{ignore} */
+static GLenum g_gl_error_code = GL_NO_ERROR;
 
 // Assert macros.
 #ifdef _DEBUG
@@ -41,33 +45,10 @@
 #define GL_ASSERT( gl_code ) do \
             { \
                 gl_code; \
-                __gl_error_code = glGetError(); \
-                GP_ASSERT(__gl_error_code == GL_NO_ERROR); \
+                g_gl_error_code = glGetError(); \
+                GP_ASSERT(g_gl_error_code == GL_NO_ERROR); \
             } while(0)
 #endif
-
-/** Global variable to hold GL errors
- * @script{ignore} */
-extern GLenum __gl_error_code;
-
-/**
- * The renderer only renders
- * when the surface is created, or when {@link #requestRender} is called.
- *
- * @see #getRenderMode()
- * @see #setRenderMode(int)
- * @see #requestRender()
- */
-static int RENDERMODE_WHEN_DIRTY = 0;
-
-/**
- * The renderer is called
- * continuously to re-render the scene.
- *
- * @see #getRenderMode()
- * @see #setRenderMode(int)
- */
-static int RENDERMODE_CONTINUOUSLY = 1;
 
 static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
 
@@ -107,10 +88,10 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
     NSMutableArray* eventQueue;
     
     // The weak ref to glView
-    __weak NBGamePlayView* mWeakGLView;
+    __weak NBGLView* mWeakGLView;
 }
 
-- (instancetype)initWithNBGLView:(NBGamePlayView*)glView;
+- (instancetype)initWithNBGLView:(NBGLView*)glView;
 
 - (void)onWindowResize:(int)w height:(int)h;
 - (void)surfaceCreated;
@@ -118,6 +99,7 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
 - (void)onPause;
 - (void)onResume;
 - (void)requestExitAndWait;
+- (void)requestRender;
 
 - (void)queueEvent:(nonnull NBEventRunnable)runnable;
 
@@ -128,7 +110,7 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
 
 #pragma NSGLThread declare end
 
-@interface NBGamePlayView() {
+@interface NBGLView() {
     EAGLContext* context;
     GLuint defaultFramebuffer;
     GLuint colorRenderbuffer;
@@ -138,7 +120,6 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
     GLuint multisampleFramebuffer;
     GLuint multisampleRenderbuffer;
     GLuint multisampleDepthbuffer;
-    NSInteger swapInterval;
     BOOL oglDiscardSupported;
     
     NBGLThread* mGLThread;
@@ -150,7 +131,7 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
 
 @end
 
-@implementation NBGamePlayView
+@implementation NBGLView
 
 @synthesize context;
 
@@ -213,7 +194,6 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
         multisampleFramebuffer = 0;
         multisampleRenderbuffer = 0;
         multisampleDepthbuffer = 0;
-        swapInterval = 1;
         
         mDetached = NO;
     }
@@ -437,19 +417,6 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
     }
 }
 
-- (void)setSwapInterval:(NSInteger)interval
-{
-    if (interval >= 1)
-    {
-        swapInterval = interval;
-    }
-}
-
-- (NSInteger)swapInterval
-{
-    return swapInterval;
-}
-
 - (void)postBindBuffers {
     if (multisampleFramebuffer)
     {
@@ -495,9 +462,21 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
     [mGLThread queueEvent:runnable];
 }
 
+- (void)setRenderMode:(int)renderMode {
+    [mGLThread setRenderMode:renderMode];
+}
+
+- (int)getRenderMode {
+    return [mGLThread getRenderMode];
+}
+
+- (void)requestRender {
+    [mGLThread requestRender];
+}
+
 #pragma public interface end
 
-- (void)setRenderer:(id<GLRendererDelegate>)renderer {
+- (void)setRenderer:(id<NBGLRenderer>)renderer {
     _renderer = renderer;
 
     mGLThread = [[NBGLThread alloc] initWithNBGLView:self];
@@ -510,7 +489,7 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
 
 @implementation NBGLThread
 
-- (instancetype)initWithNBGLView:(NBGamePlayView*)glView {
+- (instancetype)initWithNBGLView:(NBGLView*)glView {
     if (self = [super init]) {
         mExited = NO;
         
@@ -623,6 +602,13 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
     while (! mExited) {
         [sGLThreadManager wait];
     }
+    [sGLThreadManager unlock];
+}
+
+- (void)requestRender {
+    [sGLThreadManager lock];
+    mRequestRender = YES;
+    [sGLThreadManager broadcast];
     [sGLThreadManager unlock];
 }
 
