@@ -165,6 +165,8 @@ double getMachTimeInMilliseconds();
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     __view = nil;
     __viewController = nil;
 }

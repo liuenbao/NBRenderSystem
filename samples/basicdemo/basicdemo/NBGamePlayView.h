@@ -26,10 +26,9 @@ typedef void (^NBEventRunnable)();
 
 @interface NBGamePlayView : UIView
 
-@property (readonly, nonatomic, getter=isUpdating) BOOL updating;
 @property (readonly, nonatomic, getter=getContext) EAGLContext* context;
 
-@property (nonatomic, weak) id<GLRendererDelegate> renderer;
+@property (nonatomic, strong) id<GLRendererDelegate> renderer;
 
 - (void)setSwapInterval:(NSInteger)interval;
 - (NSInteger)swapInterval;
@@ -38,7 +37,5 @@ typedef void (^NBEventRunnable)();
 - (void)resume;
 
 - (void)queueEvent:(nonnull NBEventRunnable)runnable;
-
-- (void)requestExitAndWait;
 
 @end

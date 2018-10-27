@@ -59,6 +59,7 @@ extern GLenum __gl_error_code;
  * @see #requestRender()
  */
 static int RENDERMODE_WHEN_DIRTY = 0;
+
 /**
  * The renderer is called
  * continuously to re-render the scene.
@@ -70,27 +71,9 @@ static int RENDERMODE_CONTINUOUSLY = 1;
 
 static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
 
-@interface NBGamePlayView() {
-    EAGLContext* context;
-    BOOL updateFramebuffer;
-    GLuint defaultFramebuffer;
-    GLuint colorRenderbuffer;
-    GLuint depthRenderbuffer;
-    GLint framebufferWidth;
-    GLint framebufferHeight;
-    GLuint multisampleFramebuffer;
-    GLuint multisampleRenderbuffer;
-    GLuint multisampleDepthbuffer;
-    NSInteger swapInterval;
-    BOOL updating;
-    BOOL oglDiscardSupported;
-    
-    EAGLContext* backgroundContext;
-    NSThread* backgroundThread;
-    
-    //The thread lock object
-    NSMutableArray* eventQueue;
-    
+#pragma NSGLThread declare begin
+
+@interface NBGLThread : NSThread {
     BOOL mExited;
     
     BOOL mShouldExit;
@@ -113,10 +96,53 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
     
     int mWidth;
     int mHeight;
+    int mRenderMode;
     
     BOOL mSurfaceIsBad;
     
-    int mRenderMode;
+    // The GLContext Thared with GLView
+    EAGLContext* backgroundContext;
+    
+    //The thread lock object
+    NSMutableArray* eventQueue;
+    
+    // The weak ref to glView
+    __weak NBGamePlayView* mWeakGLView;
+}
+
+- (instancetype)initWithNBGLView:(NBGamePlayView*)glView;
+
+- (void)onWindowResize:(int)w height:(int)h;
+- (void)surfaceCreated;
+- (void)surfaceDestroy;
+- (void)onPause;
+- (void)onResume;
+- (void)requestExitAndWait;
+
+- (void)queueEvent:(nonnull NBEventRunnable)runnable;
+
+- (int)getRenderMode;
+- (void)setRenderMode:(int)renderMode;
+
+@end
+
+#pragma NSGLThread declare end
+
+@interface NBGamePlayView() {
+    EAGLContext* context;
+    GLuint defaultFramebuffer;
+    GLuint colorRenderbuffer;
+    GLuint depthRenderbuffer;
+    GLint framebufferWidth;
+    GLint framebufferHeight;
+    GLuint multisampleFramebuffer;
+    GLuint multisampleRenderbuffer;
+    GLuint multisampleDepthbuffer;
+    NSInteger swapInterval;
+    BOOL oglDiscardSupported;
+    
+    NBGLThread* mGLThread;
+    BOOL mDetached;
 }
 
 - (BOOL)createFramebuffer;
@@ -126,7 +152,6 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
 
 @implementation NBGamePlayView
 
-@synthesize updating;
 @synthesize context;
 
 + (Class) layerClass
@@ -180,8 +205,6 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
         }
         
         // Initialize Internal Defaults
-//        displayLink = nil;
-        updateFramebuffer = YES;
         defaultFramebuffer = 0;
         colorRenderbuffer = 0;
         depthRenderbuffer = 0;
@@ -191,42 +214,16 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
         multisampleRenderbuffer = 0;
         multisampleDepthbuffer = 0;
         swapInterval = 1;
-        updating = FALSE;
         
-        mExited = NO;
-        
-        mShouldExit = NO;
-        mPaused = NO;
-        mSizeChanged = NO;
-        mRequestPaused = NO;
-        
-        mHaveEaglContext = NO;
-        mWaitingForSurface = NO;
-        mHaveEglContext = NO;
-        mHaveEglSurface = NO;
-        mWantRenderNotification = NO;
-        mShouldReleaseEglContext = NO;
-        
-        mSurfaceIsBad = NO;
-        
-        mRenderMode = RENDERMODE_CONTINUOUSLY;
-       
-        mWidth = 0;
-        mHeight = 0;
-        
-        // the event array
-        eventQueue = [NSMutableArray new];
+        mDetached = NO;
     }
     return self;
 }
 
 - (void) dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [mGLThread requestExitAndWait];
     
-//    if (game)
-//        game->exit();
-
     if ([self.renderer respondsToSelector:@selector(glRenderDestroy:)]) {
         [self.renderer glRenderDestroy:self];
     }
@@ -247,17 +244,21 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
     
     // Create the main framebuffer
     [self createFramebuffer];
-
-    [sGLThreadManager lock];
-    mHasSurface = true;
-    mFinishedCreatingEglSurface = false;
-    [sGLThreadManager broadcast];
-    while (mWaitingForSurface
-           && !mFinishedCreatingEglSurface
-           && !mExited) {
-            [sGLThreadManager wait];
+    
+    if (mDetached && (_renderer != nil)) {
+        int renderMode = RENDERMODE_CONTINUOUSLY;
+        if (mGLThread != nil) {
+            renderMode = [mGLThread getRenderMode];
+        }
+        mGLThread = [[NBGLThread alloc] initWithNBGLView:self];
+        if (renderMode != RENDERMODE_CONTINUOUSLY) {
+            [mGLThread setRenderMode:renderMode];
+        }
+        [mGLThread start];
     }
-    [sGLThreadManager unlock];
+    mDetached = NO;
+    
+    [mGLThread surfaceCreated];
     
     NSLog(@"willMoveToSuperview exit");
 }
@@ -265,20 +266,19 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
 - (void)removeFromSuperview {
     NSLog(@"removeFromSuperview enter");
     
-    [super removeFromSuperview];
+    [mGLThread surfaceDestroy];
     
-    [sGLThreadManager lock];
-    mHasSurface = false;
-    [sGLThreadManager broadcast];
-    while((!mWaitingForSurface) && (!mExited)) {
-        [sGLThreadManager wait];
+    if (mGLThread != nil) {
+        [mGLThread requestExitAndWait];
     }
-    [sGLThreadManager unlock];
+    mDetached = YES;
     
     // remove the framebuffer
     [self deleteFramebuffer];
     
     NSLog(@"removeFromSuperview exit");
+    
+    [super removeFromSuperview];
 }
 
 - (void) layoutSubviews
@@ -293,42 +293,9 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
     // runtime is currently not supported until we fix this.
     //updateFramebuffer = YES;
     
-    [sGLThreadManager lock];
-    mWidth = self.bounds.size.width;
-    mHeight = self.bounds.size.height;
-    mSizeChanged = true;
-    mRequestRender = true;
-    mRenderComplete = false;
-    
-    // If we are already on the GL thread, this means a client callback
-    // has caused reentrancy, for example via updating the SurfaceView parameters.
-    // We need to process the size change eventually though and update our EGLSurface.
-    // So we set the parameters and return so they can be processed on our
-    // next iteration.
-//        if (Thread.currentThread() == this) {
-//            return;
-//        }
-    
-    [sGLThreadManager broadcast];
-    
-    // Wait for thread to react to resize and render a frame
-    while (! mExited && !mPaused && !mRenderComplete
-           && [self ableToDraw]) {
-        [sGLThreadManager wait];
-    }
-    [sGLThreadManager unlock];
+    [mGLThread onWindowResize:self.bounds.size.width height:self.bounds.size.height];
     
     NSLog(@"layoutSubviews exit");
-}
-
-- (BOOL)ableToDraw {
-    return mHaveEaglContext && [self readyToDraw];
-}
-
-- (BOOL)readyToDraw {
-    return (!mPaused) && mHasSurface && (!mSurfaceIsBad)
-            && (mWidth > 0) && (mHeight > 0)
-            && (mRequestRender || (mRenderMode == RENDERMODE_CONTINUOUSLY));
 }
 
 - (BOOL)createFramebuffer
@@ -483,9 +450,148 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
     return swapInterval;
 }
 
+- (void)postBindBuffers {
+    if (multisampleFramebuffer)
+    {
+        // Multisampling is enabled: resolve the multisample buffer into the default framebuffer
+        GL_ASSERT( glBindFramebuffer(GL_DRAW_FRAMEBUFFER_APPLE, defaultFramebuffer) );
+        GL_ASSERT( glBindFramebuffer(GL_READ_FRAMEBUFFER_APPLE, multisampleFramebuffer) );
+        GL_ASSERT( glResolveMultisampleFramebufferAPPLE() );
+        
+        if (oglDiscardSupported)
+        {
+            // Performance hint that the GL driver can discard the contents of the multisample buffers
+            // since they have now been resolved into the default framebuffer
+            const GLenum discards[]  = { GL_COLOR_ATTACHMENT0, GL_DEPTH_ATTACHMENT };
+            GL_ASSERT( glDiscardFramebufferEXT(GL_READ_FRAMEBUFFER_APPLE, 2, discards) );
+        }
+    }
+    else
+    {
+        if (oglDiscardSupported)
+        {
+            // Performance hint to the GL driver that the depth buffer is no longer required.
+            const GLenum discards[]  = { GL_DEPTH_ATTACHMENT };
+            GL_ASSERT( glBindFramebuffer(GL_FRAMEBUFFER, defaultFramebuffer) );
+            GL_ASSERT( glDiscardFramebufferEXT(GL_FRAMEBUFFER, 1, discards) );
+        }
+    }
+    
+    // Present the color buffer
+    GL_ASSERT( glBindRenderbuffer(GL_RENDERBUFFER, colorRenderbuffer) );
+}
+
 #pragma public interface begin
 
 - (void)pause {
+    [mGLThread onPause];
+}
+
+- (void)resume {
+    [mGLThread onResume];
+}
+
+- (void)queueEvent:(nonnull NBEventRunnable)runnable {
+    [mGLThread queueEvent:runnable];
+}
+
+#pragma public interface end
+
+- (void)setRenderer:(id<GLRendererDelegate>)renderer {
+    _renderer = renderer;
+
+    mGLThread = [[NBGLThread alloc] initWithNBGLView:self];
+    [mGLThread start];
+}
+
+@end
+
+#pragma NBGLThread begin
+
+@implementation NBGLThread
+
+- (instancetype)initWithNBGLView:(NBGamePlayView*)glView {
+    if (self = [super init]) {
+        mExited = NO;
+        
+        mShouldExit = NO;
+        mPaused = NO;
+        mSizeChanged = NO;
+        mRequestPaused = NO;
+        
+        mHaveEaglContext = NO;
+        mWaitingForSurface = NO;
+        mHaveEglContext = NO;
+        mHaveEglSurface = NO;
+        mWantRenderNotification = NO;
+        mShouldReleaseEglContext = NO;
+        
+        mSurfaceIsBad = NO;
+        
+        mRenderMode = RENDERMODE_CONTINUOUSLY;
+        
+        mWidth = 0;
+        mHeight = 0;
+        
+        mWeakGLView = glView;
+        
+        // alloc event array
+        eventQueue = [NSMutableArray new];
+    }
+    return self;
+}
+
+- (void)onWindowResize:(int)w height:(int)h {
+    [sGLThreadManager lock];
+    mWidth = w;
+    mHeight = h;
+    mSizeChanged = true;
+    mRequestRender = true;
+    mRenderComplete = false;
+    
+    // If we are already on the GL thread, this means a client callback
+    // has caused reentrancy, for example via updating the SurfaceView parameters.
+    // We need to process the size change eventually though and update our EGLSurface.
+    // So we set the parameters and return so they can be processed on our
+    // next iteration.
+//        if (Thread.currentThread() == this) {
+//            return;
+//        }
+    
+    [sGLThreadManager broadcast];
+    
+    // Wait for thread to react to resize and render a frame
+    while (! mExited && !mPaused && !mRenderComplete
+           && [self ableToDraw]) {
+        [sGLThreadManager wait];
+    }
+    [sGLThreadManager unlock];
+}
+
+- (void)surfaceCreated {
+    [sGLThreadManager lock];
+    mHasSurface = true;
+    mFinishedCreatingEglSurface = false;
+    [sGLThreadManager broadcast];
+    while (mWaitingForSurface
+           && !mFinishedCreatingEglSurface
+           && !mExited) {
+        [sGLThreadManager wait];
+    }
+    [sGLThreadManager unlock];
+}
+
+- (void)surfaceDestroy {
+    [sGLThreadManager lock];
+    mHasSurface = false;
+    [sGLThreadManager broadcast];
+    while((!mWaitingForSurface) && (!mExited)) {
+        [sGLThreadManager wait];
+    }
+    [sGLThreadManager unlock];
+}
+
+- (void)onPause {
     [sGLThreadManager lock];
     mRequestPaused = YES;
     
@@ -496,7 +602,7 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
     [sGLThreadManager unlock];
 }
 
-- (void)resume {
+- (void)onResume {
     [sGLThreadManager lock];
     mRequestPaused = NO;
     mRequestRender = YES;
@@ -505,13 +611,6 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
     while ((! mExited) && mPaused && (!mRenderComplete)) {
         [sGLThreadManager wait];
     }
-    [sGLThreadManager unlock];
-}
-
-- (void)queueEvent:(nonnull NBEventRunnable)runnable {
-    [sGLThreadManager lock];
-    [eventQueue addObject:runnable];
-    [sGLThreadManager broadcast];
     [sGLThreadManager unlock];
 }
 
@@ -527,10 +626,33 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
     [sGLThreadManager unlock];
 }
 
-#pragma public interface end
+- (int)getRenderMode {
+    int rc = 0;
+    [sGLThreadManager lock];
+    rc = mRenderMode;
+    [sGLThreadManager unlock];
+    return rc;
+}
+
+- (void)setRenderMode:(int)renderMode {
+    [sGLThreadManager lock];
+    mRenderMode = renderMode;
+    [sGLThreadManager broadcast];
+    [sGLThreadManager unlock];
+}
+
+- (BOOL)ableToDraw {
+    return mHaveEaglContext && [self readyToDraw];
+}
+
+- (BOOL)readyToDraw {
+    return (!mPaused) && mHasSurface && (!mSurfaceIsBad)
+    && (mWidth > 0) && (mHeight > 0)
+    && (mRequestRender || (mRenderMode == RENDERMODE_CONTINUOUSLY));
+}
 
 - (void)createGLContext {
-    backgroundContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2 sharegroup:[context sharegroup]];
+    backgroundContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2 sharegroup:[mWeakGLView.context sharegroup]];
     [EAGLContext setCurrentContext:backgroundContext];
 }
 
@@ -538,48 +660,26 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
 {
     if (backgroundContext)
     {
-        if (multisampleFramebuffer)
-        {
-            // Multisampling is enabled: resolve the multisample buffer into the default framebuffer
-            GL_ASSERT( glBindFramebuffer(GL_DRAW_FRAMEBUFFER_APPLE, defaultFramebuffer) );
-            GL_ASSERT( glBindFramebuffer(GL_READ_FRAMEBUFFER_APPLE, multisampleFramebuffer) );
-            GL_ASSERT( glResolveMultisampleFramebufferAPPLE() );
-            
-            if (oglDiscardSupported)
-            {
-                // Performance hint that the GL driver can discard the contents of the multisample buffers
-                // since they have now been resolved into the default framebuffer
-                const GLenum discards[]  = { GL_COLOR_ATTACHMENT0, GL_DEPTH_ATTACHMENT };
-                GL_ASSERT( glDiscardFramebufferEXT(GL_READ_FRAMEBUFFER_APPLE, 2, discards) );
-            }
-        }
-        else
-        {
-            if (oglDiscardSupported)
-            {
-                // Performance hint to the GL driver that the depth buffer is no longer required.
-                const GLenum discards[]  = { GL_DEPTH_ATTACHMENT };
-                GL_ASSERT( glBindFramebuffer(GL_FRAMEBUFFER, defaultFramebuffer) );
-                GL_ASSERT( glDiscardFramebufferEXT(GL_FRAMEBUFFER, 1, discards) );
-            }
-        }
-        
-        // Present the color buffer
-        GL_ASSERT( glBindRenderbuffer(GL_RENDERBUFFER, colorRenderbuffer) );
+        [mWeakGLView postBindBuffers];
         [backgroundContext presentRenderbuffer:GL_RENDERBUFFER];
     }
 }
 
-- (void)setRenderer:(id<GLRendererDelegate>)renderer {
-    _renderer = renderer;
-
-    backgroundThread = [[NSThread alloc] initWithTarget:self selector:@selector(glThreadRun) object:nil];
-    [backgroundThread start];
+- (void)queueEvent:(nonnull NBEventRunnable)runnable {
+    [sGLThreadManager lock];
+    [eventQueue addObject:runnable];
+    [sGLThreadManager broadcast];
+    [sGLThreadManager unlock];
 }
 
-- (void)glThreadRun {
-    [backgroundThread setName:@"glThreadRun"];
+- (void)main {
+    [self setName:@"glThreadRun"];
     
+    // perform the actually render
+    [self guardedRun];
+}
+
+- (void)guardedRun {
     mHaveEglContext = NO;
     mHaveEglSurface = NO;
     mWantRenderNotification = NO;
@@ -777,8 +877,8 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
         }
         
         if (createEglContext) {
-            if ([_renderer respondsToSelector:@selector(glRenderCreated:)]) {
-                [_renderer glRenderCreated:self];
+            if ([mWeakGLView.renderer respondsToSelector:@selector(glRenderCreated:)]) {
+                [mWeakGLView.renderer glRenderCreated:mWeakGLView];
             }
             createEglContext = false;
         }
@@ -787,16 +887,16 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
 //            if (LOG_RENDERER) {
 //                Log.w("GLThread", "onSurfaceChanged(" + w + ", " + h + ")");
 //            }
-            if ([_renderer respondsToSelector:@selector(glRenderSizeChanged:width:height:)]) {
-                [_renderer glRenderSizeChanged:self width:w height:h];
+            if ([mWeakGLView.renderer respondsToSelector:@selector(glRenderSizeChanged:width:height:)]) {
+                [mWeakGLView.renderer glRenderSizeChanged:mWeakGLView width:w height:h];
             }
             sizeChanged = false;
         }
         
         // do real draw callback
         {
-            if ([_renderer respondsToSelector:@selector(glRenderDrawFrame:)]) {
-                [_renderer glRenderDrawFrame:self];
+            if ([mWeakGLView.renderer respondsToSelector:@selector(glRenderDrawFrame:)]) {
+                [mWeakGLView.renderer glRenderDrawFrame:mWeakGLView];
             }
         }
         
@@ -809,9 +909,11 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
         [EAGLContext setCurrentContext:nil];
     }
     
-    if ([_renderer respondsToSelector:@selector(glRenderDestroy:)]) {
-        [_renderer glRenderDestroy:self];
+    if ([mWeakGLView.renderer respondsToSelector:@selector(glRenderDestroy:)]) {
+        [mWeakGLView.renderer glRenderDestroy:mWeakGLView];
     }
 }
 
 @end
+
+#pragma NBGLThread end
