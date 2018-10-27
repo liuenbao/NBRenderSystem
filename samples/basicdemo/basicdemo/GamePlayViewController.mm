@@ -8,6 +8,7 @@
 
 #import "GamePlayViewController.h"
 #import "GamePlayView.h"
+#import "NBGamePlayView.h"
 
 #import <CoreMotion/CoreMotion.h>
 
@@ -65,15 +66,15 @@ int getKey(unichar keyCode);
 int getUnicode(int key);
 
 static __weak GamePlayViewController* __viewController = NULL;
-static GamePlayView* __view = NULL;
+static NBGamePlayView* __view = NULL;
 
 static double __timeAbsolute;
 static bool __vsync = WINDOW_VSYNC;
 
 double getMachTimeInMilliseconds();
 
-@interface GamePlayViewController () <GLRenderDelegate> {
-    GamePlayView* _playView;
+@interface GamePlayViewController () <GLRendererDelegate> {
+    NBGamePlayView* _playView;
     gameplay::Platform* _platform;
     gameplay::Game* _game;
     CMMotionManager *motionManager;
@@ -84,6 +85,8 @@ double getMachTimeInMilliseconds();
     UILongPressGestureRecognizer *_longPressRecognizer;
     UILongPressGestureRecognizer *_longTapRecognizer;
     UILongPressGestureRecognizer *_dragAndDropRecognizer;
+    
+    BOOL updating;
 }
 
 @end
@@ -110,9 +113,27 @@ double getMachTimeInMilliseconds();
             __viewController = self;
         }
         
+        updating = NO;
+        
         // Set the resource path and initalize the game
         NSString* bundlePath = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/"];
         gameplay::FileSystem::setResourcePath([bundlePath fileSystemRepresentation]);
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive:)
+                                                     name:UIApplicationWillResignActiveNotification object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:)
+                                                     name:UIApplicationDidBecomeActiveNotification object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground:)
+                                                     name:UIApplicationDidEnterBackgroundNotification object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground:)
+                                                     name:UIApplicationWillEnterForegroundNotification object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillTerminate:)
+                                                     name:UIApplicationWillTerminateNotification object:nil];
+
     }
     return self;
 }
@@ -131,10 +152,10 @@ double getMachTimeInMilliseconds();
 #pragma mark - View lifecycle
 - (void)loadView
 {
-    self.view = [[GamePlayView alloc] init];
+    self.view = [[NBGamePlayView alloc] init];
     if (__view == nil) {
-        __view = (GamePlayView*)self.view;
-        __view.renderDelegate = self;
+        __view = (NBGamePlayView*)self.view;
+        __view.renderer = self;
     }
 }
 
@@ -146,6 +167,12 @@ double getMachTimeInMilliseconds();
 - (void)dealloc {
     __view = nil;
     __viewController = nil;
+}
+
+- (BOOL)canBecomeFirstResponder
+{
+    // Override so we can control the keyboard
+    return YES;
 }
 
 - (void)getAccelerometerPitch:(float*)pitch roll:(float*)roll
@@ -592,6 +619,53 @@ double getMachTimeInMilliseconds();
     }
 }
 
+- (void)startUpdating
+{
+    if (!updating)
+    {
+        if (_game)
+            _game->resume();
+        updating = TRUE;
+        [_playView resume];
+    }
+}
+
+- (void)stopUpdating
+{
+    if (updating)
+    {
+        [_playView pause];
+        
+        if (_game)
+            _game->pause();
+        updating = FALSE;
+    }
+}
+
+#pragma application lifecycle begin
+
+- (void)applicationWillResignActive:(NSNotification *)notification {
+    [self stopUpdating];
+}
+
+- (void)applicationDidBecomeActive:(NSNotification *)notification {
+    [self startUpdating];
+}
+
+- (void)applicationDidEnterBackground:(NSNotification *)notification {
+    [self stopUpdating];
+}
+
+- (void)applicationWillEnterForeground:(NSNotification *)notification {
+    [self startUpdating];
+}
+
+- (void)applicationWillTerminate:(NSNotification *)notification {
+    [self stopUpdating];
+}
+
+#pragma application lifecycle end
+
 @end
 
 double getMachTimeInMilliseconds()
@@ -650,8 +724,8 @@ namespace gameplay
     {
         // Cannot 'exit' an iOS Application
         assert(false);
-        [__view stopUpdating];
-        exit(0);
+//        [__view stopUpdating];
+//        exit(0);
     }
     
     bool Platform::canExit()
@@ -813,12 +887,13 @@ namespace gameplay
     
     void Platform::setMultiTouch(bool enabled)
     {
-        __view.multipleTouchEnabled = enabled;
+//        __view.multipleTouchEnabled = enabled;
     }
     
     bool Platform::isMultiTouch()
     {
-        return __view.multipleTouchEnabled;
+//        return __view.multipleTouchEnabled;
+        return false;
     }
     
     void Platform::displayKeyboard(bool display)

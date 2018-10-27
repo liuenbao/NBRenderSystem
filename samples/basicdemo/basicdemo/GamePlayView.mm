@@ -65,6 +65,9 @@ extern GLenum __gl_error_code;
     NSInteger swapInterval;
     BOOL updating;
     BOOL oglDiscardSupported;
+    
+    EAGLContext* backgroundContext;
+    NSThread* backgroundThread;
 }
 
 - (BOOL)createFramebuffer;
@@ -140,6 +143,11 @@ extern GLenum __gl_error_code;
         multisampleDepthbuffer = 0;
         swapInterval = 1;
         updating = FALSE;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self deleteFramebuffer];
+            [self createFramebuffer];
+        });
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive:)
                                                      name:UIApplicationWillResignActiveNotification object:nil];
@@ -353,7 +361,7 @@ extern GLenum __gl_error_code;
 
 - (void)swapBuffers
 {
-    if (context)
+    if (backgroundContext)
     {
         if (multisampleFramebuffer)
         {
@@ -383,7 +391,7 @@ extern GLenum __gl_error_code;
         
         // Present the color buffer
         GL_ASSERT( glBindRenderbuffer(GL_RENDERBUFFER, colorRenderbuffer) );
-        [context presentRenderbuffer:GL_RENDERBUFFER];
+        [backgroundContext presentRenderbuffer:GL_RENDERBUFFER];
     }
 }
 
@@ -403,7 +411,16 @@ extern GLenum __gl_error_code;
     {
         displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(update:)];
         [displayLink setFrameInterval:swapInterval];
-        [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+        
+        backgroundThread = [[NSThread alloc] initWithBlock:^{
+            backgroundContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2 sharegroup:context.sharegroup];
+            [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+            [[NSRunLoop currentRunLoop] run];
+            [EAGLContext setCurrentContext:nil];
+            backgroundContext = nil;
+        }];
+        [backgroundThread start];
+        
 //        if (game)
 //            game->resume();
         updating = TRUE;
@@ -414,9 +431,12 @@ extern GLenum __gl_error_code;
 {
     if (updating)
     {
+        [displayLink invalidate];
+        
+        [backgroundThread cancel];
+        
 //        if (game)
 //            game->pause();
-        [displayLink invalidate];
         displayLink = nil;
         updating = FALSE;
     }
@@ -424,17 +444,17 @@ extern GLenum __gl_error_code;
 
 - (void)update:(id)sender
 {
-    if (context != nil)
+    if (backgroundContext != nil)
     {
         // Ensure our context is current
-        [EAGLContext setCurrentContext:context];
+        [EAGLContext setCurrentContext:backgroundContext];
         
         // If the framebuffer needs (re)creating, do so
         if (updateFramebuffer)
         {
             updateFramebuffer = NO;
-            [self deleteFramebuffer];
-            [self createFramebuffer];
+//            [self deleteFramebuffer];
+//            [self createFramebuffer];
             
 //            // Start the game after our framebuffer is created for the first time.
 //            if (game == nil)
