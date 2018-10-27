@@ -81,6 +81,8 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
     
     BOOL mSurfaceIsBad;
     
+    NBEventRunnable mFinishDrawingRunnable;
+    
     // The GLContext Thared with GLView
     EAGLContext* backgroundContext;
     
@@ -99,9 +101,11 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
 - (void)onPause;
 - (void)onResume;
 - (void)requestExitAndWait;
-- (void)requestRender;
 
-- (void)queueEvent:(nonnull NBEventRunnable)runnable;
+- (void)requestRender;
+- (void)requestRenderAndNotify:(NBEventRunnable)finishDrawing;
+
+- (void)queueEvent:(NBEventRunnable)runnable;
 
 - (int)getRenderMode;
 - (void)setRenderMode:(int)renderMode;
@@ -124,6 +128,8 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
     
     NBGLThread* mGLThread;
     BOOL mDetached;
+    
+    int mSamplesCount;
 }
 
 - (BOOL)createFramebuffer;
@@ -304,52 +310,51 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
     NSLog(@"width: %d, height: %d", framebufferWidth, framebufferHeight);
     
 //    // If multisampling is enabled in config, create and setup a multisample buffer
-//    Properties* config = Game::getInstance()->getConfig()->getNamespace("window", true);
-//    int samples = config ? config->getInt("samples") : 0;
-//    if (samples < 0)
-//        samples = 0;
-//    if (samples)
-//    {
-//        // Create multisample framebuffer
-//        GL_ASSERT( glGenFramebuffers(1, &multisampleFramebuffer) );
-//        GL_ASSERT( glBindFramebuffer(GL_FRAMEBUFFER, multisampleFramebuffer) );
-//
-//        // Create multisample render and depth buffers
-//        GL_ASSERT( glGenRenderbuffers(1, &multisampleRenderbuffer) );
-//        GL_ASSERT( glGenRenderbuffers(1, &multisampleDepthbuffer) );
-//
-//        // Try to find a supported multisample configuration starting with the defined sample count
-//        while (samples)
-//        {
-//            GL_ASSERT( glBindRenderbuffer(GL_RENDERBUFFER, multisampleRenderbuffer) );
-//            GL_ASSERT( glRenderbufferStorageMultisampleAPPLE(GL_RENDERBUFFER, samples, GL_RGBA8_OES, framebufferWidth, framebufferHeight) );
-//            GL_ASSERT( glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, multisampleRenderbuffer) );
-//
-//            GL_ASSERT( glBindRenderbuffer(GL_RENDERBUFFER, multisampleDepthbuffer) );
-//            GL_ASSERT( glRenderbufferStorageMultisampleAPPLE(GL_RENDERBUFFER, samples, GL_DEPTH_COMPONENT24_OES, framebufferWidth, framebufferHeight) );
-//            GL_ASSERT( glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, multisampleDepthbuffer) );
-//
-//            if (glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE)
-//                break; // success!
-//
-//            NSLog(@"Creation of multisample buffer with samples=%d failed. Attempting to use configuration with samples=%d instead: %x", samples, samples / 2, glCheckFramebufferStatus(GL_FRAMEBUFFER));
-//            samples /= 2;
-//        }
-//
-//        //todo: __multiSampling = samples > 0;
-//
-//        // Re-bind the default framebuffer
-//        GL_ASSERT( glBindFramebuffer(GL_FRAMEBUFFER, defaultFramebuffer) );
-//
-//        if (samples == 0)
-//        {
-//            // Unable to find a valid/supported multisample configuratoin - fallback to no multisampling
-//            GL_ASSERT( glDeleteRenderbuffers(1, &multisampleRenderbuffer) );
-//            GL_ASSERT( glDeleteRenderbuffers(1, &multisampleDepthbuffer) );
-//            GL_ASSERT( glDeleteFramebuffers(1, &multisampleFramebuffer) );
-//            multisampleFramebuffer = multisampleRenderbuffer = multisampleDepthbuffer = 0;
-//        }
-//    }
+    int samples = mSamplesCount;
+    if (samples < 0)
+        samples = 0;
+    if (samples)
+    {
+        // Create multisample framebuffer
+        GL_ASSERT( glGenFramebuffers(1, &multisampleFramebuffer) );
+        GL_ASSERT( glBindFramebuffer(GL_FRAMEBUFFER, multisampleFramebuffer) );
+
+        // Create multisample render and depth buffers
+        GL_ASSERT( glGenRenderbuffers(1, &multisampleRenderbuffer) );
+        GL_ASSERT( glGenRenderbuffers(1, &multisampleDepthbuffer) );
+
+        // Try to find a supported multisample configuration starting with the defined sample count
+        while (samples)
+        {
+            GL_ASSERT( glBindRenderbuffer(GL_RENDERBUFFER, multisampleRenderbuffer) );
+            GL_ASSERT( glRenderbufferStorageMultisampleAPPLE(GL_RENDERBUFFER, samples, GL_RGBA8_OES, framebufferWidth, framebufferHeight) );
+            GL_ASSERT( glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, multisampleRenderbuffer) );
+
+            GL_ASSERT( glBindRenderbuffer(GL_RENDERBUFFER, multisampleDepthbuffer) );
+            GL_ASSERT( glRenderbufferStorageMultisampleAPPLE(GL_RENDERBUFFER, samples, GL_DEPTH_COMPONENT24_OES, framebufferWidth, framebufferHeight) );
+            GL_ASSERT( glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, multisampleDepthbuffer) );
+
+            if (glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE)
+                break; // success!
+
+            NSLog(@"Creation of multisample buffer with samples=%d failed. Attempting to use configuration with samples=%d instead: %x", samples, samples / 2, glCheckFramebufferStatus(GL_FRAMEBUFFER));
+            samples /= 2;
+        }
+
+        //todo: __multiSampling = samples > 0;
+
+        // Re-bind the default framebuffer
+        GL_ASSERT( glBindFramebuffer(GL_FRAMEBUFFER, defaultFramebuffer) );
+
+        if (samples == 0)
+        {
+            // Unable to find a valid/supported multisample configuratoin - fallback to no multisampling
+            GL_ASSERT( glDeleteRenderbuffers(1, &multisampleRenderbuffer) );
+            GL_ASSERT( glDeleteRenderbuffers(1, &multisampleDepthbuffer) );
+            GL_ASSERT( glDeleteFramebuffers(1, &multisampleFramebuffer) );
+            multisampleFramebuffer = multisampleRenderbuffer = multisampleDepthbuffer = 0;
+        }
+    }
     
     // Create default depth buffer and attach to the frame buffer.
     // Note: If we are using multisample buffers, we can skip depth buffer creation here since we only
@@ -417,6 +422,13 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
     }
 }
 
+- (void)prepareBindBuffers {
+    // Bind our framebuffer for rendering.
+    // If multisampling is enabled, bind the multisample buffer - otherwise bind the default buffer
+    GL_ASSERT( glBindFramebuffer(GL_FRAMEBUFFER, multisampleFramebuffer ? multisampleFramebuffer : defaultFramebuffer) );
+    GL_ASSERT( glViewport(0, 0, framebufferWidth, framebufferHeight) );
+}
+
 - (void)postBindBuffers {
     if (multisampleFramebuffer)
     {
@@ -450,6 +462,10 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
 
 #pragma public interface begin
 
+- (void)setMultiSampelsCount:(int)samplesCount {
+    mSamplesCount = samplesCount;
+}
+
 - (void)pause {
     [mGLThread onPause];
 }
@@ -472,6 +488,10 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
 
 - (void)requestRender {
     [mGLThread requestRender];
+}
+
+- (void)requestRenderAndNotify:(NBEventRunnable)finishDrawing {
+    [mGLThread requestRenderAndNotify:finishDrawing];
 }
 
 #pragma public interface end
@@ -513,6 +533,8 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
         mHeight = 0;
         
         mWeakGLView = glView;
+        
+        mFinishDrawingRunnable = nil;
         
         // alloc event array
         eventQueue = [NSMutableArray new];
@@ -612,6 +634,26 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
     [sGLThreadManager unlock];
 }
 
+- (void)requestRenderAndNotify:(NBEventRunnable)finishDrawing {
+    [sGLThreadManager lock];
+    // If we are already on the GL thread, this means a client callback
+    // has caused reentrancy, for example via updating the SurfaceView parameters.
+    // We will return to the client rendering code, so here we don't need to
+    // do anything.
+//        if (Thread.currentThread() == this) {
+//            return;
+//        }
+    
+    mWantRenderNotification = true;
+    mRequestRender = true;
+    mRenderComplete = false;
+    mFinishDrawingRunnable = finishDrawing;
+    
+    [sGLThreadManager broadcast];
+    
+    [sGLThreadManager unlock];
+}
+
 - (int)getRenderMode {
     int rc = 0;
     [sGLThreadManager lock];
@@ -642,6 +684,12 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
     [EAGLContext setCurrentContext:backgroundContext];
 }
 
+- (void)prepareBuffers {
+    if (backgroundContext) {
+        [mWeakGLView prepareBindBuffers];
+    }
+}
+
 - (void)swapBuffers
 {
     if (backgroundContext)
@@ -670,8 +718,6 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
     mHaveEglSurface = NO;
     mWantRenderNotification = NO;
     
-    NBEventRunnable event = nil;
-    
     BOOL createEglContext = NO;
     BOOL createEglSurface = NO;
     BOOL createGlInterface = NO;
@@ -682,6 +728,9 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
     BOOL askedToReleaseEglContext = NO;
     int w = 0;
     int h = 0;
+    
+    NBEventRunnable event = nil;
+    NBEventRunnable finishDrawingRunnable = nil;
     
     while (true) {
         [sGLThreadManager lock];
@@ -773,14 +822,13 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
                 [sGLThreadManager broadcast];
             }
             
-//            if (mFinishDrawingRunnable != null) {
-//                finishDrawingRunnable = mFinishDrawingRunnable;
-//                mFinishDrawingRunnable = null;
-//            }
+            if (mFinishDrawingRunnable != nil) {
+                finishDrawingRunnable = mFinishDrawingRunnable;
+                mFinishDrawingRunnable = nil;
+            }
             
             // Ready to draw?
             if ([self readyToDraw]) {
-                
                 // If we don't have an EGL context, try to acquire one.
                 if (! mHaveEglContext) {
                     if (askedToReleaseEglContext) {
@@ -831,13 +879,18 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
                     }
                     break;
                 }
+                
+                if (wantRenderNotification) {
+                    doRenderNotification = true;
+                    wantRenderNotification = false;
+                }
+                
             } else {
-//                if (finishDrawingRunnable != null) {
-//                    Log.w(TAG, "Warning, !readyToDraw() but waiting for " +
-//                          "draw finished! Early reporting draw finished.");
-//                    finishDrawingRunnable.run();
-//                    finishDrawingRunnable = null;
-//                }
+                if (finishDrawingRunnable != nil) {
+                    NSLog(@"Warning, !readyToDraw() but waiting for draw finished! Early reporting draw finished.");
+                    finishDrawingRunnable();
+                    finishDrawingRunnable = nil;
+                }
             }
             
             // wait out side event
@@ -855,6 +908,23 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
             event();
             event = nil;
             continue;
+        }
+        
+        if (createEglSurface) {
+//            if (mEglHelper.createSurface()) {
+//                synchronized(sGLThreadManager) {
+//                    mFinishedCreatingEglSurface = true;
+//                    sGLThreadManager.notifyAll();
+//                }
+//            } else {
+//                synchronized(sGLThreadManager) {
+//                    mFinishedCreatingEglSurface = true;
+//                    mSurfaceIsBad = true;
+//                    sGLThreadManager.notifyAll();
+//                }
+//                continue;
+//            }
+            createEglSurface = false;
         }
         
         if (createGlInterface) {
@@ -878,6 +948,9 @@ static NSCondition* sGLThreadManager = [[NSCondition alloc] init];
             }
             sizeChanged = false;
         }
+        
+        // do prepare draw buffer
+        [self prepareBuffers];
         
         // do real draw callback
         {

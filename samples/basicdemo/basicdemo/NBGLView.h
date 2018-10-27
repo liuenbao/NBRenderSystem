@@ -50,6 +50,11 @@ typedef void (^NBEventRunnable)();
 @property (nonatomic, strong) id<NBGLRenderer> renderer;
 
 /**
+ * For multisample support on Apple platform
+ */
+- (void)setMultiSampelsCount:(int)samplesCount;
+
+/**
  * Pause the rendering thread, optionally tearing down the EGL context
  * depending upon the value of {@link #setPreserveEGLContextOnPause(boolean)}.
  *

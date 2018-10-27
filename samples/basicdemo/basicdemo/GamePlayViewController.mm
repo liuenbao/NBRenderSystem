@@ -155,6 +155,7 @@ double getMachTimeInMilliseconds();
     self.view = [[NBGLView alloc] init];
     if (__view == nil) {
         __view = (NBGLView*)self.view;
+        [__view setMultiSampelsCount:2];
         __view.renderer = self;
     }
 }
