@@ -47,12 +47,12 @@ typedef void (^NBEventRunnable)();
 
 @property (readonly, nonatomic, getter=getContext) EAGLContext* context;
 
-@property (nonatomic, strong) id<NBGLRenderer> renderer;
+- (void)setRenderer:(id<NBGLRenderer>)renderer;
 
 /**
  * For multisample support on Apple platform
  */
-- (void)setMultiSampelsCount:(int)samplesCount;
+- (void)setMultiSampelsCount:(int)sampleCount;
 
 /**
  * Pause the rendering thread, optionally tearing down the EGL context

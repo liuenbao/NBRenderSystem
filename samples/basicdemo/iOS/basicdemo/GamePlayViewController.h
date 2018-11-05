@@ -12,7 +12,5 @@
 
 @interface GamePlayViewController : UIViewController
 
-- (void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController;
-
 @end
 

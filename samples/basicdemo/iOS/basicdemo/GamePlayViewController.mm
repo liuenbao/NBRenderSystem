@@ -22,6 +22,8 @@
 #include <sys/time.h>
 #import <mach/mach_time.h>
 
+#include "SamplesGame.h"
+
 #define DeviceOrientedSize(o)         ((o == UIInterfaceOrientationPortrait || o == UIInterfaceOrientationPortraitUpsideDown)?                      \
                             CGSizeMake([[UIScreen mainScreen] bounds].size.width * [[UIScreen mainScreen] scale], [[UIScreen mainScreen] bounds].size.height * [[UIScreen mainScreen] scale]):  \
                             CGSizeMake([[UIScreen mainScreen] bounds].size.height * [[UIScreen mainScreen] scale], [[UIScreen mainScreen] bounds].size.width * [[UIScreen mainScreen] scale]))
@@ -50,15 +52,8 @@ public:
 #define GESTURE_LONG_PRESS_DURATION_MIN 0.2
 #define GESTURE_LONG_PRESS_DISTANCE_MIN 10
 
-static CGPoint  __gestureLongPressStartPosition;
-static long __gestureLongTapStartTimestamp = 0;
-static bool __gestureDraging = false;
-
 // more than we'd ever need, to be safe
 #define TOUCH_POINTS_MAX (10)
-static TouchPoint __touchPoints[TOUCH_POINTS_MAX];
-
-static double __timeStart;
 
 double getMachTimeInMilliseconds();
 
@@ -66,15 +61,10 @@ int getKey(unichar keyCode);
 int getUnicode(int key);
 
 static __weak GamePlayViewController* __viewController = NULL;
-static NBGLView* __view = NULL;
-
-static double __timeAbsolute;
-static bool __vsync = WINDOW_VSYNC;
 
 double getMachTimeInMilliseconds();
 
 @interface GamePlayViewController () <NBGLRenderer> {
-    NBGLView* _playView;
     gameplay::Platform* _platform;
     gameplay::Game* _game;
     CMMotionManager *motionManager;
@@ -87,7 +77,16 @@ double getMachTimeInMilliseconds();
     UILongPressGestureRecognizer *_dragAndDropRecognizer;
     
     BOOL updating;
+    
+    TouchPoint touchPoints[TOUCH_POINTS_MAX];
+    bool gestureDraging;
+    long gestureLongTapStartTimestamp;
+    CGPoint gestureLongPressStartPosition;
 }
+
+@property (nonatomic, strong) NBGLView* playView;
+@property (nonatomic, assign) bool vsync;
+@property (nonatomic, assign) double timeAbsolute;
 
 @end
 
@@ -107,13 +106,16 @@ double getMachTimeInMilliseconds();
             [motionManager startGyroUpdates];
         }
         
-        _game = gameplay::Game::getInstance();
+        _game = new SamplesGame();
         _platform = gameplay::Platform::create(_game);
         if (__viewController == nil) {
             __viewController = self;
         }
         
         updating = NO;
+        _vsync = WINDOW_VSYNC;
+        gestureDraging = false;
+        gestureLongTapStartTimestamp = 0;
         
         // Set the resource path and initalize the game
         NSString* bundlePath = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/"];
@@ -133,7 +135,6 @@ double getMachTimeInMilliseconds();
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillTerminate:)
                                                      name:UIApplicationWillTerminateNotification object:nil];
-
     }
     return self;
 }
@@ -143,6 +144,13 @@ double getMachTimeInMilliseconds();
     // Do any additional setup after loading the view, typically from a nib.
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -152,24 +160,19 @@ double getMachTimeInMilliseconds();
 #pragma mark - View lifecycle
 - (void)loadView
 {
-    self.view = [[NBGLView alloc] init];
-    if (__view == nil) {
-        __view = (NBGLView*)self.view;
-        [__view setMultiSampelsCount:2];
-        __view.renderer = self;
-    }
-}
-
-- (void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
+    self.view = self.playView = [[NBGLView alloc] init];
+    [self.playView setRenderer:self];
 }
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
-    __view = nil;
     __viewController = nil;
+    
+    if (_game != NULL) {
+        delete _game;
+        _game = NULL;
+    }
 }
 
 - (BOOL)canBecomeFirstResponder
@@ -250,7 +253,7 @@ double getMachTimeInMilliseconds();
 }
 
 - (void)glRenderSizeChanged:(GamePlayView*)view width:(NSInteger)width height:(NSInteger)height {
-    
+    _game->setViewport(gameplay::Rectangle(0, 0, width, height));
 }
 
 - (void)glRenderDrawFrame:(GamePlayView*)view {
@@ -258,7 +261,8 @@ double getMachTimeInMilliseconds();
 }
 
 - (void)glRenderDestroy:(GamePlayView*)view {
-    _game->exit();
+    if (_game->canExit())
+        _game->exit();
 }
 
 #pragma render delegate end
@@ -315,19 +319,19 @@ double getMachTimeInMilliseconds();
         
         // Nested loop efficiency shouldn't be a concern since both loop sizes are small (<= 10)
         int i = 0;
-        while (i < TOUCH_POINTS_MAX && __touchPoints[i].down)
+        while (i < TOUCH_POINTS_MAX && touchPoints[i].down)
         {
             i++;
         }
         
         if (i < TOUCH_POINTS_MAX)
         {
-            __touchPoints[i].hashId = touchID;
-            __touchPoints[i].x = touchPoint.x * WINDOW_SCALE;
-            __touchPoints[i].y = touchPoint.y * WINDOW_SCALE;
-            __touchPoints[i].down = true;
+            touchPoints[i].hashId = touchID;
+            touchPoints[i].x = touchPoint.x * WINDOW_SCALE;
+            touchPoints[i].y = touchPoint.y * WINDOW_SCALE;
+            touchPoints[i].down = true;
             
-            gameplay::Platform::touchEventInternal(gameplay::Touch::TOUCH_PRESS, __touchPoints[i].x, __touchPoints[i].y, i);
+            gameplay::Platform::touchEventInternal(gameplay::Touch::TOUCH_PRESS, touchPoints[i].x, touchPoints[i].y, i);
         }
         else
         {
@@ -349,9 +353,9 @@ double getMachTimeInMilliseconds();
         bool found = false;
         for (int i = 0; !found && i < TOUCH_POINTS_MAX; i++)
         {
-            if (__touchPoints[i].down && __touchPoints[i].hashId == touchID)
+            if (touchPoints[i].down && touchPoints[i].hashId == touchID)
             {
-                __touchPoints[i].down = false;
+                touchPoints[i].down = false;
                 gameplay::Platform::touchEventInternal(gameplay::Touch::TOUCH_RELEASE, touchPoint.x * WINDOW_SCALE, touchPoint.y * WINDOW_SCALE, i);
                 found = true;
             }
@@ -363,10 +367,10 @@ double getMachTimeInMilliseconds();
             // The best we can do is clear the whole array.
             for (int i = 0; i < TOUCH_POINTS_MAX; i++)
             {
-                if (__touchPoints[i].down)
+                if (touchPoints[i].down)
                 {
-                    __touchPoints[i].down = false;
-                    gameplay::Platform::touchEventInternal(gameplay::Touch::TOUCH_RELEASE, __touchPoints[i].x, __touchPoints[i].y, i);
+                    touchPoints[i].down = false;
+                    gameplay::Platform::touchEventInternal(gameplay::Touch::TOUCH_RELEASE, touchPoints[i].x, touchPoints[i].y, i);
                 }
             }
         }
@@ -391,11 +395,11 @@ double getMachTimeInMilliseconds();
         // Nested loop efficiency shouldn't be a concern since both loop sizes are small (<= 10)
         for (int i = 0; i < TOUCH_POINTS_MAX; i++)
         {
-            if (__touchPoints[i].down && __touchPoints[i].hashId == touchID)
+            if (touchPoints[i].down && touchPoints[i].hashId == touchID)
             {
-                __touchPoints[i].x = touchPoint.x * WINDOW_SCALE;
-                __touchPoints[i].y = touchPoint.y * WINDOW_SCALE;
-                gameplay::Platform::touchEventInternal(gameplay::Touch::TOUCH_MOVE, __touchPoints[i].x, __touchPoints[i].y, i);
+                touchPoints[i].x = touchPoint.x * WINDOW_SCALE;
+                touchPoints[i].y = touchPoint.y * WINDOW_SCALE;
+                gameplay::Platform::touchEventInternal(gameplay::Touch::TOUCH_MOVE, touchPoints[i].x, touchPoints[i].y, i);
                 break;
             }
         }
@@ -528,7 +532,7 @@ double getMachTimeInMilliseconds();
         struct timeval time;
         
         gettimeofday(&time, NULL);
-        __gestureLongTapStartTimestamp = (time.tv_sec * 1000) + (time.tv_usec / 1000);
+        gestureLongTapStartTimestamp = (time.tv_sec * 1000) + (time.tv_usec / 1000);
     }
     else if (sender.state == UIGestureRecognizerStateEnded)
     {
@@ -538,7 +542,7 @@ double getMachTimeInMilliseconds();
         
         gettimeofday(&time, NULL);
         currentTimeStamp = (time.tv_sec * 1000) + (time.tv_usec / 1000);
-        gameplay::Platform::gestureLongTapEventInternal(location.x * WINDOW_SCALE, location.y * WINDOW_SCALE, currentTimeStamp - __gestureLongTapStartTimestamp);
+        gameplay::Platform::gestureLongTapEventInternal(location.x * WINDOW_SCALE, location.y * WINDOW_SCALE, currentTimeStamp - gestureLongTapStartTimestamp);
     }
 }
 
@@ -580,30 +584,30 @@ double getMachTimeInMilliseconds();
         struct timeval time;
         
         gettimeofday(&time, NULL);
-        __gestureLongTapStartTimestamp = (time.tv_sec * 1000) + (time.tv_usec / 1000);
-        __gestureLongPressStartPosition = location;
+        gestureLongTapStartTimestamp = (time.tv_sec * 1000) + (time.tv_usec / 1000);
+        gestureLongPressStartPosition = location;
     }
     if (sender.state == UIGestureRecognizerStateChanged)
     {
-        if (__gestureDraging)
+        if (gestureDraging)
             gameplay::Platform::gestureDragEventInternal(location.x * WINDOW_SCALE, location.y * WINDOW_SCALE);
         else
         {
-            float delta = sqrt(pow(__gestureLongPressStartPosition.x - location.x, 2) + pow(__gestureLongPressStartPosition.y - location.y, 2));
+            float delta = sqrt(pow(gestureLongPressStartPosition.x - location.x, 2) + pow(gestureLongPressStartPosition.y - location.y, 2));
             
             if (delta >= GESTURE_LONG_PRESS_DISTANCE_MIN)
             {
-                __gestureDraging = true;
-                gameplay::Platform::gestureDragEventInternal(__gestureLongPressStartPosition.x * WINDOW_SCALE, __gestureLongPressStartPosition.y * WINDOW_SCALE);
+                gestureDraging = true;
+                gameplay::Platform::gestureDragEventInternal(gestureLongPressStartPosition.x * WINDOW_SCALE, gestureLongPressStartPosition.y * WINDOW_SCALE);
             }
         }
     }
     if (sender.state == UIGestureRecognizerStateEnded)
     {
-        if (__gestureDraging)
+        if (gestureDraging)
         {
             gameplay::Platform::gestureDropEventInternal(location.x * WINDOW_SCALE, location.y * WINDOW_SCALE);
-            __gestureDraging = false;
+            gestureDraging = false;
         }
         else
         {
@@ -612,13 +616,13 @@ double getMachTimeInMilliseconds();
             
             gettimeofday(&time, NULL);
             currentTimeStamp = (time.tv_sec * 1000) + (time.tv_usec / 1000);
-            gameplay::Platform::gestureLongTapEventInternal(location.x * WINDOW_SCALE, location.y * WINDOW_SCALE, currentTimeStamp - __gestureLongTapStartTimestamp);
+            gameplay::Platform::gestureLongTapEventInternal(location.x * WINDOW_SCALE, location.y * WINDOW_SCALE, currentTimeStamp - gestureLongTapStartTimestamp);
         }
     }
-    if ((sender.state == UIGestureRecognizerStateCancelled || sender.state == UIGestureRecognizerStateFailed) && __gestureDraging)
+    if ((sender.state == UIGestureRecognizerStateCancelled || sender.state == UIGestureRecognizerStateFailed) && gestureDraging)
     {
         gameplay::Platform::gestureDropEventInternal(location.x * WINDOW_SCALE, location.y * WINDOW_SCALE);
-        __gestureDraging = false;
+        gestureDraging = false;
     }
 }
 
@@ -770,31 +774,32 @@ namespace gameplay
     
     double Platform::getAbsoluteTime()
     {
-        __timeAbsolute = getMachTimeInMilliseconds();
-        return __timeAbsolute;
+        __viewController.timeAbsolute = getMachTimeInMilliseconds();
+        return __viewController.timeAbsolute;
     }
     
     void Platform::setAbsoluteTime(double time)
     {
-        __timeAbsolute = time;
+        __viewController.timeAbsolute = time;
     }
     
     bool Platform::isVsync()
     {
-        return __vsync;
+        return __viewController.vsync;
     }
     
     void Platform::setVsync(bool enable)
     {
-        __vsync = enable;
+        __viewController.vsync = enable;
     }
     
     void Platform::swapBuffers()
     {
-        // not supported in current moment
-//        if (__view)
-//            [__view swapBuffers];
+//        // not supported in current moment
+//        if (__viewController.playView)
+//            [__viewController.playView swapBuffers];
     }
+
     void Platform::sleep(long ms)
     {
         usleep(ms * 1000);
@@ -890,28 +895,35 @@ namespace gameplay
     
     void Platform::setMultiTouch(bool enabled)
     {
-//        __view.multipleTouchEnabled = enabled;
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            __viewController.playView.multipleTouchEnabled = enabled;
+        });
     }
     
     bool Platform::isMultiTouch()
     {
-//        return __view.multipleTouchEnabled;
-        return false;
+        __block bool isEnabled = false;
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            isEnabled = __viewController.playView.multipleTouchEnabled;
+        });
+        return isEnabled;
     }
     
     void Platform::displayKeyboard(bool display)
     {
-        if(__view)
-        {
-            if(display)
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            if(__viewController)
             {
-                [__viewController showKeyboard];
+                if(display)
+                {
+                    [__viewController showKeyboard];
+                }
+                else
+                {
+                    [__viewController dismissKeyboard];
+                }
             }
-            else
-            {
-                [__viewController dismissKeyboard];
-            }
-        }
+        });
     }
     
     void Platform::shutdownInternal()

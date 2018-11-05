@@ -75,8 +75,6 @@ public:
      * @param order The order of the sample. Samples are sorted lowest order to highest.
      */
     static void addSample(const char* category, const char* title, void* func, unsigned int order);
-
-    static SamplesGame* getInstance();
     
 protected:
 

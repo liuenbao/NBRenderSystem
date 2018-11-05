@@ -6,8 +6,8 @@ using std::pair;
 std::vector<std::string>* SamplesGame::_categories = NULL;
 std::vector<SamplesGame::SampleRecordList>* SamplesGame::_samples = NULL;
 
-// Declare our game instance
-SamplesGame game;
+//// Declare our game instance
+//SamplesGame game;
 
 SamplesGame::SamplesGame()
     : _activeSample(NULL), _font(NULL)
@@ -340,9 +340,4 @@ void SamplesGame::addSample(const char* category, const char* title, void* func,
         _samples->resize(_categories->size());
     }
     (*_samples)[index].push_back(SampleRecord(titleString, func, order));
-}
-
-SamplesGame* SamplesGame::getInstance()
-{
-    return &game;
 }
