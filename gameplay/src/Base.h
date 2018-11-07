@@ -122,11 +122,15 @@ extern int strcmpnocase(const char* s1, const char* s2);
     #pragma warning( disable : 4996 )
 #endif
 
+#ifdef MODULE_PHYSICS_ENABLED
 // Bullet Physics
 #include <btBulletDynamicsCommon.h>
 #include <BulletCollision/CollisionDispatch/btGhostObject.h>
 #define BV(v) (btVector3((v).x, (v).y, (v).z))
 #define BQ(q) (btQuaternion((q).x, (q).y, (q).z, (q).w))
+#else
+#include <float.h>
+#endif
 
 // Debug new for memory leak detection
 #include "DebugNew.h"
@@ -178,6 +182,8 @@ extern int strcmpnocase(const char* s1, const char* s2);
     #define NOMINMAX
 #endif
 
+#ifdef MODULE_AUDIO_ENABLED
+
 // Audio (OpenAL)
 #ifdef __ANDROID__
     #include <AL/al.h>
@@ -193,6 +199,8 @@ extern int strcmpnocase(const char* s1, const char* s2);
     #include <OpenAL/al.h>
     #include <OpenAL/alc.h>
 #endif
+
+#endif // #ifdef MODULE_AUDIO_ENABLED
 
 // Compressed Media
 #include <vorbis/vorbisfile.h>
@@ -310,6 +318,7 @@ typedef unsigned long GamepadHandle;
  * @script{ignore} */
 extern GLenum __gl_error_code;
 
+#ifdef MODULE_AUDIO_ENABLED
 /**
  * Executes the specified AL code and checks the AL error afterwards
  * to ensure it succeeded.
@@ -336,5 +345,7 @@ extern ALenum __al_error_code;
  * Accesses the most recently set global AL error.
  */
 #define AL_LAST_ERROR() __al_error_code
+
+#endif // #ifdef MODULE_AUDIO_ENABLED
 
 #endif

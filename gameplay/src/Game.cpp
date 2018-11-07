@@ -11,8 +11,11 @@
 
 /** @script{ignore} */
 GLenum __gl_error_code = GL_NO_ERROR;
+
+#ifdef MODULE_AUDIO_ENABLED
 /** @script{ignore} */
 ALenum __al_error_code = AL_NO_ERROR;
+#endif // #ifdef MODULE_AUDIO_ENABLED
 
 namespace gameplay
 {

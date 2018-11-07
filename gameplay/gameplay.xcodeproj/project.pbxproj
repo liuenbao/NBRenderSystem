@@ -308,7 +308,6 @@
 		5B2BC75D1512514500D176CD /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		5B2BC75E1512514500D176CD /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		5B2BC7611512514D00D176CD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		5BC4E7D4150F8C3C00CBE1C0 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; path = res; sourceTree = "<group>"; };
 		6290E04918223DCC00A28FB9 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
 		6290E04B18223DDD00A28FB9 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		BD2636DF16CF5B7400CFE15F /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/CoreMotion.framework; sourceTree = DEVELOPER_DIR; };
@@ -353,7 +352,6 @@
 		4234D98A14686BB6003031B3 = {
 			isa = PBXGroup;
 			children = (
-				5BC4E7D4150F8C3C00CBE1C0 /* res */,
 				4234D9A314686C52003031B3 /* src */,
 				42CCD4AF146D811D00353661 /* Frameworks */,
 				4234D99B14686C52003031B3 /* Products */,

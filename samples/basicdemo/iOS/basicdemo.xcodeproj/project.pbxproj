@@ -10,7 +10,7 @@
 		FA715266219093D2008C00DB /* Sample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA715260219093D2008C00DB /* Sample.cpp */; };
 		FA715267219093D2008C00DB /* SamplesGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA715262219093D2008C00DB /* SamplesGame.cpp */; };
 		FA715268219093D2008C00DB /* TriangleSample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA715264219093D2008C00DB /* TriangleSample.cpp */; };
-		FA715273219093FE008C00DB /* res in Resources */ = {isa = PBXBuildFile; fileRef = FA715272219093FE008C00DB /* res */; };
+		FA7152782191FB8D008C00DB /* res in Resources */ = {isa = PBXBuildFile; fileRef = FA7152772191FB8C008C00DB /* res */; };
 		FA731013218212FB00F5A39A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FA731012218212FB00F5A39A /* AppDelegate.m */; };
 		FA731016218212FB00F5A39A /* GamePlayViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA731015218212FB00F5A39A /* GamePlayViewController.mm */; };
 		FA731019218212FB00F5A39A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA731017218212FB00F5A39A /* Main.storyboard */; };
@@ -50,7 +50,7 @@
 		FA715264219093D2008C00DB /* TriangleSample.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TriangleSample.cpp; sourceTree = "<group>"; };
 		FA715265219093D2008C00DB /* TriangleSample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TriangleSample.h; sourceTree = "<group>"; };
 		FA715269219093E1008C00DB /* gameplay.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gameplay.xcodeproj; path = ../../../../gameplay/gameplay.xcodeproj; sourceTree = "<group>"; };
-		FA715272219093FE008C00DB /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../../../../gameplay/res; sourceTree = "<group>"; };
+		FA7152772191FB8C008C00DB /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../../../../gameplay/res; sourceTree = "<group>"; };
 		FA73100E218212FB00F5A39A /* basicdemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = basicdemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA731011218212FB00F5A39A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FA731012218212FB00F5A39A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -129,9 +129,9 @@
 		FA731010218212FB00F5A39A /* basicdemo */ = {
 			isa = PBXGroup;
 			children = (
+				FA7152772191FB8C008C00DB /* res */,
 				FA715269219093E1008C00DB /* gameplay.xcodeproj */,
 				FA71525F219093D2008C00DB /* samples */,
-				FA715272219093FE008C00DB /* res */,
 				FA731011218212FB00F5A39A /* AppDelegate.h */,
 				FA731012218212FB00F5A39A /* AppDelegate.m */,
 				FA731017218212FB00F5A39A /* Main.storyboard */,
@@ -242,7 +242,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA73101E218212FB00F5A39A /* LaunchScreen.storyboard in Resources */,
-				FA715273219093FE008C00DB /* res in Resources */,
+				FA7152782191FB8D008C00DB /* res in Resources */,
 				FA73101B218212FB00F5A39A /* Assets.xcassets in Resources */,
 				FA731019218212FB00F5A39A /* Main.storyboard in Resources */,
 			);
