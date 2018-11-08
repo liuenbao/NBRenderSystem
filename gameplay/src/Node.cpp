@@ -437,7 +437,7 @@ bool Node::isStatic() const
 #ifdef MODULE_PHYSICS_ENABLED
     return (_collisionObject && _collisionObject->isStatic());
 #else
-    return true;
+    return false;
 #endif // #ifdef MODULE_PHYSICS_ENABLED
 }
 

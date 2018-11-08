@@ -153,7 +153,13 @@ gameplay.xcworkspace/xcshareddata/gameplay.xccheckout
 /samples/racer/android/proguard-project.txt
 /samples/racer/android/proguard.cfg
 /samples/racer/sample-racer.xcodeproj/xcuserdata
+
+/samples/basicdemo/iOS/build
+/samples/basicdemo/samples/res/shaders
+/samples/basicdemo/samples/res/ui
+/samples/basicdemo/samples/res/logo_powered_white.png
 /samples/basicdemo/iOS/basicdemo.xcodeproj/xcuserdata
+/samples/basicdemo/iOS/basicdemo.xcodeproj/project.xcworkspace
 
 /samples/spaceship/Debug
 /samples/spaceship/DebugMem

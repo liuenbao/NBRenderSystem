@@ -1,10 +1,11 @@
 #include "SamplesGame.h"
+#include "TriangleSample.h"
 
 using std::string;
 using std::pair;
 
-std::vector<std::string>* SamplesGame::_categories = NULL;
-std::vector<SamplesGame::SampleRecordList>* SamplesGame::_samples = NULL;
+//std::vector<std::string>* SamplesGame::_categories = NULL;
+//std::vector<SamplesGame::SampleRecordList>* SamplesGame::_samples = NULL;
 
 //// Declare our game instance
 //SamplesGame game;
@@ -72,9 +73,12 @@ void SamplesGame::initialize()
 //            gamepad->getForm()->setEnabled(false);
 //        }
 //    }
+//
+//    SampleRecord sampleRecord = (*_samples)[0][0];
+//    runSample(sampleRecord.funcPtr);
     
-    SampleRecord sampleRecord = (*_samples)[0][0];
-    runSample(sampleRecord.funcPtr);
+    _activeSample = new TriangleSample();
+    _activeSample->initialize();
 }
 
 void SamplesGame::finalize()
@@ -83,8 +87,8 @@ void SamplesGame::finalize()
     if (_activeSample)
         _activeSample->finalize();
     SAFE_DELETE(_activeSample);
-    SAFE_DELETE(_categories);
-    SAFE_DELETE(_samples);
+//    SAFE_DELETE(_categories);
+//    SAFE_DELETE(_samples);
 #ifdef MODULE_GUI_ENABLED
     SAFE_RELEASE(_sampleSelectForm);
 #endif // #ifdef MODULE_GUI_ENABLED
@@ -144,11 +148,11 @@ void SamplesGame::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned int c
 {
     if (_activeSample)
     {
-        if (evt == Touch::TOUCH_PRESS && x >= ((int)getWidth() - 80) && y <= 80)
-        {
-            exitActiveSample();
-        }
-        else
+//        if (evt == Touch::TOUCH_PRESS && x >= ((int)getWidth() - 80) && y <= 80)
+//        {
+//            exitActiveSample();
+//        }
+//        else
         {
 #ifdef MODULE_SCRIPT_ENABLED
             getScriptController()->executeFunction<void>("camera_touchEvent", "[Touch::TouchEvent]iiui", evt, x, y, contactIndex);
@@ -163,12 +167,12 @@ void SamplesGame::keyEvent(Keyboard::KeyEvent evt, int key)
 {
     if (_activeSample)
     {
-        if (key == Keyboard::KEY_MENU || (evt == Keyboard::KEY_PRESS && (key == Keyboard::KEY_ESCAPE)))
-        {
-            // Pressing escape exits the active sample
-            exitActiveSample();
-        }
-        else
+//        if (key == Keyboard::KEY_MENU || (evt == Keyboard::KEY_PRESS && (key == Keyboard::KEY_ESCAPE)))
+//        {
+//            // Pressing escape exits the active sample
+//            exitActiveSample();
+//        }
+//        else
         {
 #ifdef MODULE_SCRIPT_ENABLED
             getScriptController()->executeFunction<void>("camera_keyEvent", "[Keyboard::KeyEvent][Keyboard::Key]", evt, key);
@@ -199,7 +203,7 @@ bool SamplesGame::mouseEvent(Mouse::MouseEvent evt, int x, int y, int wheelDelta
 
 void SamplesGame::menuEvent()
 {
-    exitActiveSample();
+//    exitActiveSample();
 }
 
 void SamplesGame::gestureSwipeEvent(int x, int y, int direction)
@@ -266,78 +270,79 @@ void SamplesGame::gamepadEvent(Gamepad::GamepadEvent evt, Gamepad* gamepad, unsi
 }
 #endif // #ifdef MODULE_GUI_ENABLED
 
-void SamplesGame::runSample(void* func)
-{
-    exitActiveSample();
-    
-    SampleGameCreatePtr p = (SampleGameCreatePtr)func;
+//void SamplesGame::runSample(void* func)
+//{
+//    exitActiveSample();
+//
+//    SampleGameCreatePtr p = (SampleGameCreatePtr)func;
+//
+//    _activeSample = reinterpret_cast<Sample*>(p());
+//    _activeSample->initialize();
+//    resume();
+//}
+//
+//void SamplesGame::exitActiveSample()
+//{
+//#ifdef MODULE_GUI_ENABLED
+//    Gamepad* virtualGamepad = getGamepad(0, false);
+//    if (virtualGamepad && virtualGamepad->isVirtual())
+//    {
+//        virtualGamepad->getForm()->setEnabled(false);
+//    }
+//#endif // #ifdef MODULE_GUI_ENABLED
+//
+//    if (_activeSample)
+//    {
+//        _activeSample->finalize();
+//        SAFE_DELETE(_activeSample);
+//
+//#ifdef MODULE_GUI_ENABLED
+//        _sampleSelectForm->setEnabled(true);
+//        _sampleSelectForm->setFocus();
+//#endif // #ifdef MODULE_GUI_ENABLED
+//    }
+//
+//    // Reset some game options
+//    setMultiTouch(false);
+//    setMouseCaptured(false);
+//}
+//
+//void SamplesGame::addSample(const char* category, const char* title, void* func, unsigned int order)
+//{
+//    if (_samples == NULL)
+//        _samples = new std::vector<SampleRecordList>();
+//    if (_categories == NULL)
+//    {
+//        _categories = new std::vector<std::string>();
+//        _categories->push_back("Graphics");
+//        _categories->push_back("Physics");
+//        _categories->push_back("Media");
+//        _categories->push_back("Input");
+//        _samples->resize(_categories->size());
+//    }
+//
+//    string categoryString(category);
+//    string titleString(title);
+//
+//    int index = -1;
+//    const int size = (int)_categories->size();
+//    for (int i = 0; i < size; ++i)
+//    {
+//        if ((*_categories)[i].compare(categoryString) == 0)
+//        {
+//            index = i;
+//        }
+//    }
+//    if (index < 0)
+//    {
+//        _categories->push_back(categoryString);
+//        index = (int)_categories->size() - 1;
+//    }
+//
+//    if (index <= (int)_samples->size())
+//    {
+//        _samples->resize(_categories->size());
+//    }
+//    (*_samples)[index].push_back(SampleRecord(titleString, func, order));
+//}
 
-    _activeSample = reinterpret_cast<Sample*>(p());
-    _activeSample->initialize();
-    resume();
-}
-
-void SamplesGame::exitActiveSample()
-{
-#ifdef MODULE_GUI_ENABLED
-    Gamepad* virtualGamepad = getGamepad(0, false);
-    if (virtualGamepad && virtualGamepad->isVirtual())
-    {
-        virtualGamepad->getForm()->setEnabled(false);
-    }
-#endif // #ifdef MODULE_GUI_ENABLED
-
-    if (_activeSample)
-    {
-        _activeSample->finalize();
-        SAFE_DELETE(_activeSample);
-
-#ifdef MODULE_GUI_ENABLED
-        _sampleSelectForm->setEnabled(true);
-        _sampleSelectForm->setFocus();
-#endif // #ifdef MODULE_GUI_ENABLED
-    }
-
-    // Reset some game options
-    setMultiTouch(false);
-    setMouseCaptured(false);
-}
-
-void SamplesGame::addSample(const char* category, const char* title, void* func, unsigned int order)
-{
-    if (_samples == NULL)
-        _samples = new std::vector<SampleRecordList>();
-    if (_categories == NULL)
-    {
-        _categories = new std::vector<std::string>();
-        _categories->push_back("Graphics");
-        _categories->push_back("Physics");
-        _categories->push_back("Media");
-        _categories->push_back("Input");
-        _samples->resize(_categories->size());
-    }
-
-    string categoryString(category);
-    string titleString(title);
-    
-    int index = -1;
-    const int size = (int)_categories->size();
-    for (int i = 0; i < size; ++i)
-    {
-        if ((*_categories)[i].compare(categoryString) == 0)
-        {
-            index = i;
-        }
-    }
-    if (index < 0)
-    {
-        _categories->push_back(categoryString);
-        index = (int)_categories->size() - 1;
-    }
-
-    if (index <= (int)_samples->size())
-    {
-        _samples->resize(_categories->size());
-    }
-    (*_samples)[index].push_back(SampleRecord(titleString, func, order));
-}

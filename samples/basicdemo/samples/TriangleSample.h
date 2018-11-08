@@ -12,7 +12,6 @@ using namespace gameplay;
 class TriangleSample : public Sample
 {
 public:
-
     TriangleSample();
 
     void touchEvent(Touch::TouchEvent evt, int x, int y, unsigned int contactIndex);
@@ -29,10 +28,17 @@ protected:
 
 private:
 
-    Font* _font;
+    bool drawScene(Node* node);
+    
+private:
+    
+//    Font* _font;
+    
+    Scene* _scene;
+    Node* _triangleNode;
     Model* _model;
     float _spinDirection;
-    Matrix _worldViewProjectionMatrix;
+//    Matrix _worldViewProjectionMatrix;
 };
 
 #endif

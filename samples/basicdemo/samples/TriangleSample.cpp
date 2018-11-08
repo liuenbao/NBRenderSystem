@@ -1,9 +1,9 @@
 #include "TriangleSample.h"
 #include "SamplesGame.h"
 
-#if defined(ADD_SAMPLE)
-    ADD_SAMPLE("Graphics", "Triangle", TriangleSample, 1);
-#endif
+//#if defined(ADD_SAMPLE)
+//    ADD_SAMPLE("Graphics", "Triangle", TriangleSample, 1);
+//#endif
 
 /**
  * Creates a triangle mesh with vertex colors.
@@ -41,20 +41,24 @@ static Mesh* createTriangleMesh()
 }
 
 TriangleSample::TriangleSample()
-    : _font(NULL), _model(NULL), _spinDirection(-1.0f)
+    :
+//_font(NULL),
+_model(NULL),
+_spinDirection(-1.0f),
+_scene(NULL)
 {
     
 }
 
 void TriangleSample::initialize()
 {
-    // Create the font for drawing the framerate.
-    _font = Font::create("res/ui/arial.gpb");
+//    // Create the font for drawing the framerate.
+//    _font = Font::create("res/ui/arial.gpb");
 
-    // Create an orthographic projection matrix.
-    float width = getWidth() / (float)getHeight();
-    float height = 1.0f;
-    Matrix::createOrthographic(width, height, -1.0f, 1.0f, &_worldViewProjectionMatrix);
+//    // Create an orthographic projection matrix.
+//    float width = getWidth() / (float)getHeight();
+//    float height = 1.0f;
+//    Matrix::createOrthographic(width, height, -1.0f, 1.0f, &_worldViewProjectionMatrix);
 
     // Create the triangle mesh.
     Mesh* mesh = createTriangleMesh();
@@ -67,19 +71,46 @@ void TriangleSample::initialize()
     // This sample doesn't use lighting so the unlit shader is used.
     // This sample uses vertex color so VERTEX_COLOR is defined. Look at the shader source files to see the supported defines.
     _model->setMaterial("res/shaders/colored.vert", "res/shaders/colored.frag", "VERTEX_COLOR");
+
+    _scene = Scene::create("world");
+    
+    Camera* camera = Camera::createPerspective(60.0f, getAspectRatio(), 0.1, 10.0f);
+    
+    Node* cameraNode = _scene->addNode("camera");
+    cameraNode->translate(0.0f, 0.0f, 5.0f);
+    cameraNode->setCamera(camera);
+    _scene->setActiveCamera(camera);
+    // must after setActiveCamera
+    SAFE_RELEASE(camera);
+    
+    // Create a white light
+    Light* light = Light::createDirectional(0.75f, 0.75f, 0.75f);
+    Node* lightNode = _scene->addNode("light");
+    lightNode->translate(0.0f, 5.0f, 0.0f);
+    lightNode->rotateX(MATH_DEG_TO_RAD(90.0f));
+    lightNode->setLight(light);
+    
+    // must after setLight
+    SAFE_RELEASE(light);
+    
+    _triangleNode = _scene->addNode("triangle");
+    _triangleNode->setDrawable(_model);
 }
 
 void TriangleSample::finalize()
 {
     // Model and font are reference counted and should be released before closing this sample.
     SAFE_RELEASE(_model);
-    SAFE_RELEASE(_font);
+    
+//    SAFE_RELEASE(_font);
 }
 
 void TriangleSample::update(float elapsedTime)
 {
-    // Update the rotation of the triangle. The speed is 180 degrees per second.
-    _worldViewProjectionMatrix.rotateZ( _spinDirection * MATH_PI * elapsedTime * 0.001f);
+//    // Update the rotation of the triangle. The speed is 180 degrees per second.
+//    _worldViewProjectionMatrix.rotateZ( _spinDirection * MATH_PI * elapsedTime * 0.001f);
+
+    _scene->update(elapsedTime);
 }
 
 void TriangleSample::render(float elapsedTime)
@@ -87,11 +118,25 @@ void TriangleSample::render(float elapsedTime)
     // Clear the color and depth buffers
     clear(CLEAR_COLOR_DEPTH, Vector4::zero(), 1.0f, 0);
     
-    // Bind the view projection matrix to the model's parameter. This will transform the vertices when the model is drawn.
-    _model->getMaterial()->getParameter("u_worldViewProjectionMatrix")->setValue(_worldViewProjectionMatrix);
-    _model->draw();
+//    // Bind the view projection matrix to the model's parameter. This will transform the vertices when the model is drawn.
+//    _model->getMaterial()->getParameter("u_worldViewProjectionMatrix")->setValue(_worldViewProjectionMatrix);
+//    _model->draw();
+//
+//    drawFrameRate(_font, Vector4(0, 0.5f, 1, 1), 5, 1, getFrameRate());
 
-    drawFrameRate(_font, Vector4(0, 0.5f, 1, 1), 5, 1, getFrameRate());
+    _scene->visit(this, &TriangleSample::drawScene);
+}
+
+bool TriangleSample::drawScene(Node* node) {
+    if(node->getDrawable() == _model) {
+        Matrix matrix = _scene->getActiveCamera()->getViewProjectionMatrix();
+        MaterialParameter* mp = _model->getMaterial()->getParameter("u_worldViewProjectionMatrix");
+        mp->setValue(matrix * _triangleNode->getMatrix());
+        _model->draw();
+//        _triangleNode->getWorldMatrix()
+    }
+    
+    return true;
 }
 
 void TriangleSample::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned int contactIndex)
