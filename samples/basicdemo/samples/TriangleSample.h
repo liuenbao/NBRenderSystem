@@ -29,14 +29,23 @@ protected:
 private:
 
     bool drawScene(Node* node);
+    void initializeDirectionalTechnique(const char* technique, Light* light);
+    void setUnlitMaterialTexture(Model* model, const char* texturePath, bool mipmap = true);
     
 private:
     
 //    Font* _font;
     
     Scene* _scene;
-    Node* _triangleNode;
+
+    Node* _modelNode;
     Model* _model;
+    
+    Node* _directionalLightNode;
+    Model* _directionalLightQuadModel;
+    
+    Material* _lighting;
+    
     float _spinDirection;
 //    Matrix _worldViewProjectionMatrix;
 };
